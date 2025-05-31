@@ -6,6 +6,9 @@
   "engines": {
     "vscode": "^1.70.0"
   },
+  "repository": {
+    "url": "https://github.com/otoneko1102/NoShift.js"
+  },
   "publisher": "otoneko1102",
   "categories": ["Programming Languages"],
   "contributes": {
