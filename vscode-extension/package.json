@@ -1,0 +1,28 @@
+{
+  "name": "noshift-js-syntax",
+  "displayName": "NoShift.js Syntax Highlighting",
+  "description": "Syntax highlighting for NoShift.js (.nsjs) files",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.70.0"
+  },
+  "publisher": "otoneko1102",
+  "categories": ["Programming Languages"],
+  "contributes": {
+    "languages": [
+      {
+        "id": "noshift",
+        "aliases": ["NoShift.js", "noshift"],
+        "extensions": [".nsjs"],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "noshift",
+        "scopeName": "source.noshift",
+        "path": "./syntaxes/noshift.tmLanguage.json"
+      }
+    ]
+  }
+}

@@ -1,0 +1,6 @@
+private
+npm/node_modules
+vscode-extension/node_modules
+npm/.npmignore
+npm/package-lock.json
+vscode-extension/package-lock.json

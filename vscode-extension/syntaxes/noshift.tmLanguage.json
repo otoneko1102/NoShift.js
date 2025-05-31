@@ -1,0 +1,118 @@
+{
+  "name": "NoShift.js",
+  "scopeName": "source.noshift",
+  "fileTypes": ["nsjs"],
+
+  "patterns": [
+    { "include": "source.js" },
+
+    {
+      "name": "constant.character.noshift",
+      "match":
+        "\\^@\\^@\\^@|\\^4\\^\\[|\\^4\\[|\\^\\[|\\^\\]|\\^@|\\^1|\\^2|\\^4|\\^5|\\^6|\\^7|\\^8|\\^9|\\^-|\\^\\^|\\^\\\\|\\^;|\\^:|\\^,|\\^\\.|\\^\\/"
+    },
+
+    {
+      "name": "string.quoted.double.noshift",
+      "begin": "\\^2",
+      "end": "\\^2",
+      "beginCaptures": {
+        "0": { "name": "punctuation.definition.string.begin.noshift" }
+      },
+      "endCaptures": {
+        "0": { "name": "punctuation.definition.string.end.noshift" }
+      },
+      "patterns": [
+        {
+          "include": "#escape"
+        }
+      ]
+    },
+
+    {
+      "name": "string.quoted.single.noshift",
+      "begin": "\\^7",
+      "end": "\\^7",
+      "beginCaptures": {
+        "0": { "name": "punctuation.definition.string.begin.noshift" }
+      },
+      "endCaptures": {
+        "0": { "name": "punctuation.definition.string.end.noshift" }
+      },
+      "patterns": [
+        { "include": "#escape" }
+      ]
+    },
+
+    {
+      "name": "string.quoted.template.noshift",
+      "begin": "\\^@",
+      "end": "\\^@",
+      "beginCaptures": {
+        "0": { "name": "punctuation.definition.string.begin.noshift" }
+      },
+      "endCaptures": {
+        "0": { "name": "punctuation.definition.string.end.noshift" }
+      },
+      "patterns": [
+        {
+          "include": "#escape"
+        },
+        {
+          "name": "meta.embedded.block.noshift",
+          "begin": "\\^4\\^\\[|\\^4\\[",
+          "beginCaptures": {
+            "0": { "name": "punctuation.section.embedded.begin.noshift" }
+          },
+          "end": "\\^\\]",
+          "endCaptures": {
+            "0": { "name": "punctuation.section.embedded.end.noshift" }
+          },
+          "patterns": [
+            { "include": "source.js" }
+          ]
+        }
+      ]
+    },
+
+    {
+      "name": "string.quoted.block.noshift",
+      "begin": "\\^@\\^@\\^@",
+      "end": "\\^@\\^@\\^@",
+      "beginCaptures": {
+        "0": { "name": "punctuation.definition.string.begin.noshift" }
+      },
+      "endCaptures": {
+        "0": { "name": "punctuation.definition.string.end.noshift" }
+      },
+      "patterns": [
+        { "include": "#escape" },
+        {
+          "name": "meta.embedded.block.noshift",
+          "begin": "\\^4\\^\\[|\\^4\\[",
+          "beginCaptures": {
+            "0": { "name": "punctuation.section.embedded.begin.noshift" }
+          },
+          "end": "\\^\\]",
+          "endCaptures": {
+            "0": { "name": "punctuation.section.embedded.end.noshift" }
+          },
+          "patterns": [
+            { "include": "source.js" }
+          ]
+        }
+      ]
+    }
+  ],
+
+  "repository": {
+    "escape": {
+      "patterns": [
+        {
+          "match": "\\\\.",
+          "name": "constant.character.escape.noshift"
+        }
+      ]
+    }
+  }
+}
