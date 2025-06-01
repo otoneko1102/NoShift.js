@@ -1,6 +1,6 @@
 {
   "name": "noshift.js",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "Joke language.",
   "bin": {
     "nsjs": "./bin/cli.js"
@@ -10,11 +10,19 @@
     "dev": "node commands/dev.js",
     "build": "node commands/build.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/otoneko1102/NoShift.js.git"
+  },
   "keywords": [
-    "noshift"
+    "noshift", "nsjs", "joke"
   ],
   "author": "otoneko.",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/otoneko1102/NoShift.js/issues"
+  },
+  "homepage": "https://otoneko1102.github.io/NoShift.js/",
   "dependencies": {
     "commander": "^14.0.0",
     "inquirer": "^12.6.3"
