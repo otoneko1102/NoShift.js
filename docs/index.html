@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NoShift.js</title>
+    <style>
+      body {
+        font-family: "Segoe UI", sans-serif;
+        line-height: 1.6;
+        background: #f9f9f9;
+        color: #333;
+        padding: 2rem;
+        max-width: 800px;
+        margin: auto;
+      }
+      h1 {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+        color: #222;
+      }
+      h2,
+      h3 {
+        color: #444;
+        margin-top: 2rem;
+      }
+      pre {
+        background: #272822;
+        color: #f8f8f2;
+        padding: 1rem;
+        border-radius: 8px;
+        overflow-x: auto;
+      }
+      code {
+        font-family: Consolas, Monaco, monospace;
+      }
+      .section {
+        margin-top: 2rem;
+      }
+      hr {
+        margin: 3rem 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>NoShift.js</h1>
+
+    <div class="section">
+      <h2>Setup</h2>
+      <pre><code>npm install -g noshift.js@latest
+npx nsjs create</code></pre>
+    </div>
+
+    <div class="section">
+      <h2>English</h2>
+      <h3>Language</h3>
+      <p>NoShift.js</p>
+
+      <h3>Extension</h3>
+      <p><code>.nsjs</code></p>
+
+      <h3>Summary</h3>
+      <p>
+        Typing symbols with Shift is tiring. NoShift.js is a JavaScript-like
+        language that allows you to write JavaScript
+        <strong>without using the Shift key</strong>.<br />
+        It compiles to plain JavaScript.<br />
+        <br />
+        The mapping is based on the keyboard layout of the creator’s laptop.
+      </p>
+    </div>
+
+    <hr />
+
+    <div class="section">
+      <h2>日本語</h2>
+
+      <h3>言語名</h3>
+      <p>NoShift.js</p>
+
+      <h3>拡張子</h3>
+      <p><code>.nsjs</code></p>
+
+      <h3>概略</h3>
+      <p>
+        記号を入力するときに Shift を押すのが面倒なので、Shift を押さずに
+        JavaScript が書ける言語を作りました。<br />
+        NoShift.js は JavaScript に変換されます。<br />
+        <br />
+        この記号変換の基準は、作者のノートパソコンのキーボード配列です。
+      </p>
+
+      <pre><code>! --> ^1
+" --> ^2
+$ --> ^4
+% --> ^5
+& --> ^6
+' --> ^7
+( --> ^8
+) --> ^9
+= --> ^-
+~ --> ^^
+| --> ^\
+` --> ^@
+{ --> ^[
+} --> ^]
++ --> ^;
+* --> ^:
+< --> ^,
+> --> ^.
+? --> ^/
+</code></pre>
+
+      <h3>文字列内のエスケープ</h3>
+      <p>例:</p>
+      <pre><code>^2^5^2 --> "^5"
+^7^5^7 --> '^5'
+^@^5^@ --> `^5`</code></pre>
+
+      <h3>テンプレートリテラル（${...} 構文）</h3>
+      <pre><code>^@^5^4^[^2Hello World!^2^]^@ --> `^5${"Hello World!"}`</code></pre>
+
+      <h3>Hello World!</h3>
+      <p>例:</p>
+      <pre><code>console.log^8^2Hello World!^2^9;
+Result:
+</code></pre>
+      <pre><code class="language-js">console.log("Hello World!");</code></pre>
+    </div>
+  </body>
+</html>
