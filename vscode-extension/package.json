@@ -1,15 +1,20 @@
 {
-  "name": "noshift-js-syntax",
-  "displayName": "NoShift.js Syntax Highlighting",
-  "description": "Syntax highlighting for NoShift.js (.nsjs) files",
+  "name": "noshift-vscode",
+  "displayName": "NoShift.js",
+  "description": "Syntax highlighting + auto-complete for NoShift.js (.nsjs) files",
   "version": "0.0.1",
+  "publisher": "otoneko1102",
   "engines": {
     "vscode": "^1.70.0"
   },
+  "icon": "icons/noshift-extension-icon.png",
   "repository": {
     "url": "https://github.com/otoneko1102/NoShift.js"
   },
-  "publisher": "otoneko1102",
+  "activationEvents": [
+    "onLanguage:noshift"
+  ],
+  "main": "extension.js",
   "categories": ["Programming Languages"],
   "contributes": {
     "languages": [
@@ -26,6 +31,15 @@
         "scopeName": "source.noshift",
         "path": "./syntaxes/noshift.tmLanguage.json"
       }
+    ],
+    "snippets": [
+      {
+        "language": "noshift",
+        "path": "./snippets/noshift.code-snippets"
+      }
     ]
+  },
+  "scripts": {
+    "vscode:prepublish": "echo \"No build needed\""
   }
 }

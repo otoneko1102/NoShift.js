@@ -1,6 +1,6 @@
 {
   "name": "noshift.js",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "description": "Joke language.",
   "bin": {
     "nsjs": "./bin/cli.js"
@@ -14,5 +14,9 @@
     "noshift"
   ],
   "author": "otoneko.",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^14.0.0",
+    "inquirer": "^12.6.3"
+  }
 }

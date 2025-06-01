@@ -1,0 +1,7 @@
+{
+  "Insert ^[ ^]": {
+    "prefix": "^[",
+    "body": ["^[${1:^}]"],   // $1 がカーソル位置。結果： ^[|^]
+    "description": "Insert ^[ ^] pair"
+  }
+}

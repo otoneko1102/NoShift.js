@@ -7,14 +7,14 @@ function convertNsjsToJs(nsjsCode) {
   // 各種状態 (State) を定義
   // ======
   const STATE = {
-    NORMAL: "NORMAL",                     // 普通のコード
-    IN_DQ_STRING: "IN_DQ_STRING",         // " … " の中
-    IN_SQ_STRING: "IN_SQ_STRING",         // ' … ' の中
+    NORMAL: "NORMAL", // 普通のコード
+    IN_DQ_STRING: "IN_DQ_STRING", // " … " の中
+    IN_SQ_STRING: "IN_SQ_STRING", // ' … ' の中
     IN_BT_SINGLE_STRING: "IN_BT_SINGLE_STRING", // ` … ` の中
-    IN_BT_MULTI_STRING: "IN_BT_MULTI_STRING",   // ``` … ``` の中
+    IN_BT_MULTI_STRING: "IN_BT_MULTI_STRING", // ``` … ``` の中
     IN_TEMPLATE_EXPRESSION: "IN_TEMPLATE_EXPRESSION", // ${ … } の中
-    RAW_DQ_IN_EXPR: "RAW_DQ_IN_EXPR",     // テンプレート式内の " … " の中 （NoShift 変換なし）
-    RAW_SQ_IN_EXPR: "RAW_SQ_IN_EXPR",     // テンプレート式内の ' … ' の中 （NoShift 変換なし）
+    RAW_DQ_IN_EXPR: "RAW_DQ_IN_EXPR", // テンプレート式内の " … " の中 （NoShift 変換なし）
+    RAW_SQ_IN_EXPR: "RAW_SQ_IN_EXPR", // テンプレート式内の ' … ' の中 （NoShift 変換なし）
   };
 
   let currentState = STATE.NORMAL;
@@ -24,8 +24,8 @@ function convertNsjsToJs(nsjsCode) {
   // NoShift.js → JavaScript 置換用マップ
   // ======
   const noShiftMap = {
-    "^@^@^@": "```", // マルチバックチック
-    "^4^[": "${",    // テンプレート式展開開始
+    // "^@^@^@": "```", // マルチバックチック
+    "^4^[": "${", // テンプレート式展開開始
     "^1": "!",
     "^2": '"',
     "^4": "$",
@@ -48,7 +48,9 @@ function convertNsjsToJs(nsjsCode) {
   };
 
   // マッピングキーは長いものからマッチさせる
-  const sortedNsKeys = Object.keys(noShiftMap).sort((a, b) => b.length - a.length);
+  const sortedNsKeys = Object.keys(noShiftMap).sort(
+    (a, b) => b.length - a.length
+  );
 
   /**
    * tryConsumeNsjsSequence:
@@ -65,7 +67,10 @@ function convertNsjsToJs(nsjsCode) {
    */
   function tryConsumeNsjsSequence() {
     let allowGeneral = false;
-    if (currentState === STATE.NORMAL || currentState === STATE.IN_TEMPLATE_EXPRESSION) {
+    if (
+      currentState === STATE.NORMAL ||
+      currentState === STATE.IN_TEMPLATE_EXPRESSION
+    ) {
       allowGeneral = true;
     }
 
@@ -77,10 +82,11 @@ function convertNsjsToJs(nsjsCode) {
       // ======
       if (
         (nsKey === "^4^[" || nsjsCode.startsWith("^4[", i)) &&
-        (currentState === STATE.IN_BT_SINGLE_STRING || currentState === STATE.IN_BT_MULTI_STRING)
+        (currentState === STATE.IN_BT_SINGLE_STRING ||
+          currentState === STATE.IN_BT_MULTI_STRING)
       ) {
         jsCode += "${";
-        i += (nsKey === "^4^[") ? nsKey.length : 3;
+        i += nsKey === "^4^[" ? nsKey.length : 3;
         stateStack.push(currentState);
         currentState = STATE.IN_TEMPLATE_EXPRESSION;
         return true;
@@ -130,10 +136,13 @@ function convertNsjsToJs(nsjsCode) {
         return true;
       }
 
+      // このブロックを削除
       // 3-3) "^@^@^@": マルチバックチック開閉
+      /*
       if (
         nsKey === "^@^@^@" &&
-        (currentState === STATE.NORMAL || currentState === STATE.IN_TEMPLATE_EXPRESSION)
+        (currentState === STATE.NORMAL ||
+          currentState === STATE.IN_TEMPLATE_EXPRESSION)
       ) {
         jsCode += "```";
         i += nsKey.length;
@@ -147,11 +156,13 @@ function convertNsjsToJs(nsjsCode) {
         currentState = stateStack.pop();
         return true;
       }
+      */
 
       // 3-4) "^@": シングルバックチック開閉
       if (
         nsKey === "^@" &&
-        (currentState === STATE.NORMAL || currentState === STATE.IN_TEMPLATE_EXPRESSION)
+        (currentState === STATE.NORMAL ||
+          currentState === STATE.IN_TEMPLATE_EXPRESSION)
       ) {
         jsCode += "`";
         i += nsKey.length;
@@ -309,11 +320,12 @@ function convertNsjsToJs(nsjsCode) {
     }
     // (F) IN_BT_MULTI_STRING 内 (``` … ```)
     else if (currentState === STATE.IN_BT_MULTI_STRING) {
-      if (nsjsCode.startsWith("\\^@^@^@", i)) {
+      /* if (nsjsCode.startsWith("\\^@^@^@", i)) {
         jsCode += "^@^@^@";
         i += 7;
         consumed = true;
-      } else if (nsjsCode.startsWith("\\\\", i)) {
+      } else */
+      if (nsjsCode.startsWith("\\\\", i)) {
         jsCode += "\\\\\\\\";
         i += 2;
         consumed = true;

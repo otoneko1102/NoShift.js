@@ -3,11 +3,35 @@
     "lineComment": "//",
     "blockComment": ["/*", "*/"]
   },
-  "brackets": [["{", "}"], ["[", "]"], ["(", ")"]],
+  "brackets": [
+    ["{", "}"],
+    ["^4^[", "^]"],
+    ["^[", "^]"],
+    ["[", "]"],
+    ["(", ")"],
+    ["^8", "^9"]
+  ],
   "autoClosingPairs": [
     { "open": "{", "close": "}" },
+    { "open": "^4^[", "close": "^]" },
+    { "open": "^[", "close": "^]" },
     { "open": "[", "close": "]" },
     { "open": "(", "close": ")" },
+    { "open": "^8", "close": "^9" },
+    { "open": "^2", "close": "^2" },
+    { "open": "^7", "close": "^7" },
+    { "open": "^@", "close": "^@" },
+  ],
+  "surroundingPairs": [
+    { "open": "{", "close": "}" },
+    { "open": "^4^[", "close": "^]" },
+    { "open": "^[", "close": "^]" },
+    { "open": "[", "close": "]" },
+    { "open": "(", "close": ")" },
+    { "open": "^8", "close": "^9" },
+    { "open": "\"", "close": "\"" },
+    { "open": "'", "close": "'" },
+    { "open": "`", "close": "`" },
     { "open": "^2", "close": "^2" },
     { "open": "^7", "close": "^7" },
     { "open": "^@", "close": "^@" }

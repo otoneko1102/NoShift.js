@@ -89,6 +89,16 @@ export default async function create(projectNameArg) {
   console.log(t("initializingNpm"));
   execSync("npm init -y", { stdio: "inherit" });
 
+  // package.json に scripts.dev / scripts.build を追加
+  const pkgPath = path.join(projectPath, "package.json");
+  const pkgRaw = await fs.readFile(pkgPath, "utf-8");
+  const pkg = JSON.parse(pkgRaw);
+
+  pkg.scripts.dev = "node ./node_modules/noshift.js/commands/dev.js";
+  pkg.scripts.build = "node ./node_modules/noshift.js/commands/build.js";
+
+  await fs.writeFile(pkgPath, JSON.stringify(pkg, null, 2));
+
   // nsjs.config.js を作成
   const configContent = `export default {
   build: "", // 空なら ./build にビルドされます
@@ -126,13 +136,14 @@ export default async function create(projectNameArg) {
   execSync("npm install noshift.js", { stdio: "inherit" });
 
   await fs.mkdir("src", { recursive: true });
-  await fs.writeFile("src/hello.nsjs", "println(123);");
+  await fs.writeFile("src/index.nsjs", "console.log^8^2Hello World!^2^9;");
 
   // README.md
-  const readme = lang === "ja"
-    ? `# ${projectName}
+  const readme =
+    lang === "ja"
+      ? `# ${projectName}
 
-これは [noshift.js](https://github.com/your-org/noshift.js) プロジェクトです。
+これは [noshift.js](https://github.com/otoneko1102/NoShift.js) プロジェクトです。
 
 ## 開発
 
@@ -146,9 +157,9 @@ npm run dev
 npm run build
 \`\`\`
 `
-    : `# ${projectName}
+      : `# ${projectName}
 
-This is a [noshift.js](https://github.com/your-org/noshift.js) project.
+This is a [NoShift.js](https://github.com/otoneko1102/NoShift.js) project.
 
 ## Development
 
