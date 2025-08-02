@@ -159,3 +159,44 @@ hr {
   background: var(--border-color);
   margin: 4rem 0;
 }
+
+/* --- 404 Page Styles --- */
+.container-404 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 80vh;
+}
+
+.container-404 h1 {
+  font-size: 8rem;
+  margin: 0;
+  color: var(--border-color);
+  border: none;
+  padding: 0;
+}
+
+.container-404 h2 {
+  font-size: 2.5rem;
+  margin-top: 0;
+  border: none;
+  padding: 0;
+}
+
+.home-link {
+  display: inline-block;
+  margin-top: 2.5rem;
+  padding: 0.8rem 1.6rem;
+  background-color: var(--accent-color);
+  color: var(--button-text-active);
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 6px;
+  transition: transform 0.2s ease;
+}
+
+.home-link:hover {
+  transform: scale(1.05);
+}
