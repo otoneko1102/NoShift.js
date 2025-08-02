@@ -53,6 +53,10 @@ body {
   display: none;
 }
 
+.icon-wrapper img {
+  border-radius: 15px;
+}
+
 h1 {
   font-size: 3rem;
   color: var(--header-color);

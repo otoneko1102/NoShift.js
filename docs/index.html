@@ -4,10 +4,47 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NoShift.js</title>
+
+    <title>NoShift.js</title>
+
+    <meta
+      name="description"
+      content="NoShift.jsは、Shiftキーを使わずにJavaScriptのようなコードが書ける言語です。このページでは、その仕様や使い方を解説します。"
+    />
+
+    <meta
+      property="og:title"
+      content="NoShift.js - Shiftキー不要のJavaScript"
+    />
+    <meta
+      property="og:description"
+      content="NoShift.jsは、Shiftキーを使わずにJavaScriptのようなコードが書ける言語です。このページでは、その仕様や使い方を解説します。"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://example.com/noshiftjs/" />
+    <meta
+      property="og:image"
+      content="https://noshift.js.org/img/icon.png"
+    />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="NoShift.js - Shiftキー不要のJavaScript"
+    />
+    <meta
+      name="twitter:description"
+      content="NoShift.jsは、Shiftキーを使わずにJavaScriptのようなコードが書ける言語です。このページでは、その仕様や使い方を解説します。"
+    />
+    <meta
+      name="twitter:image"
+      content="https://noshift.js.org/img/icon.png"
+    />
+
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h1>NoShift.js</h1>
+    <h1 style="text-align: center">NoShift.js</h1>
 
     <div class="lang-switcher">
       <button id="btn-ja" class="lang-btn">日本語</button>
@@ -15,14 +52,33 @@
     </div>
 
     <div class="section">
+      <h2>Icon</h2>
+      <div class="icon-wrapper">
+        <img src="img/icon.png" alt="logo" style="width: 100px; height: 100px;" />
+      </div>
+    </div>
+
+    <div class="section">
       <h2>Sources</h2>
       <h3>NPM</h3>
       <p>
-        <a target="_blank" href="https://www.npmjs.com/package/noshift.js">https://www.npmjs.com/package/noshift.js</a>
+        <a target="_blank" href="https://www.npmjs.com/package/noshift.js"
+          >https://www.npmjs.com/package/noshift.js</a
+        >
+      </p>
+      <h3>VSCode Marketplace</h3>
+      <p>
+        <a
+          target="_blank"
+          href="https://marketplace.visualstudio.com/items?itemName=otoneko1102.noshift-vscode"
+          >https://marketplace.visualstudio.com/items?itemName=otoneko1102.noshift-vscode</a
+        >
       </p>
       <h3>GitHub</h3>
       <p>
-        <a target="_blank" href="https://github.com/otoneko1102/NoShift.js">https://github.com/otoneko1102/NoShift.js</a>
+        <a target="_blank" href="https://github.com/otoneko1102/NoShift.js"
+          >https://github.com/otoneko1102/NoShift.js</a
+        >
       </p>
     </div>
 
@@ -170,7 +226,7 @@ npx nsjs create</code></pre>
 
         <h3>概略</h3>
         <p>
-          記号を入力するときに Shift を押すのが面倒なので、Shift を押さずに
+          記号を入力するときに Shift を押すのが面倒なので、<strong> Shift を押さずに</strong>
           JavaScript が書ける言語を作りました。<br />
           NoShift.js は JavaScript に変換されます。<br />
           <br />
