@@ -1,6 +1,6 @@
 {
   "name": "noshift.js",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Joke language.",
   "bin": {
     "nsjs": "./bin/cli.js"
@@ -8,7 +8,8 @@
   "type": "module",
   "scripts": {
     "dev": "node commands/dev.js",
-    "build": "node commands/build.js"
+    "build": "node commands/build.js",
+    "script": "node commands/script.js"
   },
   "repository": {
     "type": "git",

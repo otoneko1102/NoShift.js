@@ -101,7 +101,7 @@ export default async function create(projectNameArg) {
 
   // nsjs.config.js を作成
   const configContent = `export default {
-  build: "", // 空なら ./build にビルドされます
+  build: "", // default: ./build
 };
 `;
   await fs.writeFile("nsjs.config.js", configContent);

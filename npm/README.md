@@ -24,7 +24,7 @@ The mapping is based on the keyboard layout of the creator’s laptop.
 ### 言語名
 NoShift.js
 
-### 張子
+### 拡張子
 .nsjs
 
 ### 概略

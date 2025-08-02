@@ -1,3 +1,7 @@
+<div aligin="center">
+
+![LICENSE](https://img.shields.io/badge/license-MIT-blue.svg)
+
 # NoShift.js
 
 ## Setup
@@ -24,7 +28,7 @@ The mapping is based on the keyboard layout of the creator’s laptop.
 ### 言語名
 NoShift.js
 
-### 張子
+### 拡張子
 .nsjs
 
 ### 概略
@@ -77,3 +81,5 @@ Result:
 ```js
 console.log("Hello World!");
 ```
+
+</div>

@@ -3,223 +3,190 @@
   "scopeName": "source.noshift",
   "fileTypes": ["nsjs"],
   "patterns": [
-    {
-      "name": "comment.line.double-slash.noshift",
-      "match": "//.*$"
-    },
-    {
-      "name": "comment.block.noshift",
-      "begin": "/\\*",
-      "end": "\\*/"
-    },
-
-    {
-      "name": "string.template.noshift",
-      "begin": "\\^@",
-      "end": "\\^@",
-      "beginCaptures": {
-        "0": { "name": "punctuation.definition.string.begin.noshift" }
-      },
-      "endCaptures": {
-        "0": { "name": "punctuation.definition.string.end.noshift" }
-      },
-      "patterns": [
-        { "include": "#stringTemplate" },
-        { "include": "#embeddedTemplate" },
-        { "name": "constant.character.escape.noshift", "match": "\\\\." },
-        {
-          "name": "meta.embedded.template.noshift",
-          "begin": "\\^4\\^\\[|\\^4\\[",
-          "beginCaptures": {
-            "0": { "name": "punctuation.section.embedded.begin.noshift" }
-          },
-          "end": "\\^\\]",
-          "endCaptures": {
-            "0": { "name": "punctuation.section.embedded.end.noshift" }
-          },
-          "patterns": [
-            {
-              "name": "string.quoted.double.noshift",
-              "begin": "\\^2",
-              "end": "\\^2",
-              "beginCaptures": {
-                "0": { "name": "punctuation.definition.string.begin.noshift" }
-              },
-              "endCaptures": {
-                "0": { "name": "punctuation.definition.string.end.noshift" }
-              },
-              "patterns": [
-                { "name": "constant.character.escape.noshift", "match": "\\\\." }
-              ]
-            },
-            {
-              "name": "string.quoted.single.noshift",
-              "begin": "\\^7",
-              "end": "\\^7",
-              "beginCaptures": {
-                "0": { "name": "punctuation.definition.string.begin.noshift" }
-              },
-              "endCaptures": {
-                "0": { "name": "punctuation.definition.string.end.noshift" }
-              },
-              "patterns": [
-                { "name": "constant.character.escape.noshift", "match": "\\\\." }
-              ]
-            },
-            {
-              "name": "variable.other.noshift",
-              "match": "\\b[a-zA-Z_$][a-zA-Z0-9_$]*\\b"
-            },
-            {
-              "name": "constant.numeric.noshift",
-              "match": "\\b(0[xX][0-9a-fA-F]+|(\\d+)(\\.\\d*)?(e[+-]?\\d+)?)\\b"
-            }
-          ]
-        }
-      ]
-    },
-
-    {
-      "name": "string.quoted.double.noshift",
-      "begin": "\\^2",
-      "end": "\\^2",
-      "beginCaptures": {
-        "0": { "name": "punctuation.definition.string.begin.noshift" }
-      },
-      "endCaptures": {
-        "0": { "name": "punctuation.definition.string.end.noshift" }
-      },
-      "patterns": [
-        { "name": "constant.character.escape.noshift", "match": "\\\\." }
-      ]
-    },
-
-    {
-      "name": "string.quoted.single.noshift",
-      "begin": "\\^7",
-      "end": "\\^7",
-      "beginCaptures": {
-        "0": { "name": "punctuation.definition.string.begin.noshift" }
-      },
-      "endCaptures": {
-        "0": { "name": "punctuation.definition.string.end.noshift" }
-      },
-      "patterns": [
-        { "name": "constant.character.escape.noshift", "match": "\\\\." }
-      ]
-    },
-
-    {
-      "name": "punctuation.brace.curly.noshift",
-      "match": "\\^\\[|\\^\\]"
-    },
-
-    {
-      "name": "punctuation.parenthesis.noshift",
-      "match": "\\^8|\\^9"
-    },
-
-    {
-      "name": "keyword.operator.noshift",
-      "match":
-        "\\^4\\^\\[|\\^4\\[|\\^\\[|\\^\\]|\\^@|\\^1|\\^2|\\^4|\\^5|\\^6|\\^7|\\^8|\\^9|\\^-|\\^\\^|\\^\\\\|\\^;|\\^:|\\^,|\\^\\/"
-    },
-
-    {
-      "name": "punctuation.separator.noshift",
-      "match": "[;,\\.]"
-    },
-
-    {
-      "name": "keyword.control.noshift",
-      "match": "\\b(var|let|const|function|if|else|for|while|do|return|break|continue|switch|case|default|throw|try|catch|finally|new|typeof|instanceof|in)\\b"
-    },
-
-    {
-      "name": "constant.numeric.noshift",
-      "match": "\\b(0[xX][0-9a-fA-F]+|(\\d+)(\\.\\d*)?(e[+-]?\\d+)?)\\b"
-    },
-
-    {
-      "name": "variable.other.noshift",
-      "match": "\\b[a-zA-Z_$][a-zA-Z0-9_$]*\\b"
-    },
-
+    { "include": "#comments" },
+    { "include": "#strings" },
+    { "include": "#punctuations" },
+    { "include": "#operators" },
+    { "include": "#keywords" },
+    { "include": "#constants" },
+    { "include": "#variables" },
     {
       "name": "text.whitespace.noshift",
       "match": "\\s+"
     }
   ],
-    "repository": {
-    "escape": {
+  "repository": {
+    "comments": {
       "patterns": [
-        { "match": "\\\\.", "name": "constant.character.escape.noshift" }
-      ]
-    },
-    "stringTemplate": {
-      "name": "string.template.noshift",
-      "begin": "\\^@",
-      "end": "\\^@",
-      "beginCaptures": { "0": { "name": "punctuation.definition.string.begin.noshift" } },
-      "endCaptures":   { "0": { "name": "punctuation.definition.string.end.noshift" } },
-      "patterns": [
-        { "name": "constant.character.escape.noshift", "match": "\\\\." },
         {
-          "name": "meta.embedded.template.noshift",
-          "begin": "\\^4\\^\\[|\\^4\\[",
-          "end":   "\\^\\]",
-          "patterns": [
-            { "include": "#stringTemplate" },
-            { "include": "#embeddedTemplate" },
-            {
-              "name": "string.quoted.double.noshift",
-              "begin": "\\^2",
-              "end":   "\\^2",
-              "patterns": [
-                { "name": "constant.character.escape.noshift", "match": "\\\\." }
-              ]
-            },
-            {
-              "name": "string.quoted.single.noshift",
-              "begin": "\\^7",
-              "end":   "\\^7",
-              "patterns": [
-                { "name": "constant.character.escape.noshift", "match": "\\\\." }
-              ]
-            },
-            { "name": "variable.other.noshift",   "match": "\\b[a-zA-Z_$][a-zA-Z0-9_$]*\\b" },
-            { "name": "constant.numeric.noshift", "match": "\\b(0[xX][0-9a-fA-F]+|(\\d+)(\\.\\d*)?(e[+-]?\\d+)?)\\b" }
-          ]
+          "name": "comment.line.double-slash.noshift",
+          "match": "//.*$"
+        },
+        {
+          "name": "comment.block.noshift",
+          "begin": "/\\*",
+          "end": "\\*/"
         }
       ]
     },
-    "embeddedTemplate": {
-      "name": "meta.embedded.template.noshift",
-      "begin": "\\^4\\^\\[|\\^4\\[",
-      "end":   "\\^\\]",
-      "beginCaptures": { "0": { "name": "punctuation.section.embedded.begin.noshift" } },
-      "endCaptures":   { "0": { "name": "punctuation.section.embedded.end.noshift" } },
+
+    "strings": {
       "patterns": [
-        { "include": "#stringTemplate" },
-        { "include": "#embeddedTemplate" },
+        {
+          "name": "string.template.noshift",
+          "begin": "\\^@",
+          "end": "\\^@",
+          "beginCaptures": {
+            "0": { "name": "punctuation.definition.string.begin.noshift" }
+          },
+          "endCaptures": {
+            "0": { "name": "punctuation.definition.string.end.noshift" }
+          },
+          "patterns": [
+            { "include": "#string-escapes" },
+            { "include": "#embedded-template-definition" }
+          ]
+        },
         {
           "name": "string.quoted.double.noshift",
           "begin": "\\^2",
-          "end":   "\\^2",
-          "patterns": [
-            { "name": "constant.character.escape.noshift", "match": "\\\\." }
-          ]
+          "end": "\\^2",
+          "beginCaptures": {
+            "0": { "name": "punctuation.definition.string.begin.noshift" }
+          },
+          "endCaptures": {
+            "0": { "name": "punctuation.definition.string.end.noshift" }
+          },
+          "patterns": [{ "include": "#string-escapes" }]
         },
         {
           "name": "string.quoted.single.noshift",
           "begin": "\\^7",
-          "end":   "\\^7",
+          "end": "\\^7",
+          "beginCaptures": {
+            "0": { "name": "punctuation.definition.string.begin.noshift" }
+          },
+          "endCaptures": {
+            "0": { "name": "punctuation.definition.string.end.noshift" }
+          },
+          "patterns": [{ "include": "#string-escapes" }]
+        }
+      ]
+    },
+
+    "string-escapes": {
+      "patterns": [
+        {
+          "name": "constant.character.escape.noshift",
+          "match": "\\\\."
+        }
+      ]
+    },
+
+    "embedded-template-definition": {
+      "name": "meta.embedded.template.noshift",
+      "begin": "\\^4(?:\\^\\[|\\[)",
+      "end": "\\^\\]",
+      "beginCaptures": {
+        "0": { "name": "punctuation.section.embedded.begin.noshift" }
+      },
+      "endCaptures": {
+        "0": { "name": "punctuation.section.embedded.end.noshift" }
+      },
+      "patterns": [{ "include": "$self" }]
+    },
+
+    "punctuations": {
+      "patterns": [
+        {
+          "name": "punctuation.brace.curly.noshift",
+          "match": "\\^\\[|\\^\\]"
+        },
+        {
+          "name": "punctuation.section.parens.begin.noshift",
+          "match": "\\^8"
+        },
+        {
+          "name": "punctuation.section.parens.end.noshift",
+          "match": "\\^9"
+        },
+        {
+          "name": "meta.brace.round.noshift",
+          "begin": "\\^8",
+          "beginCaptures": {
+            "0": { "name": "punctuation.section.parens.begin.noshift" }
+          },
+          "end": "\\^9",
+          "endCaptures": {
+            "0": { "name": "punctuation.section.parens.end.noshift" }
+          },
           "patterns": [
-            { "name": "constant.character.escape.noshift", "match": "\\\\." }
+            { "include": "#comments" },
+            { "include": "#strings" },
+            { "include": "#punctuations" },
+            { "include": "#operators" },
+            { "include": "#keywords" },
+            { "include": "#constants" },
+            { "include": "#variables" },
+            { "include": "$self" }
           ]
         },
-        { "name": "variable.other.noshift",   "match": "\\b[a-zA-Z_$][a-zA-Z0-9_$]*\\b" },
-        { "name": "constant.numeric.noshift", "match": "\\b(0[xX][0-9a-fA-F]+|(\\d+)(\\.\\d*)?(e[+-]?\\d+)?)\\b" }
+        {
+          "name": "punctuation.separator.noshift",
+          "match": "[;,\\.]"
+        }
+      ]
+    },
+
+    "operators": {
+      "patterns": [
+        {
+          "name": "keyword.operator.noshift",
+          "match": "\\^(?:1|4(?!\\^\\[|\\[)|5|6|\\-(?!\\-)|\\^(?!\\^)|\\\\|;|:|,|\\.|/|\\^\\^|\\-\\-)"
+        },
+        {
+          "name": "keyword.operator.assignment.noshift",
+          "match": "(?:[<>]=?|!==?|===?|&&|\\|\\||\\+\\+|--|\\*=|\\/=|%=|\\+=|-=|<<=|>>=|>>>=|&=|\\^=|\\|=|=>)"
+        }
+      ]
+    },
+
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.noshift",
+          "match": "\\b(var|let|const|function|if|else|for|while|do|return|break|continue|switch|case|default|throw|try|catch|finally|new|typeof|instanceof|in|delete|void|yield|async|await|of|class|extends|super|import|export|debugger|with|get|set|enum|implements|interface|package|private|protected|public|static)\\b"
+        },
+        {
+          "name": "keyword.other.noshift",
+          "match": "\\b(from|as)\\b"
+        }
+      ]
+    },
+
+    "constants": {
+      "patterns": [
+        {
+          "name": "constant.numeric.noshift",
+          "match": "(?<!\\^)(?:0[xX][0-9a-fA-F]+|(?:\\d*\\.\\d+|\\d+\\.?)(?:[eE][+-]?\\d+)?)"
+        },
+        {
+          "name": "constant.language.noshift",
+          "match": "\\b(true|false|null|undefined|NaN|Infinity)\\b"
+        }
+      ]
+    },
+
+    "variables": {
+      "patterns": [
+        {
+          "name": "variable.language.noshift",
+          "match": "\\b(this|super|arguments)\\b"
+        },
+        {
+          "name": "variable.other.noshift",
+          "match": "\\b[a-zA-Z_$][a-zA-Z0-9_$]*\\b"
+        }
       ]
     }
   }
