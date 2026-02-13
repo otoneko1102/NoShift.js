@@ -17,6 +17,10 @@
 
 ## 記号マップ
 
+> この変換表は NoShift.js 開発者のキーボード（JIS 配列）が基準です。
+
+![開発者のキーボード](https://raw.githubusercontent.com/otoneko1102/NoShift.js/refs/heads/main/my-keyboard.jpg)
+
 | NoShift | JS | | NoShift | JS |
 |:-------:|:--:|---|:-------:|:--:|
 | `^1`    | `!`        | | `^^`    | `~`        |

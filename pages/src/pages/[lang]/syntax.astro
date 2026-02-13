@@ -36,6 +36,14 @@ const templateExprLabel =
   <p set:html={t(lang, "syntax.introDesc")} />
 
   <h2>{t(lang, "syntax.tableTitle")}</h2>
+  <div class="callout">
+    <p>{t(lang, "syntax.tableNote")}</p>
+  </div>
+  <img
+    src="https://raw.githubusercontent.com/otoneko1102/NoShift.js/refs/heads/main/my-keyboard.jpg"
+    alt={lang === "ja" ? "開発者のキーボード" : "Developer's Keyboard"}
+    class="keyboard-img"
+  />
   <div class="symbol-grid">
     <SymbolTable
       headerShifted={t(lang, "syntax.tableShifted")}

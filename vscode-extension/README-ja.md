@@ -53,6 +53,10 @@
 
 ## 言語サポート
 
+> この変換表は NoShift.js 開発者のキーボード（JIS 配列）が基準です。
+
+![開発者のキーボード](https://raw.githubusercontent.com/otoneko1102/NoShift.js/refs/heads/main/my-keyboard.jpg)
+
 | 機能 | 詳細 |
 |---|---|
 | 拡張子 | `.nsjs` |

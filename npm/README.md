@@ -68,6 +68,10 @@ Generated automatically by `nsc --init` or `nsc create`.
 
 ## Symbol Map
 
+> This symbol mapping is based on the NoShift.js developer's keyboard (JIS layout).
+
+![Developer's Keyboard](https://raw.githubusercontent.com/otoneko1102/NoShift.js/refs/heads/main/my-keyboard.jpg)
+
 | NoShift | JS | | NoShift | JS |
 |:-------:|:--:|---|:-------:|:--:|
 | `^1`    | `!`        | | `^^`    | `~`        |

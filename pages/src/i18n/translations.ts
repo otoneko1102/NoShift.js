@@ -89,6 +89,8 @@ export const ui = {
     "syntax.introDesc":
       "NoShift.js uses <code>^</code> (caret) as a prefix to represent shifted symbols. The mapping is based on a Japanese JIS keyboard layout.",
     "syntax.tableTitle": "Symbol Map",
+    "syntax.tableNote":
+      "This symbol mapping is based on the NoShift.js developer's keyboard (JIS layout).",
     "syntax.tableShifted": "Shifted Key",
     "syntax.tableNoshift": "NoShift.js",
     "syntax.escapeTitle": "Escaping in Strings",
@@ -220,6 +222,8 @@ export const ui = {
     "syntax.introDesc":
       "NoShift.js は <code>^</code>（キャレット）をプレフィックスとして Shift 記号を表現します。マッピングは日本語 JIS キーボード配列に基づいています。",
     "syntax.tableTitle": "記号マップ",
+    "syntax.tableNote":
+      "この変換表は NoShift.js 開発者のキーボード（JIS 配列）が基準です。",
     "syntax.tableShifted": "Shift 記号",
     "syntax.tableNoshift": "NoShift.js",
     "syntax.escapeTitle": "文字列内のエスケープ",

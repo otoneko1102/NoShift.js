@@ -465,6 +465,14 @@ pre code {
   margin: 1.5rem 0;
 }
 
+.keyboard-img {
+  display: block;
+  max-width: 100%;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  margin: 1rem 0 1.5rem;
+}
+
 @media (max-width: 600px) {
   .symbol-grid {
     grid-template-columns: 1fr;
