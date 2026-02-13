@@ -2,7 +2,7 @@
   "name": "noshift-vscode",
   "displayName": "NoShift.js",
   "description": "Syntax highlighting + auto-complete for NoShift.js (.nsjs) files",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "publisher": "otoneko1102",
   "engines": {
     "vscode": "^1.70.0"
@@ -22,6 +22,7 @@
         "id": "noshift",
         "aliases": ["NoShift.js", "noshift"],
         "extensions": [".nsjs"],
+        "filenames": ["nsjsconfig.json"],
         "configuration": "./language-configuration.json",
         "icon": {
           "light": "./icons/noshift-file-icon.svg",
