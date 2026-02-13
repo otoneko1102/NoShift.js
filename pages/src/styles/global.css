@@ -217,6 +217,7 @@ body {
 
 /* Constrain inner components so they visually align */
 .pkg-stats,
+.install-bar,
 .link-cards,
 .features,
 .page-nav {
@@ -224,17 +225,6 @@ body {
   max-width: var(--card-max-width);
   margin-left: auto;
   margin-right: auto;
-}
-
-/* Make cards responsive and consistent */
-.link-cards {
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1rem;
-}
-
-.features {
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1.25rem;
 }
 
 .page-nav a {
@@ -598,17 +588,17 @@ pre code {
 
 .install-bar {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.75rem;
+  margin-bottom: 2.5rem;
 }
 
 .install-label {
   color: var(--text-secondary);
   font-weight: 600;
   font-size: 0.9rem;
-  white-space: nowrap;
+  text-align: left;
 }
 
 .install-cmd {
@@ -617,11 +607,11 @@ pre code {
   background: var(--bg-surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
-  padding: 0.6rem 1rem;
+  padding: 0.75rem 1.25rem;
   font-family: var(--font-mono);
   font-size: 0.9rem;
   color: var(--text-primary);
-  min-width: 280px;
+  width: 100%;
 }
 
 .install-cmd code {
@@ -682,10 +672,13 @@ pre code {
    ===================== */
 
 .link-cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-direction: column;
   gap: 1rem;
   margin-bottom: 2.5rem;
+  max-width: var(--card-max-width);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .link-card {
@@ -698,6 +691,7 @@ pre code {
   border-radius: var(--radius-lg);
   text-decoration: none;
   transition: all var(--transition);
+  min-height: 80px;
 }
 
 .link-card:hover {
@@ -780,8 +774,9 @@ pre code {
 .features {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  margin: 2rem 0 3rem;
+  gap: 1.25rem;
+  margin: 2rem auto 3rem;
+  max-width: var(--card-max-width);
 }
 
 .feature-card {
@@ -790,6 +785,9 @@ pre code {
   border-radius: var(--radius-lg);
   padding: 1.5rem;
   transition: all var(--transition);
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
 }
 
 .feature-card:hover {
@@ -809,6 +807,7 @@ pre code {
   font-size: 0.9rem;
   margin-bottom: 0;
   line-height: 1.6;
+  flex: 1;
 }
 
 @media (max-width: 768px) {
