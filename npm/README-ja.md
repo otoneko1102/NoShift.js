@@ -1,14 +1,14 @@
 # noshift.js
 
-> A joke language that lets you write JavaScript without pressing the Shift key.
+> Shift キーを押さずに JavaScript を書ける Joke 言語
 
 [![npm](https://img.shields.io/npm/v/noshift.js)](https://www.npmjs.com/package/noshift.js)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![ja](https://img.shields.io/badge/lang-日本語-red)](README-ja.md)
+[![en](https://img.shields.io/badge/lang-English-blue)](README.md)
 
 ---
 
-## Installation
+## インストール
 
 ```bash
 npm install -g noshift.js@latest
@@ -16,39 +16,39 @@ npm install -g noshift.js@latest
 
 ---
 
-## Getting Started
+## はじめに
 
 ```bash
-# Interactive full project scaffold
+# インタラクティブなプロジェクトスキャフォールド
 nsc create
 
-# Or initialize only a nsjsconfig.json in the current directory
+# または、現在のディレクトリに nsjsconfig.json だけを作成
 nsc --init
 ```
 
 ---
 
-## CLI Reference
+## CLI リファレンス
 
-`nsc` is designed to feel like TypeScript's `tsc`.
+`nsc` は TypeScript の `tsc` に似た使い心地を目指しています。
 
-| Command | Description |
+| コマンド | 説明 |
 |---|---|
-| `nsc` | Compile `.nsjs` → `.js` using `nsjsconfig.json` |
-| `nsc -w` / `nsc --watch` | Watch for changes and recompile automatically |
-| `nsc --init` | Create `nsjsconfig.json` in the current directory |
-| `nsc --clean` | Delete the output directory (`outDir`) |
-| `nsc run <file>` | Run a `.nsjs` file directly |
-| `nsc create [name]` | Scaffold a new project interactively |
-| `nsc -V` | Show version |
-| `nsc -h` | Show help |
+| `nsc` | `nsjsconfig.json` を使って `.nsjs` → `.js` にコンパイル |
+| `nsc -w` / `nsc --watch` | 変更を監視して自動的に再コンパイル |
+| `nsc --init` | 現在のディレクトリに `nsjsconfig.json` を作成 |
+| `nsc --clean` | 出力ディレクトリ (`outDir`) を削除 |
+| `nsc run <file>` | `.nsjs` ファイルを直接実行 |
+| `nsc create [name]` | インタラクティブに新しいプロジェクトを作成 |
+| `nsc -V` | バージョンを表示 |
+| `nsc -h` | ヘルプを表示 |
 
 ---
 
 ## nsjsconfig.json
 
-Place a `nsjsconfig.json` at the project root to configure compilation.
-Generated automatically by `nsc --init` or `nsc create`.
+プロジェクトルートに `nsjsconfig.json` を置くとコンパイル設定を行えます。
+`nsc --init` または `nsc create` で自動生成されます。
 
 ```json
 {
@@ -59,14 +59,14 @@ Generated automatically by `nsc --init` or `nsc create`.
 }
 ```
 
-| Option | Default | Description |
+| オプション | デフォルト | 説明 |
 |---|---|---|
-| `compilerOptions.rootDir` | `"src"` | Source directory |
-| `compilerOptions.outDir` | `"build"` | Output directory |
+| `compilerOptions.rootDir` | `"src"` | ソースディレクトリ |
+| `compilerOptions.outDir` | `"build"` | 出力ディレクトリ |
 
 ---
 
-## Symbol Map
+## 記号マップ
 
 | NoShift | JS | | NoShift | JS |
 |:-------:|:--:|---|:-------:|:--:|
@@ -81,11 +81,11 @@ Generated automatically by `nsc --init` or `nsc create`.
 | `^-`    | `=`        | | `^.`    | `>`        |
 |         |            | | `^/`    | `?`        |
 
-Template expression: `^4^[` → `${`
+テンプレート式: `^4^[` → `${`
 
 ---
 
-## Syntax Examples
+## 構文サンプル
 
 ### Hello World
 
@@ -97,7 +97,7 @@ console.log^8^2Hello, World!^2^9;
 console.log("Hello, World!");
 ```
 
-### Variables & Arrow Functions
+### 変数とアロー関数
 
 ```nsjs
 const add ^- ^8a, b^9 ^-^. a ^; b;
@@ -113,19 +113,19 @@ const result = add(5, 3);
 console.log(result); // 8
 ```
 
-### Strings
+### 文字列
 
 ```nsjs
-// Double-quote string
+// ダブルクォート文字列
 const s1 ^- ^2Hello^2;
 
-// Single-quote string
+// シングルクォート文字列
 const s2 ^- ^7World^7;
 
-// Template literal
+// テンプレートリテラル
 const s3 ^- ^@^4^[s1^] ^4^[s2^]^@;
 
-// Escape: \^2 inside ^2...^2 yields a literal ^2 in the output
+// エスケープ: ^2...^2 内の \^2 はリテラルの ^2 に展開される
 const s4 ^- ^2quote: \^2^2;
 ```
 
@@ -136,7 +136,7 @@ const s3 = `Hello World`;
 const s4 = "quote: ^2";
 ```
 
-### Objects & Arrays
+### オブジェクトと配列
 
 ```nsjs
 const obj ^- ^[
@@ -158,7 +158,7 @@ const obj = {
 const arr = [1, 2, 3];
 ```
 
-### Classes
+### クラス
 
 ```nsjs
 class Animal ^[
@@ -190,7 +190,7 @@ const dog = new Animal("Dog");
 dog.speak();
 ```
 
-### Conditionals & Loops
+### 条件分岐とループ
 
 ```nsjs
 const x ^- 10;
@@ -222,26 +222,26 @@ for (let i = 0; i < 3; i++) {
 
 ---
 
-## File Naming
+## ファイル名の規則
 
-Files starting with `_` are excluded from compilation (useful for partials/utilities).
+`_` で始まるファイルはコンパイル対象から除外されます（パーシャル・ユーティリティ用途に便利）。
 
 ```
 src/
-  index.nsjs       ← compiled
-  _helpers.nsjs    ← skipped
+  index.nsjs       ← コンパイルされる
+  _helpers.nsjs    ← スキップされる
 ```
 
 ---
 
-## Links
+## リンク
 
-- [VS Code Extension](https://marketplace.visualstudio.com/items?itemName=otoneko1102.noshift-vscode)
-- [Website](https://noshift.js.org)
-- [Repository](https://github.com/otoneko1102/NoShift.js)
+- [VS Code 拡張機能](https://marketplace.visualstudio.com/items?itemName=otoneko1102.noshift-vscode)
+- [ウェブサイト](https://noshift.js.org)
+- [リポジトリ](https://github.com/otoneko1102/NoShift.js)
 
 ---
 
-## License
+## ライセンス
 
 MIT © otoneko

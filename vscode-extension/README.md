@@ -1,85 +1,77 @@
-<div aligin="center">
+# NoShift.js — VS Code Extension
 
-![LICENSE](https://img.shields.io/badge/license-MIT-blue.svg)
+> Syntax highlighting, auto-complete, and file icons for `.nsjs` files
 
-# NoShift.js
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![ja](https://img.shields.io/badge/lang-日本語-red)](README-ja.md)
 
-## Setup
-```bash
-npm install -g noshift.js@latest
-npx nsjs create
-```
+---
 
-## English
+## Features
 
-### Language
-NoShift.js
+### Syntax Highlighting
 
-### Extension
-`.nsjs`
+Full syntax highlighting for `.nsjs` files.
 
-### Summary
-Typing symbols with Shift is tiring. NoShift.js is a JavaScript-like language that allows you to write JavaScript **without using the Shift key**.  
-It compiles to plain JavaScript.
+- **Keywords**: `const`, `let`, `function`, `class`, `if`, `for`, `return`, etc.
+- **NoShift sequences**: `^2`, `^[`, `^-` and other symbol sequences colored as operators/punctuation
+- **String literals**: `^2...^2` (double-quote), `^7...^7` (single-quote), `^@...^@` (template literal)
+- **Template expressions**: Code inside `^4^[...^]` highlighted as nested expressions
+- **Built-in objects**: `console`, `Math`, `Promise`, `Array`, etc.
+- **Comments**: `//` line comments and `/* */` block comments
 
-The mapping is based on the keyboard layout of the creator’s laptop.
+### File Icon
 
-## 日本語
-### 言語名
-NoShift.js
+`.nsjs` files display a dedicated file icon (`↓js`).
 
-### 拡張子
-.nsjs
+- Shown in tabs and Explorer for VS Code 1.79+
+- **When [vscode-icons](https://marketplace.visualstudio.com/items?itemName=vscode-icons-team.vscode-icons) is installed**: `.nsjs` and `nsjsconfig.json` icon associations are configured automatically on activation
 
-### 概略
-記号を入力するときに Shift を押すのが面倒なので、Shift を押さずに JavaScript が書ける言語を作りました。
-NoShift.js は JavaScript に変換されます。
+### Auto-Complete
 
-この記号変換の基準は、作者のノートパソコンのキーボード配列です。
+Typing `^[` automatically inserts the matching `^]` and places the cursor between them.
 
 ```
-! --> ^1
-" --> ^2
-$ --> ^4
-% --> ^5
-& --> ^6
-' --> ^7
-( --> ^8
-) --> ^9
-= --> ^-
-~ --> ^^
-| --> ^\
-` --> ^@
-{ --> ^[
-} --> ^]
-+ --> ^;
-* --> ^:
-< --> ^,
-> --> ^.
-? --> ^/
+Input:  ^[
+Result: ^[|^]   (| = cursor position)
 ```
 
-### Escaping in strings
-Examples:
-```nsjs
-^2^5^2 --> "^5"
-^7^5^7 --> '^5'
-^@^5^@ --> `^5`
-```
-Template literals (${} syntax)
+### Code Snippets
 
-```nsjs
-^@^5^4^[^2Hello World!^2^]^@ --> `^5${"Hello World!"}`
-```
-Hello World!
-Example:
+| Prefix | Inserted |
+|--------|----------|
+| `^[`   | `^[${1}^]` |
 
-```nsjs
-console.log^8^2Hello World!^2^9;
-Result:
-```
-```js
-console.log("Hello World!");
-```
+---
 
-</div>
+## Requirements
+
+- VS Code `1.70.0` or later
+- (Optional) [vscode-icons](https://marketplace.visualstudio.com/items?itemName=vscode-icons-team.vscode-icons) — integrates file icons with the vscode-icons theme
+
+---
+
+## Language Support
+
+| Feature | Details |
+|---|---|
+| Extension | `.nsjs` |
+| Language ID | `noshift` |
+| Line comment | `//` |
+| Block comment | `/* */` |
+| Bracket pairs | `^[` / `^]`, `^8` / `^9`, `[` / `]` |
+| Auto-close | `^2`, `^7`, `^@`, `^[`, `^8` |
+
+---
+
+## Related
+
+- [noshift.js (npm)](https://www.npmjs.com/package/noshift.js) — Compiler CLI (`nsc`)
+- [Website](https://noshift.js.org)
+- [Repository](https://github.com/otoneko1102/NoShift.js)
+
+---
+
+## License
+
+MIT © otoneko

@@ -1,26 +1,27 @@
 // extension.js
-const path = require("path");
 const vscode = require("vscode");
 
 let inProgrammaticEdit = false;
 
 function activate(context) {
-  const disposable = vscode.workspace.onDidChangeTextDocument((e) => {
-    if (inProgrammaticEdit) { return; }
+  // ^[ を入力したとき ^] を自動補完
+  const bracketDisposable = vscode.workspace.onDidChangeTextDocument((e) => {
+    if (inProgrammaticEdit) return;
 
     const editor = vscode.window.activeTextEditor;
-    if (!editor) { return; }
+    if (!editor) return;
+
     const doc = e.document;
-    if (doc.languageId !== "noshift") { return; }
-    if (e.contentChanges.length !== 1) { return; }
+    if (doc.languageId !== "noshift") return;
+    if (e.contentChanges.length !== 1) return;
 
     const change = e.contentChanges[0];
-    if (change.text !== "[") { return; }
+    if (change.text !== "[") return;
 
     const insertPos = change.range.start;
     const prevPos = insertPos.translate(0, -1);
     const prevChar = doc.getText(new vscode.Range(prevPos, insertPos));
-    if (prevChar !== "^") { return; }
+    if (prevChar !== "^") return;
 
     const afterBracketPos = insertPos.translate(0, 1);
     inProgrammaticEdit = true;
@@ -45,11 +46,49 @@ function activate(context) {
       });
   });
 
-  context.subscriptions.push(disposable);
+  context.subscriptions.push(bracketDisposable);
+
+  // vscode-icons がインストールされている場合、.nsjs のファイルアイコン関連付けを設定する
+  registerVscodeIconsAssociation();
 }
 
-function deactivate() {
-  // 特にクリーンアップ不要
+/**
+ * vscode-icons (vscode-icons-team.vscode-icons) が有効な場合、
+ * vsicons.associations.files に以下の関連付けを追加する (初回のみ)。
+ *   - .nsjs 拡張子   → javascript アイコン
+ *   - nsjsconfig.json → javascript アイコン (同じ見た目に統一)
+ */
+async function registerVscodeIconsAssociation() {
+  const vsiconsExt = vscode.extensions.getExtension("vscode-icons-team.vscode-icons");
+  if (!vsiconsExt) return;
+
+  const config = vscode.workspace.getConfiguration("vsicons.associations");
+  const files = config.get("files") ?? [];
+
+  const hasNsjs = files.some(
+    (e) => Array.isArray(e.extensions) && e.extensions.includes("nsjs") && !e.filename
+  );
+  const hasConfig = files.some(
+    (e) => Array.isArray(e.extensions) && e.extensions.includes("nsjsconfig.json") && e.filename
+  );
+
+  if (hasNsjs && hasConfig) return;
+
+  const updated = [...files];
+  if (!hasNsjs) {
+    updated.push({ icon: "javascript", extensions: ["nsjs"], format: "svg" });
+  }
+  if (!hasConfig) {
+    updated.push({ icon: "javascript", extensions: ["nsjsconfig.json"], format: "svg", filename: true });
+  }
+
+  try {
+    await config.update("files", updated, vscode.ConfigurationTarget.Global);
+  } catch {
+    // 設定の更新に失敗した場合は無視する
+  }
 }
+
+function deactivate() {}
 
 module.exports = { activate, deactivate };

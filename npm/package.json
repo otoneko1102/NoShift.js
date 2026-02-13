@@ -3,13 +3,12 @@
   "version": "0.1.1",
   "description": "Joke language.",
   "bin": {
-    "nsjs": "./bin/cli.js"
+    "nsc": "./bin/cli.js"
   },
   "type": "module",
   "scripts": {
-    "dev": "node commands/dev.js",
-    "build": "node commands/build.js",
-    "script": "node commands/script.js"
+    "compile": "node commands/compile.js",
+    "dev": "node commands/dev.js"
   },
   "repository": {
     "type": "git",
