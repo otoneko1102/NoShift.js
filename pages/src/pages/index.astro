@@ -109,7 +109,11 @@ try {
                   <span class="stat-label" id="stat-pub-label">
                     {t("en", "home.lastPublished")}
                   </span>
-                  <span class="stat-value" id="stat-pub-value" data-raw={lastPublished}>
+                  <span
+                    class="stat-value"
+                    id="stat-pub-value"
+                    data-raw={lastPublished}
+                  >
                     {lastPublished}
                   </span>
                 </div>
@@ -155,12 +159,7 @@ try {
               >
             </div>
           </a>
-          <a
-            href={links.npm}
-            target="_blank"
-            rel="noopener"
-            class="link-card"
-          >
+          <a href={links.npm} target="_blank" rel="noopener" class="link-card">
             <Icon name="simple-icons:npm" class="link-card-icon" />
             <div class="link-card-body">
               <span class="link-card-title">npm</span>
@@ -175,7 +174,9 @@ try {
           >
             <Icon name="simple-icons:visualstudiocode" class="link-card-icon" />
             <div class="link-card-body">
-              <span class="link-card-title" id="link-vscode-title">VS Code Extension</span>
+              <span class="link-card-title" id="link-vscode-title"
+                >VS Code Extension</span
+              >
               <span class="link-card-url">marketplace.visualstudio.com</span>
             </div>
           </a>
@@ -210,10 +211,8 @@ console.log("Hello from " + name + "!");</code></pre>
       <footer class="footer">
         <p>
           MIT License &copy; {new Date().getFullYear()}
-          <a
-            href={links.githubAuthor}
-            target="_blank"
-            rel="noopener">otoneko.</a
+          <a href={links.githubAuthor} target="_blank" rel="noopener"
+            >otoneko.</a
           >
         </p>
       </footer>
@@ -247,17 +246,17 @@ console.log("Hello from " + name + "!");</code></pre>
       en: {
         tagline: "Write JavaScript without pressing the Shift key.",
         description:
-          'A joke language that replaces every shift-required symbol with a <code>^</code>-prefixed sequence. <code>.nsjs</code> files compile directly to plain JavaScript via the <code>nsc</code> CLI.',
+          "A joke language that replaces every shift-required symbol with a <code>^</code>-prefixed sequence. <code>.nsjs</code> files compile directly to plain JavaScript via the <code>nsc</code> CLI.",
         "btn-get-started": "Get Started →",
         "feat1-title": "No Shift Required",
         "feat1-desc":
-          'All shifted symbols are replaced by simple <code>^</code> + key sequences based on a JIS keyboard layout.',
+          "All shifted symbols are replaced by simple <code>^</code> + key sequences based on a JIS keyboard layout.",
         "feat2-title": "Instant Compilation",
         "feat2-desc":
-          'The <code>nsc</code> CLI compiles <code>.nsjs</code> files to standard JavaScript in milliseconds.',
+          "The <code>nsc</code> CLI compiles <code>.nsjs</code> files to standard JavaScript in milliseconds.",
         "feat3-title": "VS Code Support",
         "feat3-desc":
-          'Syntax highlighting and auto-complete via the official VS Code extension.',
+          "Syntax highlighting and auto-complete via the official VS Code extension.",
         "example-title": "Quick Example",
         "compiles-to": "Compiles to:",
         "install-label": "Install",
@@ -270,17 +269,17 @@ console.log("Hello from " + name + "!");</code></pre>
       ja: {
         tagline: "Shift キーを押さずに JavaScript を書こう。",
         description:
-          'Shift が必要な記号を <code>^</code> プレフィックスのシーケンスに置き換える Joke 言語です。<code>.nsjs</code> ファイルは <code>nsc</code> CLI で JavaScript にコンパイルされます。',
+          "Shift が必要な記号を <code>^</code> プレフィックスのシーケンスに置き換える Joke 言語です。<code>.nsjs</code> ファイルは <code>nsc</code> CLI で JavaScript にコンパイルされます。",
         "btn-get-started": "はじめる →",
         "feat1-title": "Shift 不要",
         "feat1-desc":
-          'すべての Shift 記号は JIS 配列に基づく <code>^</code> + キーのシーケンスに置き換わります。',
+          "すべての Shift 記号は JIS 配列に基づく <code>^</code> + キーのシーケンスに置き換わります。",
         "feat2-title": "即座にコンパイル",
         "feat2-desc":
-          '<code>nsc</code> CLI が <code>.nsjs</code> ファイルをミリ秒で JavaScript にコンパイルします。',
+          "<code>nsc</code> CLI が <code>.nsjs</code> ファイルをミリ秒で JavaScript にコンパイルします。",
         "feat3-title": "VS Code 対応",
         "feat3-desc":
-          '公式の VS Code 拡張機能でシンタックスハイライトと自動補完が利用可能。',
+          "公式の VS Code 拡張機能でシンタックスハイライトと自動補完が利用可能。",
         "example-title": "簡単な例",
         "compiles-to": "コンパイル後:",
         "install-label": "インストール",
@@ -309,7 +308,9 @@ console.log("Hello from " + name + "!");</code></pre>
       }
 
       // Update getting-started link
-      const gsBtn = document.getElementById("btn-get-started") as HTMLAnchorElement | null;
+      const gsBtn = document.getElementById(
+        "btn-get-started",
+      ) as HTMLAnchorElement | null;
       if (gsBtn && texts.gsHref) gsBtn.href = texts.gsHref;
 
       // Update last published date format
@@ -317,20 +318,32 @@ console.log("Hello from " + name + "!");</code></pre>
       if (pubVal?.dataset.raw) {
         const d = new Date(pubVal.dataset.raw);
         if (!isNaN(d.getTime())) {
-          pubVal.textContent = d.toLocaleDateString(lang === "ja" ? "ja-JP" : "en-US", {
-            year: "numeric", month: "short", day: "numeric",
-          });
+          pubVal.textContent = d.toLocaleDateString(
+            lang === "ja" ? "ja-JP" : "en-US",
+            {
+              year: "numeric",
+              month: "short",
+              day: "numeric",
+            },
+          );
         }
       }
 
       // Update sidebar nav links to match language
-      document.querySelectorAll<HTMLAnchorElement>(".sidebar-nav a[href^='/en/'], .sidebar-nav a[href^='/ja/']").forEach((a) => {
-        a.href = a.href.replace(/\/(en|ja)\//, `/${lang}/`);
-      });
+      document
+        .querySelectorAll<HTMLAnchorElement>(
+          ".sidebar-nav a[href^='/en/'], .sidebar-nav a[href^='/ja/']",
+        )
+        .forEach((a) => {
+          a.href = a.href.replace(/\/(en|ja)\//, `/${lang}/`);
+        });
 
       // Update lang switcher active state
       document.querySelectorAll(".lang-btn").forEach((btn) => {
-        btn.classList.toggle("active", btn.textContent?.trim() === lang.toUpperCase());
+        btn.classList.toggle(
+          "active",
+          btn.textContent?.trim() === lang.toUpperCase(),
+        );
       });
 
       document.documentElement.lang = lang;

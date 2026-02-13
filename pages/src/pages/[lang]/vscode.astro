@@ -23,11 +23,7 @@ const { lang } = Astro.params as { lang: Lang };
   <p set:html={t(lang, "vscode.installDesc")} />
   <pre><code>ext install {links.extensionId}</code></pre>
   <p>
-    <a
-      href={links.vscodeExtension}
-      target="_blank"
-      rel="noopener"
-    >
+    <a href={links.vscodeExtension} target="_blank" rel="noopener">
       {t(lang, "vscode.installLink")} →
     </a>
   </p>
