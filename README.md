@@ -72,4 +72,4 @@ console.log("Hello from " + name + "!");
 
 ## License
 
-MIT © otoneko
+MIT © otoneko.

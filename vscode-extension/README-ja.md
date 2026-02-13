@@ -74,4 +74,4 @@
 
 ## ライセンス
 
-MIT © otoneko
+MIT © otoneko.

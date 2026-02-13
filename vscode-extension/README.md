@@ -74,4 +74,4 @@ Result: ^[|^]   (| = cursor position)
 
 ## License
 
-MIT © otoneko
+MIT © otoneko.

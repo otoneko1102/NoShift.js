@@ -244,4 +244,4 @@ src/
 
 ## License
 
-MIT © otoneko
+MIT © otoneko.

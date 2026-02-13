@@ -73,4 +73,4 @@ console.log("Hello from " + name + "!");
 
 ## ライセンス
 
-MIT © otoneko
+MIT © otoneko.
