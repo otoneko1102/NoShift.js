@@ -27,6 +27,6 @@
   "homepage": "https://otoneko1102.github.io/NoShift.js/",
   "dependencies": {
     "commander": "^14.0.3",
-    "inquirer": "^12.11.1"
+    "inquirer": "^13.2.2"
   }
 }
