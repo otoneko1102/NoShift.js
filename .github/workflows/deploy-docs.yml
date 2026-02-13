@@ -40,3 +40,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs
           cname: noshift.js.org
+          enable_jekyll: false
