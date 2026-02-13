@@ -7,3 +7,11 @@ updates:
     versioning-strategy: "increase"
     allow:
       - dependency-type: "direct"
+
+  - package-ecosystem: "npm"
+    directory: "/pages"
+    schedule:
+      interval: "weekly"
+    versioning-strategy: "increase"
+    allow:
+      - dependency-type: "direct"
