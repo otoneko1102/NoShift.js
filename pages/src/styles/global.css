@@ -24,6 +24,10 @@
   --sidebar-width: 260px;
   --header-height: 60px;
 
+  /* Unified content width for docs and homepage */
+  --content-width: 860px;
+  --card-max-width: 760px;
+
   --font-sans:
     -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
     Arial, sans-serif;
@@ -202,13 +206,43 @@ body {
 }
 
 .content {
-  max-width: 780px;
+  max-width: var(--content-width);
   margin: 0 auto;
   padding: 2.5rem 3rem 4rem;
 }
 
 .home-content {
-  max-width: 860px;
+  max-width: var(--content-width);
+}
+
+/* Constrain inner components so they visually align */
+.pkg-stats,
+.link-cards,
+.features,
+.page-nav {
+  width: 100%;
+  max-width: var(--card-max-width);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Make cards responsive and consistent */
+.link-cards {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.features {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+}
+
+.page-nav a {
+  max-width: 48%;
+}
+
+@media (max-width: 900px) {
+  .page-nav a { max-width: 100%; }
 }
 
 /* =====================
