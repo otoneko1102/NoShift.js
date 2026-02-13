@@ -2,15 +2,19 @@ import { promises as fs } from "fs";
 import path from "path";
 import { spawn } from "child_process";
 import convert from "../src/convert.js";
+import { handleSigint } from "../src/signal-handler.js";
+import * as logger from "../src/logger.js";
 
 export default async function run(file) {
+  handleSigint();
+
   const filePath = path.resolve(process.cwd(), file);
 
   let code;
   try {
     code = await fs.readFile(filePath, "utf-8");
   } catch {
-    console.error(`error NS2: File not found: ${filePath}`);
+    logger.errorCode("NS2", `File not found: ${filePath}`);
     process.exit(1);
   }
 

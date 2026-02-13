@@ -54,7 +54,7 @@ Generated automatically by `nsc --init` or `nsc create`.
 {
   "compilerOptions": {
     "rootDir": "src",
-    "outDir": "build"
+    "outDir": "dist"
   }
 }
 ```
@@ -62,7 +62,7 @@ Generated automatically by `nsc --init` or `nsc create`.
 | Option | Default | Description |
 |---|---|---|
 | `compilerOptions.rootDir` | `"src"` | Source directory |
-| `compilerOptions.outDir` | `"build"` | Output directory |
+| `compilerOptions.outDir` | `"dist"` | Output directory |
 
 ---
 

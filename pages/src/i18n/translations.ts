@@ -75,7 +75,7 @@ export const ui = {
     "gs.configDesc":
       "The project config file <code>nsjsconfig.json</code> controls compiler options:",
     "gs.configRootDir": "Source file directory (default: <code>src</code>)",
-    "gs.configOutDir": "Output directory (default: <code>build</code>)",
+    "gs.configOutDir": "Output directory (default: <code>dist</code>)",
     "gs.compileTitle": "Compile & Run",
     "gs.compileDesc": "Compile all <code>.nsjs</code> files:",
     "gs.runDesc": "Or run a file directly without compiling:",
@@ -208,7 +208,7 @@ export const ui = {
       "プロジェクト設定ファイル <code>nsjsconfig.json</code> でコンパイラオプションを制御します:",
     "gs.configRootDir":
       "ソースファイルのディレクトリ（デフォルト: <code>src</code>）",
-    "gs.configOutDir": "出力ディレクトリ（デフォルト: <code>build</code>）",
+    "gs.configOutDir": "出力ディレクトリ（デフォルト: <code>dist</code>）",
     "gs.compileTitle": "コンパイルと実行",
     "gs.compileDesc": "すべての <code>.nsjs</code> ファイルをコンパイル:",
     "gs.runDesc": "コンパイルせずに直接実行:",

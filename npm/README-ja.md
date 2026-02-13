@@ -54,7 +54,7 @@ nsc --init
 {
   "compilerOptions": {
     "rootDir": "src",
-    "outDir": "build"
+    "outDir": "dist"
   }
 }
 ```
@@ -62,7 +62,7 @@ nsc --init
 | オプション | デフォルト | 説明 |
 |---|---|---|
 | `compilerOptions.rootDir` | `"src"` | ソースディレクトリ |
-| `compilerOptions.outDir` | `"build"` | 出力ディレクトリ |
+| `compilerOptions.outDir` | `"dist"` | 出力ディレクトリ |
 
 ---
 

@@ -2,6 +2,8 @@ import { promises as fs } from "fs";
 import path from "path";
 import convert from "../src/convert.js";
 import { loadConfig } from "../src/config.js";
+import { handleSigint } from "../src/signal-handler.js";
+import * as logger from "../src/logger.js";
 
 async function findNsjsFiles(dir) {
   let entries;
@@ -25,13 +27,15 @@ async function findNsjsFiles(dir) {
 }
 
 export default async function compile() {
+  handleSigint();
+
   const cwd = process.cwd();
 
   let config;
   try {
     config = await loadConfig(cwd);
   } catch (e) {
-    console.error(`error TS0: ${e.message}`);
+    logger.errorCode("NS0", e.message);
     process.exit(1);
   }
 
@@ -41,14 +45,15 @@ export default async function compile() {
   const files = await findNsjsFiles(rootDir);
 
   if (files === null) {
-    console.error(
-      `error NS0: rootDir '${config.compilerOptions.rootDir}' not found.`,
+    logger.errorCode(
+      "NS0",
+      `rootDir '${config.compilerOptions.rootDir}' not found.`,
     );
     process.exit(1);
   }
 
   if (files.length === 0) {
-    console.log("No .nsjs files found.");
+    logger.info("No .nsjs files found.");
     return;
   }
 
@@ -68,22 +73,24 @@ export default async function compile() {
       await fs.mkdir(path.dirname(destPath), { recursive: true });
       await fs.writeFile(destPath, js, "utf-8");
 
-      console.log(
+      logger.dim(
         `  ${relative.replace(/\\/g, "/")} → ${path.relative(cwd, destPath).replace(/\\/g, "/")}`,
       );
       compiled++;
     } catch (e) {
-      console.error(
-        `  error NS1: ${relative.replace(/\\/g, "/")}: ${e.message}`,
+      logger.errorCode(
+        "NS1",
+        `${relative.replace(/\\/g, "/")}: ${e.message}`,
       );
       errors++;
     }
   }
 
+  console.log("");
   if (errors > 0) {
-    console.error(`\nFound ${errors} error(s). Compiled ${compiled} file(s).`);
+    logger.error(`Found ${errors} error(s). Compiled ${compiled} file(s).`);
     process.exit(1);
   } else {
-    console.log(`\nSuccessfully compiled ${compiled} file(s).`);
+    logger.success(`Compiled ${compiled} file(s).`);
   }
 }

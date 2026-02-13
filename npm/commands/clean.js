@@ -1,15 +1,19 @@
 import { rm, access } from "fs/promises";
 import path from "path";
 import { loadConfig } from "../src/config.js";
+import { handleSigint } from "../src/signal-handler.js";
+import * as logger from "../src/logger.js";
 
 export default async function clean() {
+  handleSigint();
+
   const cwd = process.cwd();
 
   let config;
   try {
     config = await loadConfig(cwd);
   } catch (e) {
-    console.error(`error NS0: ${e.message}`);
+    logger.errorCode("NS0", e.message);
     process.exit(1);
   }
 
@@ -18,12 +22,12 @@ export default async function clean() {
   try {
     await access(outDir);
   } catch {
-    console.log(
-      `Nothing to clean ('${config.compilerOptions.outDir}' does not exist).`,
+    logger.info(
+      `Nothing to clean (${logger.highlight(config.compilerOptions.outDir)} does not exist).`,
     );
     return;
   }
 
   await rm(outDir, { recursive: true, force: true });
-  console.log(`Deleted '${config.compilerOptions.outDir}'.`);
+  logger.success(`Deleted ${logger.highlight(config.compilerOptions.outDir)}`);
 }

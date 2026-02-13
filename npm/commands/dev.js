@@ -2,6 +2,8 @@ import { promises as fs, watch } from "fs";
 import path from "path";
 import convert from "../src/convert.js";
 import { loadConfig } from "../src/config.js";
+import { handleSigint } from "../src/signal-handler.js";
+import * as logger from "../src/logger.js";
 
 function timestamp() {
   return new Date().toLocaleTimeString("en-GB"); // HH:MM:SS
@@ -36,7 +38,7 @@ async function compileFile(file, rootDir, outDir, cwd) {
   const js = convert(code);
   await fs.mkdir(path.dirname(destPath), { recursive: true });
   await fs.writeFile(destPath, js, "utf-8");
-  console.log(
+  logger.dim(
     `[${timestamp()}] ${relative} → ${path.relative(cwd, destPath).replace(/\\/g, "/")}`,
   );
 }
@@ -48,7 +50,7 @@ export default async function dev() {
   try {
     config = await loadConfig(cwd);
   } catch (e) {
-    console.error(`error NS0: ${e.message}`);
+    logger.errorCode("NS0", e.message);
     process.exit(1);
   }
 
@@ -58,13 +60,14 @@ export default async function dev() {
   // 初回フルコンパイル
   const files = await findNsjsFiles(rootDir);
   if (files === null) {
-    console.error(
-      `error NS0: rootDir '${config.compilerOptions.rootDir}' not found.`,
+    logger.errorCode(
+      "NS0",
+      `rootDir '${config.compilerOptions.rootDir}' not found.`,
     );
     process.exit(1);
   }
 
-  console.log(`[${timestamp()}] Starting compilation in watch mode...`);
+  logger.info(`Starting compilation in watch mode...`);
 
   await fs.mkdir(outDir, { recursive: true });
 
@@ -73,13 +76,19 @@ export default async function dev() {
       await compileFile(file, rootDir, outDir, cwd);
     } catch (e) {
       const rel = path.relative(rootDir, file).replace(/\\/g, "/");
-      console.error(`[${timestamp()}] error: ${rel}: ${e.message}`);
+      logger.errorCode("NS1", `${rel}: ${e.message}`);
     }
   }
 
-  console.log(
-    `[${timestamp()}] Watching for file changes in '${config.compilerOptions.rootDir}'...\n`,
+  logger.info(
+    `Watching for file changes in '${logger.highlight(config.compilerOptions.rootDir)}'... (Press Ctrl+C to stop)`,
   );
+  console.log("");
+
+  // Ctrl+C で終了
+  handleSigint(() => {
+    logger.info("Stopped watching.");
+  });
 
   // デバウンス用マップ (ファイルパス → タイマーID)
   const debounceMap = new Map();
@@ -105,8 +114,9 @@ export default async function dev() {
           if (e.code === "ENOENT") {
             // ファイルが削除された場合はスキップ
           } else {
-            console.error(
-              `[${timestamp()}] error: ${filename.replace(/\\/g, "/")}: ${e.message}`,
+            logger.errorCode(
+              "NS1",
+              `${filename.replace(/\\/g, "/")}: ${e.message}`,
             );
           }
         }
