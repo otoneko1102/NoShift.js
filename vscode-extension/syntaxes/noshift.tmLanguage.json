@@ -167,31 +167,31 @@
       "patterns": [
         {
           "name": "keyword.control.flow.noshift",
-          "match": "\\b(return|throw|break|continue|yield|await)\\b"
+          "match": "(?:\\b|(?<=\\^\\d))(return|throw|break|continue|yield|await)\\b"
         },
         {
           "name": "keyword.control.conditional.noshift",
-          "match": "\\b(if|else|switch|case|default)\\b"
+          "match": "(?:\\b|(?<=\\^\\d))(if|else|switch|case|default)\\b"
         },
         {
           "name": "keyword.control.loop.noshift",
-          "match": "\\b(for|while|do|of|in)\\b"
+          "match": "(?:\\b|(?<=\\^\\d))(for|while|do|of|in)\\b"
         },
         {
           "name": "keyword.control.exception.noshift",
-          "match": "\\b(try|catch|finally)\\b"
+          "match": "(?:\\b|(?<=\\^\\d))(try|catch|finally)\\b"
         },
         {
           "name": "storage.type.noshift",
-          "match": "\\b(var|let|const|function|class)\\b"
+          "match": "(?:\\b|(?<=\\^\\d))(var|let|const|function|class)\\b"
         },
         {
           "name": "storage.modifier.noshift",
-          "match": "\\b(async|static|extends|get|set|new|delete|typeof|instanceof|void|debugger|with)\\b"
+          "match": "(?:\\b|(?<=\\^\\d))(async|static|extends|get|set|new|delete|typeof|instanceof|void|debugger|with)\\b"
         },
         {
           "name": "keyword.module.noshift",
-          "match": "\\b(import|export|from|as)\\b"
+          "match": "(?:\\b|(?<=\\^\\d))(import|export|from|as)\\b"
         }
       ]
     },
@@ -200,35 +200,35 @@
       "patterns": [
         {
           "name": "constant.numeric.hex.noshift",
-          "match": "\\b0[xX][0-9a-fA-F]+n?\\b"
+          "match": "(?:\\b|(?<=\\^\\d))0[xX][0-9a-fA-F]+n?\\b"
         },
         {
           "name": "constant.numeric.binary.noshift",
-          "match": "\\b0[bB][01]+n?\\b"
+          "match": "(?:\\b|(?<=\\^\\d))0[bB][01]+n?\\b"
         },
         {
           "name": "constant.numeric.octal.noshift",
-          "match": "\\b0[oO][0-7]+n?\\b"
+          "match": "(?:\\b|(?<=\\^\\d))0[oO][0-7]+n?\\b"
         },
         {
           "name": "constant.numeric.noshift",
-          "match": "\\b(?:\\d+\\.?\\d*|\\.\\d+)(?:[eE][+-]?\\d+)?n?\\b"
+          "match": "(?:\\b|(?<=\\^\\d))(?:\\d+\\.?\\d*|\\.\\d+)(?:[eE][+-]?\\d+)?n?\\b"
         },
         {
           "name": "constant.language.boolean.noshift",
-          "match": "\\b(true|false)\\b"
+          "match": "(?:\\b|(?<=\\^\\d))(true|false)\\b"
         },
         {
           "name": "constant.language.null.noshift",
-          "match": "\\bnull\\b"
+          "match": "(?:\\b|(?<=\\^\\d))null\\b"
         },
         {
           "name": "constant.language.undefined.noshift",
-          "match": "\\bundefined\\b"
+          "match": "(?:\\b|(?<=\\^\\d))undefined\\b"
         },
         {
           "name": "constant.language.noshift",
-          "match": "\\b(NaN|Infinity)\\b"
+          "match": "(?:\\b|(?<=\\^\\d))(NaN|Infinity)\\b"
         }
       ]
     },
@@ -237,15 +237,15 @@
       "patterns": [
         {
           "name": "support.class.builtin.noshift",
-          "match": "\\b(Array|ArrayBuffer|BigInt|BigInt64Array|BigUint64Array|Boolean|DataView|Date|Error|EvalError|Float32Array|Float64Array|Function|Int8Array|Int16Array|Int32Array|JSON|Map|Math|Number|Object|Promise|Proxy|RangeError|ReferenceError|Reflect|RegExp|Set|SharedArrayBuffer|String|Symbol|SyntaxError|TypeError|URIError|URL|URLSearchParams|Uint8Array|Uint16Array|Uint32Array|Uint8ClampedArray|WeakMap|WeakRef|WeakSet)\\b"
+          "match": "(?:\\b|(?<=\\^\\d))(Array|ArrayBuffer|BigInt|BigInt64Array|BigUint64Array|Boolean|DataView|Date|Error|EvalError|Float32Array|Float64Array|Function|Int8Array|Int16Array|Int32Array|JSON|Map|Math|Number|Object|Promise|Proxy|RangeError|ReferenceError|Reflect|RegExp|Set|SharedArrayBuffer|String|Symbol|SyntaxError|TypeError|URIError|URL|URLSearchParams|Uint8Array|Uint16Array|Uint32Array|Uint8ClampedArray|WeakMap|WeakRef|WeakSet)\\b"
         },
         {
           "name": "support.variable.global.noshift",
-          "match": "\\b(console|process|globalThis|global|window|document|navigator|location|history|performance|crypto|localStorage|sessionStorage|WebSocket|Worker)\\b"
+          "match": "(?:\\b|(?<=\\^\\d))(console|process|globalThis|global|window|document|navigator|location|history|performance|crypto|localStorage|sessionStorage|WebSocket|Worker)\\b"
         },
         {
           "name": "support.function.builtin.noshift",
-          "match": "\\b(parseInt|parseFloat|isNaN|isFinite|decodeURI|decodeURIComponent|encodeURI|encodeURIComponent|eval|setTimeout|setInterval|clearTimeout|clearInterval|setImmediate|clearImmediate|queueMicrotask|structuredClone|fetch|atob|btoa|require)\\b"
+          "match": "(?:\\b|(?<=\\^\\d))(parseInt|parseFloat|isNaN|isFinite|decodeURI|decodeURIComponent|encodeURI|encodeURIComponent|eval|setTimeout|setInterval|clearTimeout|clearInterval|setImmediate|clearImmediate|queueMicrotask|structuredClone|fetch|atob|btoa|require)\\b"
         }
       ]
     },
@@ -254,7 +254,7 @@
       "patterns": [
         {
           "name": "meta.function-call.noshift",
-          "match": "\\b([a-zA-Z_$][a-zA-Z0-9_$]*)(?=\\s*\\^8)",
+          "match": "(?:\\b|(?<=\\^\\d))([a-zA-Z_$][a-zA-Z0-9_$]*)(?=\\s*\\^8)",
           "captures": {
             "1": { "name": "entity.name.function.noshift" }
           }
@@ -273,19 +273,19 @@
       "patterns": [
         {
           "name": "variable.language.noshift",
-          "match": "\\b(this|super|arguments)\\b"
+          "match": "(?:\\b|(?<=\\^\\d))(this|super|arguments)\\b"
         },
         {
           "name": "variable.other.constant.noshift",
-          "match": "\\b[A-Z][A-Z0-9_]{2,}\\b"
+          "match": "(?:\\b|(?<=\\^\\d))[A-Z][A-Z0-9_]{2,}\\b"
         },
         {
           "name": "entity.name.type.noshift",
-          "match": "\\b[A-Z][a-zA-Z0-9_$]*\\b"
+          "match": "(?:\\b|(?<=\\^\\d))[A-Z][a-zA-Z0-9_$]*\\b"
         },
         {
           "name": "variable.other.noshift",
-          "match": "\\b[a-zA-Z_$][a-zA-Z0-9_$]*\\b"
+          "match": "(?:\\b|(?<=\\^\\d))[a-zA-Z_$][a-zA-Z0-9_$]*\\b"
         }
       ]
     }
