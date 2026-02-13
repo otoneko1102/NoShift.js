@@ -4,7 +4,7 @@
 
 [![npm](https://img.shields.io/npm/v/noshift.js)](https://www.npmjs.com/package/noshift.js)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![en](https://img.shields.io/badge/lang-English-blue)](README.md)
+[![en](https://img.shields.io/badge/lang-English_version-blue)](README.md)
 
 ---
 

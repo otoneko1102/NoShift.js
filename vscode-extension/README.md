@@ -3,7 +3,7 @@
 > Syntax highlighting, auto-complete, and file icons for `.nsjs` files
 
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![ja](https://img.shields.io/badge/lang-日本語-red)](README-ja.md)
+[![ja](https://img.shields.io/badge/lang-日本語_バージョン-red)](README-ja.md)
 
 ---
 
