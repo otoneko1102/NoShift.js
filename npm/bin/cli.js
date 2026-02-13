@@ -16,7 +16,7 @@ const program = new Command();
 program
   .name("nsc")
   .description("NoShift.js compiler")
-  .version(pkg.version)
+  .version(pkg.version, '-v, --version', 'output the version number')
   .option("-w, --watch", "Watch for file changes and recompile")
   .option("--init", "Create a nsjsconfig.json in the current directory")
   .option("--clean", "Delete the output directory (outDir)")
