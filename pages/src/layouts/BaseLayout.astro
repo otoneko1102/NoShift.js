@@ -1,0 +1,74 @@
+---
+import type { Lang, TranslationKey } from "../i18n/translations";
+import { t } from "../i18n/translations";
+
+interface Props {
+  lang: Lang;
+  title?: string;
+  description?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+}
+
+const { lang, title, description, ogTitle, ogDescription } = Astro.props;
+
+const pageTitle = title ?? t(lang, "site.title");
+const pageDesc = description ?? t(lang, "site.description");
+const pageOgTitle = ogTitle ?? t(lang, "site.ogTitle");
+const pageOgDesc = ogDescription ?? t(lang, "site.ogDescription");
+const siteUrl = "https://noshift.js.org";
+const ogImage = `${siteUrl}/img/icon.png`;
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDesc} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageOgTitle} />
+    <meta property="og:description" content={pageOgDesc} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:site_name" content="NoShift.js" />
+    <meta property="og:locale" content={lang === "ja" ? "ja_JP" : "en_US"} />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageOgTitle} />
+    <meta name="twitter:description" content={pageOgDesc} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- i18n alternates -->
+    <link
+      rel="alternate"
+      hreflang="en"
+      href={`${siteUrl}/en${Astro.url.pathname.replace(/^\/(en|ja)/, "")}`}
+    />
+    <link
+      rel="alternate"
+      hreflang="ja"
+      href={`${siteUrl}/ja${Astro.url.pathname.replace(/^\/(en|ja)/, "")}`}
+    />
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href={`${siteUrl}/en${Astro.url.pathname.replace(/^\/(en|ja)/, "")}`}
+    />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

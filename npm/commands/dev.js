@@ -29,12 +29,16 @@ async function findNsjsFiles(dir) {
 
 async function compileFile(file, rootDir, outDir, cwd) {
   const relative = path.relative(rootDir, file).replace(/\\/g, "/");
-  const destPath = path.join(outDir, path.relative(rootDir, file)).replace(/\.nsjs$/, ".js");
+  const destPath = path
+    .join(outDir, path.relative(rootDir, file))
+    .replace(/\.nsjs$/, ".js");
   const code = await fs.readFile(file, "utf-8");
   const js = convert(code);
   await fs.mkdir(path.dirname(destPath), { recursive: true });
   await fs.writeFile(destPath, js, "utf-8");
-  console.log(`[${timestamp()}] ${relative} → ${path.relative(cwd, destPath).replace(/\\/g, "/")}`);
+  console.log(
+    `[${timestamp()}] ${relative} → ${path.relative(cwd, destPath).replace(/\\/g, "/")}`,
+  );
 }
 
 export default async function dev() {
@@ -54,7 +58,9 @@ export default async function dev() {
   // 初回フルコンパイル
   const files = await findNsjsFiles(rootDir);
   if (files === null) {
-    console.error(`error NS0: rootDir '${config.compilerOptions.rootDir}' not found.`);
+    console.error(
+      `error NS0: rootDir '${config.compilerOptions.rootDir}' not found.`,
+    );
     process.exit(1);
   }
 
@@ -71,7 +77,9 @@ export default async function dev() {
     }
   }
 
-  console.log(`[${timestamp()}] Watching for file changes in '${config.compilerOptions.rootDir}'...\n`);
+  console.log(
+    `[${timestamp()}] Watching for file changes in '${config.compilerOptions.rootDir}'...\n`,
+  );
 
   // デバウンス用マップ (ファイルパス → タイマーID)
   const debounceMap = new Map();
@@ -97,10 +105,12 @@ export default async function dev() {
           if (e.code === "ENOENT") {
             // ファイルが削除された場合はスキップ
           } else {
-            console.error(`[${timestamp()}] error: ${filename.replace(/\\/g, "/")}: ${e.message}`);
+            console.error(
+              `[${timestamp()}] error: ${filename.replace(/\\/g, "/")}: ${e.message}`,
+            );
           }
         }
-      }, DEBOUNCE_MS)
+      }, DEBOUNCE_MS),
     );
   });
 

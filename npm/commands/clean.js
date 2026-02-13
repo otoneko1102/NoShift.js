@@ -18,7 +18,9 @@ export default async function clean() {
   try {
     await access(outDir);
   } catch {
-    console.log(`Nothing to clean ('${config.compilerOptions.outDir}' does not exist).`);
+    console.log(
+      `Nothing to clean ('${config.compilerOptions.outDir}' does not exist).`,
+    );
     return;
   }
 

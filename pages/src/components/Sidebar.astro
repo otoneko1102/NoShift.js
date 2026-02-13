@@ -1,0 +1,118 @@
+---
+import { Icon } from "astro-icon/components";
+import type { Lang } from "../i18n/translations";
+import { t } from "../i18n/translations";
+
+interface Props {
+  lang: Lang;
+  currentPath: string;
+}
+
+const { lang, currentPath } = Astro.props;
+
+const navItems = [
+  {
+    key: "nav.home" as const,
+    path: "/",
+    icon: "material-symbols:home-outline",
+  },
+  {
+    key: "nav.gettingStarted" as const,
+    path: `/${lang}/getting-started/`,
+    icon: "material-symbols:rocket-launch-outline",
+  },
+  {
+    key: "nav.syntax" as const,
+    path: `/${lang}/syntax/`,
+    icon: "material-symbols:code",
+  },
+  {
+    key: "nav.cli" as const,
+    path: `/${lang}/cli/`,
+    icon: "material-symbols:terminal",
+  },
+  {
+    key: "nav.vscode" as const,
+    path: `/${lang}/vscode/`,
+    icon: "material-symbols:extension-outline",
+  },
+];
+---
+
+<aside class="sidebar" id="sidebar">
+  <a href="/" class="sidebar-header">
+    <img src="/favicon.svg" alt="NoShift.js" class="sidebar-logo" />
+    <span class="sidebar-title">NoShift.js</span>
+  </a>
+
+  <nav class="sidebar-nav">
+    <ul>
+      {
+        navItems.map((item) => (
+          <li>
+            <a
+              href={item.path}
+              class:list={[{ active: currentPath === item.path }]}
+            >
+              <Icon name={item.icon} class="nav-icon" />
+              {t(lang, item.key)}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="sidebar-external">
+      <ul>
+        <li>
+          <a
+            href="https://github.com/otoneko1102/NoShift.js"
+            target="_blank"
+            rel="noopener"
+          >
+            <Icon name="simple-icons:github" class="nav-icon" />
+            GitHub
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://www.npmjs.com/package/noshift.js"
+            target="_blank"
+            rel="noopener"
+          >
+            <Icon name="simple-icons:npm" class="nav-icon" />
+            npm
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="sidebar-footer">
+    <div class="lang-switcher">
+      {
+        currentPath === "/" ? (
+          <>
+            <span class="lang-btn active">EN</span>
+            <span class="lang-btn">JA</span>
+          </>
+        ) : (
+          <>
+            <a
+              class={lang === "en" ? "lang-btn active" : "lang-btn"}
+              href={`/en/` + currentPath.split("/").slice(2).join("/")}
+            >
+              EN
+            </a>
+            <a
+              class={lang === "ja" ? "lang-btn active" : "lang-btn"}
+              href={`/ja/` + currentPath.split("/").slice(2).join("/")}
+            >
+              JA
+            </a>
+          </>
+        )
+      }
+    </div>
+  </div>
+</aside>

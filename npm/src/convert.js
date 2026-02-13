@@ -49,7 +49,7 @@ function convertNsjsToJs(nsjsCode) {
 
   // マッピングキーは長いものからマッチさせる
   const sortedNsKeys = Object.keys(noShiftMap).sort(
-    (a, b) => b.length - a.length
+    (a, b) => b.length - a.length,
   );
 
   /**
@@ -352,8 +352,8 @@ function convertNsjsToJs(nsjsCode) {
   if (stateStack.length > 0) {
     console.warn(
       `Warning: Unmatched literal/templating states. Final state: ${currentState}, Remaining stack: ${stateStack.join(
-        ", "
-      )}`
+        ", ",
+      )}`,
     );
   }
   return jsCode;

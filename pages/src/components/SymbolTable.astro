@@ -1,0 +1,37 @@
+---
+interface SymbolPair {
+  shifted: string;
+  noshift: string;
+}
+
+interface Props {
+  headerShifted: string;
+  headerNoshift: string;
+  symbols: SymbolPair[];
+}
+
+const { headerShifted, headerNoshift, symbols } = Astro.props;
+---
+
+<table class="symbol-table">
+  <thead>
+    <tr>
+      <th>{headerShifted}</th>
+      <th>{headerNoshift}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {
+      symbols.map((s) => (
+        <tr>
+          <td>
+            <code>{s.shifted}</code>
+          </td>
+          <td>
+            <code>{s.noshift}</code>
+          </td>
+        </tr>
+      ))
+    }
+  </tbody>
+</table>

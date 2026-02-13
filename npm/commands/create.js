@@ -22,18 +22,36 @@ export default async function create(projectNameArg) {
   const t = (key) =>
     ({
       projectName: { en: "Project name:", ja: "プロジェクト名:" },
-      creatingDir: { en: "Creating project directory:", ja: "プロジェクトディレクトリを作成:" },
+      creatingDir: {
+        en: "Creating project directory:",
+        ja: "プロジェクトディレクトリを作成:",
+      },
       initializingNpm: { en: "Initializing npm...", ja: "npm を初期化中..." },
-      creatingConfig: { en: "Created nsjsconfig.json", ja: "nsjsconfig.json を作成しました" },
+      creatingConfig: {
+        en: "Created nsjsconfig.json",
+        ja: "nsjsconfig.json を作成しました",
+      },
       usePrettier: {
         en: "Format compiled output with Prettier?",
         ja: "コンパイル後のコードを Prettier で整形しますか?",
       },
-      installingPrettier: { en: "Installing Prettier...", ja: "Prettier をインストール中..." },
-      installingNoshift: { en: "Installing noshift.js...", ja: "noshift.js をインストール中..." },
-      success: { en: "Project created successfully!", ja: "プロジェクトの作成が完了しました!" },
-      nextSteps: { en: "Next: cd {name} && nsc compile", ja: "次のステップ: cd {name} && nsc compile" },
-    }[key][lang]);
+      installingPrettier: {
+        en: "Installing Prettier...",
+        ja: "Prettier をインストール中...",
+      },
+      installingNoshift: {
+        en: "Installing noshift.js...",
+        ja: "noshift.js をインストール中...",
+      },
+      success: {
+        en: "Project created successfully!",
+        ja: "プロジェクトの作成が完了しました!",
+      },
+      nextSteps: {
+        en: "Next: cd {name} && nsc compile",
+        ja: "次のステップ: cd {name} && nsc compile",
+      },
+    })[key][lang];
 
   // プロジェクト名
   let projectName = projectNameArg;
@@ -74,7 +92,10 @@ export default async function create(projectNameArg) {
       outDir: "build",
     },
   };
-  await fs.writeFile("nsjsconfig.json", JSON.stringify(nsjsconfig, null, 2) + "\n");
+  await fs.writeFile(
+    "nsjsconfig.json",
+    JSON.stringify(nsjsconfig, null, 2) + "\n",
+  );
   console.log(t("creatingConfig"));
 
   // Prettier
@@ -93,7 +114,11 @@ export default async function create(projectNameArg) {
     await fs.writeFile(".prettierignore", "build/\nnode_modules/\n");
     await fs.writeFile(
       ".prettierrc",
-      JSON.stringify({ semi: true, singleQuote: false, trailingComma: "es5" }, null, 2) + "\n"
+      JSON.stringify(
+        { semi: true, singleQuote: false, trailingComma: "es5" },
+        null,
+        2,
+      ) + "\n",
     );
   }
 
@@ -103,7 +128,7 @@ export default async function create(projectNameArg) {
 
   // src/index.nsjs
   await fs.mkdir("src", { recursive: true });
-  await fs.writeFile("src/index.nsjs", 'console.log^8^2Hello, World!^2^9;\n');
+  await fs.writeFile("src/index.nsjs", "console.log^8^2Hello, World!^2^9;\n");
 
   // README.md
   const readme =

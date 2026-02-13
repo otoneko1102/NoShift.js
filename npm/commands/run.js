@@ -32,7 +32,12 @@ export default async function run(file) {
       });
       child.on("close", (code) => {
         if (code === 0) resolve();
-        else reject(Object.assign(new Error(`Process exited with code ${code}`), { code }));
+        else
+          reject(
+            Object.assign(new Error(`Process exited with code ${code}`), {
+              code,
+            }),
+          );
       });
       child.on("error", reject);
     });

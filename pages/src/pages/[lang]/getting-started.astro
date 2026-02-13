@@ -1,0 +1,57 @@
+---
+import DocsLayout from "../../layouts/DocsLayout.astro";
+import { t, type Lang } from "../../i18n/translations";
+
+export function getStaticPaths() {
+  return [{ params: { lang: "en" } }, { params: { lang: "ja" } }];
+}
+
+const { lang } = Astro.params as { lang: Lang };
+---
+
+<DocsLayout
+  lang={lang}
+  title={t(lang, "gs.title") + " — NoShift.js"}
+  currentPath={`/${lang}/getting-started/`}
+  prev={{ href: "/", title: t(lang, "nav.home") }}
+  next={{ href: `/${lang}/syntax/`, title: t(lang, "nav.syntax") }}
+>
+  <h1>{t(lang, "gs.title")}</h1>
+
+  <h2>{t(lang, "gs.installTitle")}</h2>
+  <p set:html={t(lang, "gs.installDesc")} />
+  <pre><code>npm install -g noshift.js@latest</code></pre>
+
+  <h2>{t(lang, "gs.createTitle")}</h2>
+  <p set:html={t(lang, "gs.createDesc")} />
+  <pre><code>nsc create</code></pre>
+  <div class="callout">
+    <p set:html={t(lang, "gs.createNote")} />
+  </div>
+
+  <h2>{t(lang, "gs.configTitle")}</h2>
+  <p set:html={t(lang, "gs.configDesc")} />
+  <pre><code>{`{
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "build"
+  }
+}`}</code></pre>
+  <ul>
+    <li>
+      <strong>rootDir</strong> — <span set:html={t(lang, "gs.configRootDir")} />
+    </li>
+    <li>
+      <strong>outDir</strong> — <span set:html={t(lang, "gs.configOutDir")} />
+    </li>
+  </ul>
+
+  <h2>{t(lang, "gs.compileTitle")}</h2>
+  <p set:html={t(lang, "gs.compileDesc")} />
+  <pre><code>nsc</code></pre>
+  <p set:html={t(lang, "gs.runDesc")} />
+  <pre><code>nsc run src/index.nsjs</code></pre>
+
+  <h2>{t(lang, "gs.fileExt")}</h2>
+  <p set:html={t(lang, "gs.fileExtDesc")} />
+</DocsLayout>

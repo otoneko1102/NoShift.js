@@ -1,0 +1,66 @@
+---
+import DocsLayout from "../../layouts/DocsLayout.astro";
+import SymbolTable from "../../components/SymbolTable.astro";
+import { t, type Lang } from "../../i18n/translations";
+import { symbolMap } from "../../data/symbols";
+
+export function getStaticPaths() {
+  return [{ params: { lang: "en" } }, { params: { lang: "ja" } }];
+}
+
+const { lang } = Astro.params as { lang: Lang };
+const half = Math.ceil(symbolMap.length / 2);
+const leftSymbols = symbolMap.slice(0, half);
+const rightSymbols = symbolMap.slice(half);
+
+const bt = "`";
+const escapeExample = `^2^5^2 --> "%"\n^7^5^7 --> '%'\n^@^5^@ --> ${bt}%${bt}`;
+const templateExample = `^@^5^4^[^2Hello World!^2^]^@ --> ${bt}%\${"Hello World!"}${bt}`;
+const templateExprLabel =
+  lang === "ja" ? "テンプレート式" : "Template expression";
+---
+
+<DocsLayout
+  lang={lang}
+  title={t(lang, "syntax.title") + " — NoShift.js"}
+  currentPath={`/${lang}/syntax/`}
+  prev={{
+    href: `/${lang}/getting-started/`,
+    title: t(lang, "nav.gettingStarted"),
+  }}
+  next={{ href: `/${lang}/cli/`, title: t(lang, "nav.cli") }}
+>
+  <h1>{t(lang, "syntax.title")}</h1>
+
+  <h2>{t(lang, "syntax.introTitle")}</h2>
+  <p set:html={t(lang, "syntax.introDesc")} />
+
+  <h2>{t(lang, "syntax.tableTitle")}</h2>
+  <div class="symbol-grid">
+    <SymbolTable
+      headerShifted={t(lang, "syntax.tableShifted")}
+      headerNoshift={t(lang, "syntax.tableNoshift")}
+      symbols={leftSymbols}
+    />
+    <SymbolTable
+      headerShifted={t(lang, "syntax.tableShifted")}
+      headerNoshift={t(lang, "syntax.tableNoshift")}
+      symbols={rightSymbols}
+    />
+  </div>
+  <p>{templateExprLabel}: <code>^4^[</code> → <code>{"${"}</code></p>
+
+  <h2>{t(lang, "syntax.escapeTitle")}</h2>
+  <p set:html={t(lang, "syntax.escapeDesc")} />
+  <pre><code>{escapeExample}</code></pre>
+
+  <h2>{t(lang, "syntax.templateTitle")}</h2>
+  <p set:html={t(lang, "syntax.templateDesc")} />
+  <pre><code>{templateExample}</code></pre>
+
+  <h2>{t(lang, "syntax.helloTitle")}</h2>
+  <p>{t(lang, "syntax.helloInput")}</p>
+  <pre><code>console.log^8^2Hello World!^2^9;</code></pre>
+  <p>{t(lang, "syntax.helloOutput")}</p>
+  <pre><code>console.log("Hello World!");</code></pre>
+</DocsLayout>

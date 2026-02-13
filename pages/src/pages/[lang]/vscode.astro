@@ -1,0 +1,44 @@
+---
+import DocsLayout from "../../layouts/DocsLayout.astro";
+import { t, type Lang } from "../../i18n/translations";
+
+export function getStaticPaths() {
+  return [{ params: { lang: "en" } }, { params: { lang: "ja" } }];
+}
+
+const { lang } = Astro.params as { lang: Lang };
+---
+
+<DocsLayout
+  lang={lang}
+  title={t(lang, "vscode.title") + " — NoShift.js"}
+  currentPath={`/${lang}/vscode/`}
+  prev={{ href: `/${lang}/cli/`, title: t(lang, "nav.cli") }}
+>
+  <h1>{t(lang, "vscode.title")}</h1>
+  <p set:html={t(lang, "vscode.introDesc")} />
+
+  <h2>{t(lang, "vscode.installTitle")}</h2>
+  <p set:html={t(lang, "vscode.installDesc")} />
+  <pre><code>ext install otoneko1102.noshift-vscode</code></pre>
+  <p>
+    <a
+      href="https://marketplace.visualstudio.com/items?itemName=otoneko1102.noshift-vscode"
+      target="_blank"
+      rel="noopener"
+    >
+      {t(lang, "vscode.installLink")} →
+    </a>
+  </p>
+
+  <h2>{t(lang, "vscode.featuresTitle")}</h2>
+  <ul>
+    <li set:html={t(lang, "vscode.feature1")} />
+    <li set:html={t(lang, "vscode.feature2")} />
+    <li set:html={t(lang, "vscode.feature3")} />
+    <li set:html={t(lang, "vscode.feature4")} />
+  </ul>
+
+  <h2>{t(lang, "vscode.idTitle")}</h2>
+  <pre><code>otoneko1102.noshift-vscode</code></pre>
+</DocsLayout>

@@ -41,7 +41,9 @@ export default async function compile() {
   const files = await findNsjsFiles(rootDir);
 
   if (files === null) {
-    console.error(`error NS0: rootDir '${config.compilerOptions.rootDir}' not found.`);
+    console.error(
+      `error NS0: rootDir '${config.compilerOptions.rootDir}' not found.`,
+    );
     process.exit(1);
   }
 
@@ -66,10 +68,14 @@ export default async function compile() {
       await fs.mkdir(path.dirname(destPath), { recursive: true });
       await fs.writeFile(destPath, js, "utf-8");
 
-      console.log(`  ${relative.replace(/\\/g, "/")} → ${path.relative(cwd, destPath).replace(/\\/g, "/")}`);
+      console.log(
+        `  ${relative.replace(/\\/g, "/")} → ${path.relative(cwd, destPath).replace(/\\/g, "/")}`,
+      );
       compiled++;
     } catch (e) {
-      console.error(`  error NS1: ${relative.replace(/\\/g, "/")}: ${e.message}`);
+      console.error(
+        `  error NS1: ${relative.replace(/\\/g, "/")}: ${e.message}`,
+      );
       errors++;
     }
   }

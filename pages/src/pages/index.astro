@@ -1,0 +1,303 @@
+---
+import { Icon } from "astro-icon/components";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Sidebar from "../components/Sidebar.astro";
+import { t, type Lang } from "../i18n/translations";
+import "../styles/global.css";
+
+const lang: Lang = "en";
+
+// Fetch npm package data at build time
+let version = "";
+let weeklyDownloads = "";
+let lastPublished = "";
+
+try {
+  const [pkgRes, dlRes] = await Promise.all([
+    fetch("https://registry.npmjs.org/noshift.js"),
+    fetch("https://api.npmjs.org/downloads/point/last-week/noshift.js"),
+  ]);
+  if (pkgRes.ok) {
+    const pkg = await pkgRes.json();
+    version = pkg["dist-tags"]?.latest ?? "";
+    const timeStr = pkg.time?.[version] ?? "";
+    if (timeStr) {
+      lastPublished = new Date(timeStr).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      });
+    }
+  }
+  if (dlRes.ok) {
+    const dl = await dlRes.json();
+    const count = dl.downloads ?? 0;
+    weeklyDownloads = count.toLocaleString("en-US");
+  }
+} catch (_) {
+  /* fallback: leave empty */
+}
+---
+
+<BaseLayout lang={lang} title="NoShift.js — Documentation">
+  <div class="layout">
+    <Sidebar lang={lang} currentPath="/" />
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <div class="mobile-header">
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <Icon name="material-symbols:menu" />
+      </button>
+      <span class="mobile-title">NoShift.js</span>
+    </div>
+
+    <main class="main-content">
+      <div class="content">
+        <div class="hero">
+          <h1>NoShift.js</h1>
+          <p class="tagline" id="tagline">{t("en", "home.tagline")}</p>
+          <p
+            class="description"
+            id="description"
+            set:html={t("en", "home.description")}
+          />
+
+          <div class="hero-buttons">
+            <a
+              href="/en/getting-started/"
+              class="btn btn-primary"
+              id="btn-get-started"
+            >
+              {t("en", "home.getStarted")} →
+            </a>
+            <a
+              href="https://github.com/otoneko1102/NoShift.js"
+              target="_blank"
+              rel="noopener"
+              class="btn btn-outline"
+            >
+              {t("en", "home.viewOnGithub")}
+            </a>
+          </div>
+        </div>
+
+        {/* Package Stats */}
+        {
+          version && (
+            <div class="pkg-stats">
+              <div class="stat-item">
+                <Icon name="material-symbols:tag" class="stat-icon" />
+                <span class="stat-label" id="stat-version-label">
+                  {t("en", "home.version")}
+                </span>
+                <span class="stat-value">{version}</span>
+              </div>
+              <div class="stat-item">
+                <Icon name="material-symbols:download" class="stat-icon" />
+                <span class="stat-label" id="stat-dl-label">
+                  {t("en", "home.weeklyDownloads")}
+                </span>
+                <span class="stat-value">{weeklyDownloads}</span>
+              </div>
+              {lastPublished && (
+                <div class="stat-item">
+                  <Icon
+                    name="material-symbols:calendar-month-outline"
+                    class="stat-icon"
+                  />
+                  <span class="stat-label" id="stat-pub-label">
+                    {t("en", "home.lastPublished")}
+                  </span>
+                  <span class="stat-value" id="stat-pub-value">
+                    {lastPublished}
+                  </span>
+                </div>
+              )}
+            </div>
+          )
+        }
+
+        {/* Install command */}
+        <div class="install-bar">
+          <span class="install-label" id="install-label"
+            >{t("en", "home.install")}</span
+          >
+          <div class="install-cmd" id="install-cmd">
+            <code>npm install noshift.js</code>
+            <button
+              class="copy-btn"
+              id="copy-btn"
+              aria-label="Copy"
+              data-copied={t("en", "home.copied")}
+            >
+              <Icon
+                name="material-symbols:content-copy-outline"
+                class="copy-icon"
+              />
+            </button>
+          </div>
+        </div>
+
+        {/* Links */}
+        <div class="link-cards">
+          <a
+            href="https://github.com/otoneko1102/NoShift.js"
+            target="_blank"
+            rel="noopener"
+            class="link-card"
+          >
+            <Icon name="simple-icons:github" class="link-card-icon" />
+            <div class="link-card-body">
+              <span class="link-card-title">GitHub</span>
+              <span class="link-card-url"
+                >github.com/otoneko1102/NoShift.js</span
+              >
+            </div>
+          </a>
+          <a
+            href="https://www.npmjs.com/package/noshift.js"
+            target="_blank"
+            rel="noopener"
+            class="link-card"
+          >
+            <Icon name="simple-icons:npm" class="link-card-icon" />
+            <div class="link-card-body">
+              <span class="link-card-title">npm</span>
+              <span class="link-card-url">npmjs.com/package/noshift.js</span>
+            </div>
+          </a>
+          <a
+            href="https://marketplace.visualstudio.com/items?itemName=otoneko.noshift-js"
+            target="_blank"
+            rel="noopener"
+            class="link-card"
+          >
+            <Icon name="simple-icons:visualstudiocode" class="link-card-icon" />
+            <div class="link-card-body">
+              <span class="link-card-title">VS Code Extension</span>
+              <span class="link-card-url">marketplace.visualstudio.com</span>
+            </div>
+          </a>
+        </div>
+
+        <div class="features">
+          <div class="feature-card">
+            <h3 id="feat1-title">{t("en", "home.feature1Title")}</h3>
+            <p id="feat1-desc" set:html={t("en", "home.feature1Desc")} />
+          </div>
+          <div class="feature-card">
+            <h3 id="feat2-title">{t("en", "home.feature2Title")}</h3>
+            <p id="feat2-desc" set:html={t("en", "home.feature2Desc")} />
+          </div>
+          <div class="feature-card">
+            <h3 id="feat3-title">{t("en", "home.feature3Title")}</h3>
+            <p id="feat3-desc" set:html={t("en", "home.feature3Desc")} />
+          </div>
+        </div>
+
+        <h2 id="example-title">{t("en", "home.quickExample")}</h2>
+
+        <pre><code>// src/index.nsjs
+const name ^- ^2NoShift.js^2;
+console.log^8^2Hello from ^2 ^; name ^; ^2!^2^9;</code></pre>
+
+        <p id="compiles-to">{t("en", "home.compilesTo")}</p>
+
+        <pre><code>const name = "NoShift.js";
+console.log("Hello from " + name + "!");</code></pre>
+      </div>
+      <footer class="footer">
+        <p>
+          MIT License &copy; {new Date().getFullYear()}
+          <a
+            href="https://github.com/otoneko1102"
+            target="_blank"
+            rel="noopener">otoneko.</a>
+        </p>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    const hamburger = document.getElementById("hamburger");
+    const sidebar = document.querySelector(".sidebar");
+    const overlay = document.getElementById("sidebar-overlay");
+    hamburger?.addEventListener("click", () => {
+      sidebar?.classList.toggle("open");
+      overlay?.classList.toggle("open");
+    });
+    overlay?.addEventListener("click", () => {
+      sidebar?.classList.remove("open");
+      overlay?.classList.remove("open");
+    });
+
+    // Copy button
+    const copyBtn = document.getElementById("copy-btn");
+    copyBtn?.addEventListener("click", () => {
+      navigator.clipboard.writeText("npm install noshift.js").then(() => {
+        copyBtn.classList.add("copied");
+        setTimeout(() => copyBtn.classList.remove("copied"), 2000);
+      });
+    });
+
+    // i18n: swap text based on browser language
+    const jaTexts: Record<string, string> = {
+      tagline: "Shift キーを押さずに JavaScript を書こう。",
+      description:
+        "Shift が必要な記号を <code>^</code> プレフィックスのシーケンスに置き換える Joke 言語です。<code>.nsjs</code> ファイルは <code>nsc</code> CLI で JavaScript にコンパイルされます。",
+      "btn-get-started": "はじめる →",
+      "feat1-title": "Shift 不要",
+      "feat1-desc":
+        "すべての Shift 記号は JIS 配列に基づく <code>^</code> + キーのシーケンスに置き換わります。",
+      "feat2-title": "即座にコンパイル",
+      "feat2-desc":
+        "<code>nsc</code> CLI が <code>.nsjs</code> ファイルをミリ秒で JavaScript にコンパイルします。",
+      "feat3-title": "VS Code 対応",
+      "feat3-desc":
+        "公式の VS Code 拡張機能でシンタックスハイライトと自動補完が利用可能。",
+      "example-title": "簡単な例",
+      "compiles-to": "コンパイル後:",
+      "install-label": "インストール",
+      "stat-version-label": "バージョン",
+      "stat-dl-label": "週間ダウンロード数",
+      "stat-pub-label": "最終公開日",
+    };
+
+    if (navigator.language.startsWith("ja")) {
+      for (const [id, text] of Object.entries(jaTexts)) {
+        const el = document.getElementById(id);
+        if (el) {
+          if (id.includes("desc") || id === "description") {
+            el.innerHTML = text;
+          } else {
+            el.textContent = text;
+          }
+        }
+      }
+      // Update getting-started link to JA
+      const gsBtn = document.getElementById(
+        "btn-get-started",
+      ) as HTMLAnchorElement | null;
+      if (gsBtn) gsBtn.href = "/ja/getting-started/";
+
+      // Update last published date to JA format
+      const pubVal = document.getElementById("stat-pub-value");
+      if (pubVal?.textContent) {
+        const d = new Date(pubVal.textContent);
+        if (!isNaN(d.getTime())) {
+          pubVal.textContent = d.toLocaleDateString("ja-JP", {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+          });
+        }
+      }
+
+      // Update link card title
+      const vsTitle = document.querySelector(
+        ".link-card:last-child .link-card-title",
+      );
+      if (vsTitle) vsTitle.textContent = "VS Code 拡張機能";
+    }
+  </script>
+</BaseLayout>

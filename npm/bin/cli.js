@@ -6,7 +6,9 @@ import { fileURLToPath } from "url";
 import path from "path";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const pkg = JSON.parse(readFileSync(path.join(__dirname, "../package.json"), "utf-8"));
+const pkg = JSON.parse(
+  readFileSync(path.join(__dirname, "../package.json"), "utf-8"),
+);
 
 const program = new Command();
 
@@ -16,8 +18,8 @@ program
   .description("NoShift.js compiler")
   .version(pkg.version)
   .option("-w, --watch", "Watch for file changes and recompile")
-  .option("--init",      "Create a nsjsconfig.json in the current directory")
-  .option("--clean",     "Delete the output directory (outDir)")
+  .option("--init", "Create a nsjsconfig.json in the current directory")
+  .option("--clean", "Delete the output directory (outDir)")
   .action(async (options) => {
     if (options.init) {
       const { default: init } = await import("../commands/init.js");

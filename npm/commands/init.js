@@ -13,7 +13,9 @@ export default async function init() {
 
   try {
     await access(configPath);
-    console.error("error NS4: nsjsconfig.json already exists in the current directory.");
+    console.error(
+      "error NS4: nsjsconfig.json already exists in the current directory.",
+    );
     process.exit(1);
   } catch {
     // ファイルが存在しないのが正常
