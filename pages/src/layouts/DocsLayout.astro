@@ -4,6 +4,7 @@ import BaseLayout from "./BaseLayout.astro";
 import Sidebar from "../components/Sidebar.astro";
 import PageNav from "../components/PageNav.astro";
 import type { Lang } from "../i18n/translations";
+import { links } from "../config/links";
 import "../styles/global.css";
 
 interface Props {
@@ -39,7 +40,7 @@ const { lang, title, description, currentPath, prev, next } = Astro.props;
         <p>
           MIT License &copy; {new Date().getFullYear()}
           <a
-            href="https://github.com/otoneko1102"
+            href={links.githubAuthor}
             target="_blank"
             rel="noopener">otoneko.</a
           >

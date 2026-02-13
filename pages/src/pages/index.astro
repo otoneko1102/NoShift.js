@@ -3,19 +3,20 @@ import { Icon } from "astro-icon/components";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Sidebar from "../components/Sidebar.astro";
 import { t, type Lang } from "../i18n/translations";
+import { links } from "../config/links";
 import "../styles/global.css";
 
 const lang: Lang = "en";
 
 // Fetch npm package data at build time
 let version = "";
-let weeklyDownloads = "";
+let monthlyDownloads = "";
 let lastPublished = "";
 
 try {
   const [pkgRes, dlRes] = await Promise.all([
     fetch("https://registry.npmjs.org/noshift.js"),
-    fetch("https://api.npmjs.org/downloads/point/last-week/noshift.js"),
+    fetch("https://api.npmjs.org/downloads/point/last-month/noshift.js"),
   ]);
   if (pkgRes.ok) {
     const pkg = await pkgRes.json();
@@ -32,7 +33,7 @@ try {
   if (dlRes.ok) {
     const dl = await dlRes.json();
     const count = dl.downloads ?? 0;
-    weeklyDownloads = count.toLocaleString("en-US");
+    monthlyDownloads = count.toLocaleString("en-US");
   }
 } catch (_) {
   /* fallback: leave empty */
@@ -52,7 +53,7 @@ try {
     </div>
 
     <main class="main-content">
-      <div class="content">
+      <div class="content home-content">
         <div class="hero">
           <h1>NoShift.js</h1>
           <p class="tagline" id="tagline">{t("en", "home.tagline")}</p>
@@ -71,7 +72,7 @@ try {
               {t("en", "home.getStarted")} →
             </a>
             <a
-              href="https://github.com/otoneko1102/NoShift.js"
+              href={links.github}
               target="_blank"
               rel="noopener"
               class="btn btn-outline"
@@ -95,9 +96,9 @@ try {
               <div class="stat-item">
                 <Icon name="material-symbols:download" class="stat-icon" />
                 <span class="stat-label" id="stat-dl-label">
-                  {t("en", "home.weeklyDownloads")}
+                  {t("en", "home.monthlyDownloads")}
                 </span>
-                <span class="stat-value">{weeklyDownloads}</span>
+                <span class="stat-value">{monthlyDownloads}</span>
               </div>
               {lastPublished && (
                 <div class="stat-item">
@@ -108,7 +109,7 @@ try {
                   <span class="stat-label" id="stat-pub-label">
                     {t("en", "home.lastPublished")}
                   </span>
-                  <span class="stat-value" id="stat-pub-value">
+                  <span class="stat-value" id="stat-pub-value" data-raw={lastPublished}>
                     {lastPublished}
                   </span>
                 </div>
@@ -123,7 +124,7 @@ try {
             >{t("en", "home.install")}</span
           >
           <div class="install-cmd" id="install-cmd">
-            <code>npm install noshift.js</code>
+            <code>{links.installCmd}</code>
             <button
               class="copy-btn"
               id="copy-btn"
@@ -141,7 +142,7 @@ try {
         {/* Links */}
         <div class="link-cards">
           <a
-            href="https://github.com/otoneko1102/NoShift.js"
+            href={links.github}
             target="_blank"
             rel="noopener"
             class="link-card"
@@ -155,7 +156,7 @@ try {
             </div>
           </a>
           <a
-            href="https://www.npmjs.com/package/noshift.js"
+            href={links.npm}
             target="_blank"
             rel="noopener"
             class="link-card"
@@ -167,14 +168,14 @@ try {
             </div>
           </a>
           <a
-            href="https://marketplace.visualstudio.com/items?itemName=otoneko.noshift-js"
+            href={links.vscodeExtension}
             target="_blank"
             rel="noopener"
             class="link-card"
           >
             <Icon name="simple-icons:visualstudiocode" class="link-card-icon" />
             <div class="link-card-body">
-              <span class="link-card-title">VS Code Extension</span>
+              <span class="link-card-title" id="link-vscode-title">VS Code Extension</span>
               <span class="link-card-url">marketplace.visualstudio.com</span>
             </div>
           </a>
@@ -210,7 +211,7 @@ console.log("Hello from " + name + "!");</code></pre>
         <p>
           MIT License &copy; {new Date().getFullYear()}
           <a
-            href="https://github.com/otoneko1102"
+            href={links.githubAuthor}
             target="_blank"
             rel="noopener">otoneko.</a
           >
@@ -241,64 +242,111 @@ console.log("Hello from " + name + "!");</code></pre>
       });
     });
 
-    // i18n: swap text based on browser language
-    const jaTexts: Record<string, string> = {
-      tagline: "Shift キーを押さずに JavaScript を書こう。",
-      description:
-        "Shift が必要な記号を <code>^</code> プレフィックスのシーケンスに置き換える Joke 言語です。<code>.nsjs</code> ファイルは <code>nsc</code> CLI で JavaScript にコンパイルされます。",
-      "btn-get-started": "はじめる →",
-      "feat1-title": "Shift 不要",
-      "feat1-desc":
-        "すべての Shift 記号は JIS 配列に基づく <code>^</code> + キーのシーケンスに置き換わります。",
-      "feat2-title": "即座にコンパイル",
-      "feat2-desc":
-        "<code>nsc</code> CLI が <code>.nsjs</code> ファイルをミリ秒で JavaScript にコンパイルします。",
-      "feat3-title": "VS Code 対応",
-      "feat3-desc":
-        "公式の VS Code 拡張機能でシンタックスハイライトと自動補完が利用可能。",
-      "example-title": "簡単な例",
-      "compiles-to": "コンパイル後:",
-      "install-label": "インストール",
-      "stat-version-label": "バージョン",
-      "stat-dl-label": "週間ダウンロード数",
-      "stat-pub-label": "最終公開日",
+    // i18n texts
+    const i18n: Record<string, Record<string, string>> = {
+      en: {
+        tagline: "Write JavaScript without pressing the Shift key.",
+        description:
+          'A joke language that replaces every shift-required symbol with a <code>^</code>-prefixed sequence. <code>.nsjs</code> files compile directly to plain JavaScript via the <code>nsc</code> CLI.',
+        "btn-get-started": "Get Started →",
+        "feat1-title": "No Shift Required",
+        "feat1-desc":
+          'All shifted symbols are replaced by simple <code>^</code> + key sequences based on a JIS keyboard layout.',
+        "feat2-title": "Instant Compilation",
+        "feat2-desc":
+          'The <code>nsc</code> CLI compiles <code>.nsjs</code> files to standard JavaScript in milliseconds.',
+        "feat3-title": "VS Code Support",
+        "feat3-desc":
+          'Syntax highlighting and auto-complete via the official VS Code extension.',
+        "example-title": "Quick Example",
+        "compiles-to": "Compiles to:",
+        "install-label": "Install",
+        "stat-version-label": "Version",
+        "stat-dl-label": "Monthly Downloads",
+        "stat-pub-label": "Last Published",
+        "link-vscode-title": "VS Code Extension",
+        gsHref: "/en/getting-started/",
+      },
+      ja: {
+        tagline: "Shift キーを押さずに JavaScript を書こう。",
+        description:
+          'Shift が必要な記号を <code>^</code> プレフィックスのシーケンスに置き換える Joke 言語です。<code>.nsjs</code> ファイルは <code>nsc</code> CLI で JavaScript にコンパイルされます。',
+        "btn-get-started": "はじめる →",
+        "feat1-title": "Shift 不要",
+        "feat1-desc":
+          'すべての Shift 記号は JIS 配列に基づく <code>^</code> + キーのシーケンスに置き換わります。',
+        "feat2-title": "即座にコンパイル",
+        "feat2-desc":
+          '<code>nsc</code> CLI が <code>.nsjs</code> ファイルをミリ秒で JavaScript にコンパイルします。',
+        "feat3-title": "VS Code 対応",
+        "feat3-desc":
+          '公式の VS Code 拡張機能でシンタックスハイライトと自動補完が利用可能。',
+        "example-title": "簡単な例",
+        "compiles-to": "コンパイル後:",
+        "install-label": "インストール",
+        "stat-version-label": "バージョン",
+        "stat-dl-label": "月間ダウンロード数",
+        "stat-pub-label": "最終公開日",
+        "link-vscode-title": "VS Code 拡張機能",
+        gsHref: "/ja/getting-started/",
+      },
     };
 
-    if (navigator.language.startsWith("ja")) {
-      for (const [id, text] of Object.entries(jaTexts)) {
+    function applyLang(lang: string) {
+      const texts = i18n[lang];
+      if (!texts) return;
+
+      // Update text content
+      for (const [id, text] of Object.entries(texts)) {
+        if (id === "gsHref") continue;
         const el = document.getElementById(id);
-        if (el) {
-          if (id.includes("desc") || id === "description") {
-            el.innerHTML = text;
-          } else {
-            el.textContent = text;
-          }
+        if (!el) continue;
+        if (id.includes("desc") || id === "description") {
+          el.innerHTML = text;
+        } else {
+          el.textContent = text;
         }
       }
-      // Update getting-started link to JA
-      const gsBtn = document.getElementById(
-        "btn-get-started",
-      ) as HTMLAnchorElement | null;
-      if (gsBtn) gsBtn.href = "/ja/getting-started/";
 
-      // Update last published date to JA format
+      // Update getting-started link
+      const gsBtn = document.getElementById("btn-get-started") as HTMLAnchorElement | null;
+      if (gsBtn && texts.gsHref) gsBtn.href = texts.gsHref;
+
+      // Update last published date format
       const pubVal = document.getElementById("stat-pub-value");
-      if (pubVal?.textContent) {
-        const d = new Date(pubVal.textContent);
+      if (pubVal?.dataset.raw) {
+        const d = new Date(pubVal.dataset.raw);
         if (!isNaN(d.getTime())) {
-          pubVal.textContent = d.toLocaleDateString("ja-JP", {
-            year: "numeric",
-            month: "short",
-            day: "numeric",
+          pubVal.textContent = d.toLocaleDateString(lang === "ja" ? "ja-JP" : "en-US", {
+            year: "numeric", month: "short", day: "numeric",
           });
         }
       }
 
-      // Update link card title
-      const vsTitle = document.querySelector(
-        ".link-card:last-child .link-card-title",
-      );
-      if (vsTitle) vsTitle.textContent = "VS Code 拡張機能";
+      // Update sidebar nav links to match language
+      document.querySelectorAll<HTMLAnchorElement>(".sidebar-nav a[href^='/en/'], .sidebar-nav a[href^='/ja/']").forEach((a) => {
+        a.href = a.href.replace(/\/(en|ja)\//, `/${lang}/`);
+      });
+
+      // Update lang switcher active state
+      document.querySelectorAll(".lang-btn").forEach((btn) => {
+        btn.classList.toggle("active", btn.textContent?.trim() === lang.toUpperCase());
+      });
+
+      document.documentElement.lang = lang;
+    }
+
+    // Language toggle via sidebar lang-switcher
+    document.querySelectorAll(".sidebar-footer .lang-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const lang = btn.textContent?.trim().toLowerCase();
+        if (lang === "en" || lang === "ja") applyLang(lang);
+      });
+    });
+
+    // Auto-detect browser language on load
+    if (navigator.language.startsWith("ja")) {
+      applyLang("ja");
     }
   </script>
 </BaseLayout>

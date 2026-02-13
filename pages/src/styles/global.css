@@ -179,6 +179,7 @@ body {
   transition: all var(--transition);
   text-decoration: none;
   text-align: center;
+  user-select: none;
 }
 
 .lang-btn:hover {
@@ -201,9 +202,13 @@ body {
 }
 
 .content {
-  max-width: 800px;
+  max-width: 780px;
   margin: 0 auto;
   padding: 2.5rem 3rem 4rem;
+}
+
+.home-content {
+  max-width: 860px;
 }
 
 /* =====================
@@ -284,8 +289,26 @@ body {
     padding-top: var(--header-height);
   }
 
-  .content {
-    padding: 1.5rem 1.25rem 3rem;
+  .home-content {
+    max-width: 100%;
+  }
+
+  pre {
+    font-size: 0.8rem;
+    padding: 1rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.4rem;
+    margin-top: 2rem;
+  }
+
+  .page-nav {
+    flex-direction: column;
   }
 }
 
@@ -534,6 +557,7 @@ pre code {
 .install-bar {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 1rem;
   margin-bottom: 1.5rem;
 }
@@ -546,7 +570,6 @@ pre code {
 }
 
 .install-cmd {
-  flex: 1;
   display: flex;
   align-items: center;
   background: var(--bg-surface);
@@ -556,7 +579,7 @@ pre code {
   font-family: var(--font-mono);
   font-size: 0.9rem;
   color: var(--text-primary);
-  max-width: 400px;
+  min-width: 280px;
 }
 
 .install-cmd code {
@@ -755,13 +778,19 @@ pre code {
     font-size: 2.5rem;
   }
 
+  .hero .tagline {
+    font-size: 1.1rem;
+  }
+
   .pkg-stats {
-    gap: 1rem;
+    flex-direction: column;
+    gap: 0.75rem;
     padding: 0.75rem 1rem;
+    align-items: flex-start;
   }
 
   .stat-item {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
   }
 
   .install-bar {
@@ -770,11 +799,20 @@ pre code {
   }
 
   .install-cmd {
-    max-width: 100%;
+    min-width: 0;
+    width: 100%;
   }
 
   .link-cards {
     grid-template-columns: 1fr;
+  }
+
+  .content {
+    padding: 1.5rem 1.25rem 3rem;
+  }
+
+  .footer {
+    padding: 1.5rem 1.25rem;
   }
 }
 

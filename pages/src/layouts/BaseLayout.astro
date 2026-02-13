@@ -1,6 +1,7 @@
 ---
 import type { Lang, TranslationKey } from "../i18n/translations";
 import { t } from "../i18n/translations";
+import { links } from "../config/links";
 
 interface Props {
   lang: Lang;
@@ -16,7 +17,7 @@ const pageTitle = title ?? t(lang, "site.title");
 const pageDesc = description ?? t(lang, "site.description");
 const pageOgTitle = ogTitle ?? t(lang, "site.ogTitle");
 const pageOgDesc = ogDescription ?? t(lang, "site.ogDescription");
-const siteUrl = "https://noshift.js.org";
+const siteUrl = links.site;
 const ogImage = `${siteUrl}/img/icon.png`;
 const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
 ---

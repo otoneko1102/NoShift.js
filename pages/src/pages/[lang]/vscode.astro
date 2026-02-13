@@ -1,6 +1,7 @@
 ---
 import DocsLayout from "../../layouts/DocsLayout.astro";
 import { t, type Lang } from "../../i18n/translations";
+import { links } from "../../config/links";
 
 export function getStaticPaths() {
   return [{ params: { lang: "en" } }, { params: { lang: "ja" } }];
@@ -20,10 +21,10 @@ const { lang } = Astro.params as { lang: Lang };
 
   <h2>{t(lang, "vscode.installTitle")}</h2>
   <p set:html={t(lang, "vscode.installDesc")} />
-  <pre><code>ext install otoneko1102.noshift-vscode</code></pre>
+  <pre><code>ext install {links.extensionId}</code></pre>
   <p>
     <a
-      href="https://marketplace.visualstudio.com/items?itemName=otoneko1102.noshift-vscode"
+      href={links.vscodeExtension}
       target="_blank"
       rel="noopener"
     >
@@ -40,5 +41,5 @@ const { lang } = Astro.params as { lang: Lang };
   </ul>
 
   <h2>{t(lang, "vscode.idTitle")}</h2>
-  <pre><code>otoneko1102.noshift-vscode</code></pre>
+  <pre><code>{links.extensionId}</code></pre>
 </DocsLayout>

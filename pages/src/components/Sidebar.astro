@@ -2,6 +2,7 @@
 import { Icon } from "astro-icon/components";
 import type { Lang } from "../i18n/translations";
 import { t } from "../i18n/translations";
+import { links } from "../config/links";
 
 interface Props {
   lang: Lang;
@@ -66,7 +67,7 @@ const navItems = [
       <ul>
         <li>
           <a
-            href="https://github.com/otoneko1102/NoShift.js"
+            href={links.github}
             target="_blank"
             rel="noopener"
           >
@@ -76,12 +77,22 @@ const navItems = [
         </li>
         <li>
           <a
-            href="https://www.npmjs.com/package/noshift.js"
+            href={links.npm}
             target="_blank"
             rel="noopener"
           >
             <Icon name="simple-icons:npm" class="nav-icon" />
             npm
+          </a>
+        </li>
+        <li>
+          <a
+            href={links.vscodeExtension}
+            target="_blank"
+            rel="noopener"
+          >
+            <Icon name="simple-icons:visualstudiocode" class="nav-icon" />
+            VS Code
           </a>
         </li>
       </ul>
