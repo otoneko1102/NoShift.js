@@ -4,9 +4,11 @@ import { handleSigint } from "../src/signal-handler.js";
 import * as logger from "../src/logger.js";
 
 const DEFAULT_CONFIG = {
-  compilerOptions: {
-    rootDir: "src",
-    outDir: "dist",
+  compileroptions: {
+    rootdir: "src",
+    outdir: "dist",
+    warnuppercase: true,
+    capitalizeinstrings: true,
   },
 };
 
@@ -28,7 +30,11 @@ export default async function init() {
 
   await writeFile(configPath, JSON.stringify(DEFAULT_CONFIG, null, 2) + "\n");
   logger.success("Created nsjsconfig.json");
-  logger.dim(`  compilerOptions.rootDir : ${DEFAULT_CONFIG.compilerOptions.rootDir}`);
-  logger.dim(`  compilerOptions.outDir  : ${DEFAULT_CONFIG.compilerOptions.outDir}`);
+  logger.dim(
+    `  compileroptions.rootdir : ${DEFAULT_CONFIG.compileroptions.rootdir}`,
+  );
+  logger.dim(
+    `  compileroptions.outdir  : ${DEFAULT_CONFIG.compileroptions.outdir}`,
+  );
   console.log("");
 }

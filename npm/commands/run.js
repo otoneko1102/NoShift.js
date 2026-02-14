@@ -2,13 +2,26 @@ import { promises as fs } from "fs";
 import path from "path";
 import { spawn } from "child_process";
 import convert from "../src/convert.js";
+import { loadConfig } from "../src/config.js";
 import { handleSigint } from "../src/signal-handler.js";
 import * as logger from "../src/logger.js";
 
 export default async function run(file) {
   handleSigint();
 
-  const filePath = path.resolve(process.cwd(), file);
+  const cwd = process.cwd();
+  let config;
+  try {
+    config = await loadConfig(cwd);
+  } catch {
+    config = { compileroptions: {} };
+  }
+
+  const convertOptions = {
+    capitalizeInStrings: config.compileroptions.capitalizeinstrings !== false,
+  };
+
+  const filePath = path.resolve(cwd, file);
 
   let code;
   try {
@@ -18,7 +31,7 @@ export default async function run(file) {
     process.exit(1);
   }
 
-  const js = convert(code);
+  const js = convert(code, convertOptions);
 
   // ソースファイルと同じディレクトリに一時ファイルを作成する。
   // これにより、コンパイル後コード内の相対 import が正しく解決される。

@@ -1,6 +1,7 @@
 export const symbolMap = [
   { shifted: "!", noshift: "^1" },
   { shifted: '"', noshift: "^2" },
+  { shifted: "Capitalize", noshift: "^3", special: true },
   { shifted: "$", noshift: "^4" },
   { shifted: "%", noshift: "^5" },
   { shifted: "&", noshift: "^6" },

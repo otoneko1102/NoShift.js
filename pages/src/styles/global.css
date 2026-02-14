@@ -232,7 +232,9 @@ body {
 }
 
 @media (max-width: 900px) {
-  .page-nav a { max-width: 100%; }
+  .page-nav a {
+    max-width: 100%;
+  }
 }
 
 /* =====================

@@ -1,0 +1,77 @@
+---
+import DocsLayout from "../../layouts/DocsLayout.astro";
+import { t, type Lang } from "../../i18n/translations";
+
+export function getStaticPaths() {
+  return [{ params: { lang: "en" } }, { params: { lang: "ja" } }];
+}
+
+const { lang } = Astro.params as { lang: Lang };
+---
+
+<DocsLayout
+  lang={lang}
+  title={t(lang, "config.title") + " — NoShift.js"}
+  currentPath={`/${lang}/config/`}
+  prev={{ href: `/${lang}/cli/`, title: t(lang, "nav.cli") }}
+  next={{ href: `/${lang}/vscode/`, title: t(lang, "nav.vscode") }}
+>
+  <h1>{t(lang, "config.title")}</h1>
+  <p set:html={t(lang, "config.introDesc")} />
+
+  <h2>{t(lang, "config.fileTitle")}</h2>
+  <p set:html={t(lang, "config.fileDesc")} />
+  <pre><code>nsc init</code></pre>
+
+  <h2>{t(lang, "config.defaultTitle")}</h2>
+  <p set:html={t(lang, "config.defaultDesc")} />
+  <pre><code>{`{
+  "compileroptions": {
+    "rootdir": "src",
+    "outdir": "dist",
+    "warnuppercase": true,
+    "capitalizeinstrings": true
+  }
+}`}</code></pre>
+
+  <h2>{t(lang, "config.optionsTitle")}</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Option</th>
+        <th>Default</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>{t(lang, "config.rootdirLabel")}</code></td>
+        <td><code>"src"</code></td>
+        <td set:html={t(lang, "config.rootdirDesc")} />
+      </tr>
+      <tr>
+        <td><code>{t(lang, "config.outdirLabel")}</code></td>
+        <td><code>"dist"</code></td>
+        <td set:html={t(lang, "config.outdirDesc")} />
+      </tr>
+      <tr>
+        <td><code>{t(lang, "config.warnuppercaseLabel")}</code></td>
+        <td><code>true</code></td>
+        <td set:html={t(lang, "config.warnuppercaseDesc")} />
+      </tr>
+      <tr>
+        <td><code>{t(lang, "config.capitalizeinstringsLabel")}</code></td>
+        <td><code>true</code></td>
+        <td set:html={t(lang, "config.capitalizeinstringsDesc")} />
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>{t(lang, "config.disableCapitalizeTitle")}</h2>
+  <p set:html={t(lang, "config.disableCapitalizeDesc")} />
+  <pre><code>{`{
+  "compileroptions": {
+    "capitalizeinstrings": false
+  }
+}`}</code></pre>
+</DocsLayout>

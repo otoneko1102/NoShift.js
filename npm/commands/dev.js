@@ -29,13 +29,13 @@ async function findNsjsFiles(dir) {
   return files;
 }
 
-async function compileFile(file, rootDir, outDir, cwd) {
+async function compileFile(file, rootDir, outDir, cwd, convertOptions = {}) {
   const relative = path.relative(rootDir, file).replace(/\\/g, "/");
   const destPath = path
     .join(outDir, path.relative(rootDir, file))
     .replace(/\.nsjs$/, ".js");
   const code = await fs.readFile(file, "utf-8");
-  const js = convert(code);
+  const js = convert(code, convertOptions);
   await fs.mkdir(path.dirname(destPath), { recursive: true });
   await fs.writeFile(destPath, js, "utf-8");
   logger.dim(
@@ -54,15 +54,18 @@ export default async function dev() {
     process.exit(1);
   }
 
-  const rootDir = path.resolve(cwd, config.compilerOptions.rootDir);
-  const outDir = path.resolve(cwd, config.compilerOptions.outDir);
+  const rootDir = path.resolve(cwd, config.compileroptions.rootdir);
+  const outDir = path.resolve(cwd, config.compileroptions.outdir);
+  const convertOptions = {
+    capitalizeInStrings: config.compileroptions.capitalizeinstrings !== false,
+  };
 
   // 初回フルコンパイル
   const files = await findNsjsFiles(rootDir);
   if (files === null) {
     logger.errorCode(
       "NS0",
-      `rootDir '${config.compilerOptions.rootDir}' not found.`,
+      `rootdir '${config.compileroptions.rootdir}' not found.`,
     );
     process.exit(1);
   }
@@ -73,7 +76,7 @@ export default async function dev() {
 
   for (const file of files) {
     try {
-      await compileFile(file, rootDir, outDir, cwd);
+      await compileFile(file, rootDir, outDir, cwd, convertOptions);
     } catch (e) {
       const rel = path.relative(rootDir, file).replace(/\\/g, "/");
       logger.errorCode("NS1", `${rel}: ${e.message}`);
@@ -81,7 +84,7 @@ export default async function dev() {
   }
 
   logger.info(
-    `Watching for file changes in '${logger.highlight(config.compilerOptions.rootDir)}'... (Press Ctrl+C to stop)`,
+    `Watching for file changes in '${logger.highlight(config.compileroptions.rootdir)}'... (Press Ctrl+C to stop)`,
   );
   console.log("");
 
@@ -109,7 +112,7 @@ export default async function dev() {
         debounceMap.delete(filename);
         const absPath = path.join(rootDir, filename);
         try {
-          await compileFile(absPath, rootDir, outDir, cwd);
+          await compileFile(absPath, rootDir, outDir, cwd, convertOptions);
         } catch (e) {
           if (e.code === "ENOENT") {
             // ファイルが削除された場合はスキップ

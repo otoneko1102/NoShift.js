@@ -1,0 +1,125 @@
+---
+import DocsLayout from "../../layouts/DocsLayout.astro";
+import { t, type Lang } from "../../i18n/translations";
+
+export function getStaticPaths() {
+  return [{ params: { lang: "en" } }, { params: { lang: "ja" } }];
+}
+
+const { lang } = Astro.params as { lang: Lang };
+---
+
+<DocsLayout
+  lang={lang}
+  title={t(lang, "classes.title") + " — NoShift.js"}
+  currentPath={`/${lang}/classes/`}
+  prev={{ href: `/${lang}/syntax/`, title: t(lang, "nav.syntax") }}
+  next={{ href: `/${lang}/cli/`, title: t(lang, "nav.cli") }}
+>
+  <h1>{t(lang, "classes.title")}</h1>
+  <p set:html={t(lang, "classes.introDesc")} />
+
+  <h2>{t(lang, "classes.basicTitle")}</h2>
+  <p set:html={t(lang, "classes.basicDesc")} />
+  <pre><code>{`class ^3animal ^[
+  constructor^8name^9 ^[
+    this.name ^- name;
+  ^]
+
+  speak^8^9 ^[
+    console.log^8^@^4^[this.name^] speaks.^@^9;
+  ^]
+^]
+
+const dog ^- new ^3animal^8^2Dog^2^9;
+dog.speak^8^9;`}</code></pre>
+  <p>{lang === "ja" ? "コンパイル後:" : "Compiles to:"}</p>
+  <pre><code>{`class Animal {
+  constructor(name) {
+    this.name = name;
+  }
+
+  speak() {
+    console.log(\`\${this.name} speaks.\`);
+  }
+}
+
+const dog = new Animal("Dog");
+dog.speak();`}</code></pre>
+
+  <h2>{t(lang, "classes.inheritTitle")}</h2>
+  <p set:html={t(lang, "classes.inheritDesc")} />
+  <pre><code>{`class ^3dog extends ^3animal ^[
+  constructor^8name^9 ^[
+    super^8name^9;
+  ^]
+
+  bark^8^9 ^[
+    console.log^8^@^4^[this.name^] barks!^@^9;
+  ^]
+^]
+
+const d ^- new ^3dog^8^2Rex^2^9;
+d.bark^8^9;`}</code></pre>
+  <p>{lang === "ja" ? "コンパイル後:" : "Compiles to:"}</p>
+  <pre><code>{`class Dog extends Animal {
+  constructor(name) {
+    super(name);
+  }
+
+  bark() {
+    console.log(\`\${this.name} barks!\`);
+  }
+}
+
+const d = new Dog("Rex");
+d.bark();`}</code></pre>
+
+  <h2>{t(lang, "classes.methodTitle")}</h2>
+  <p set:html={t(lang, "classes.methodDesc")} />
+  <pre><code>{`class ^3counter ^[
+  ^;count ^- 0;
+
+  get^3count^8^9 ^[
+    return this.^;count;
+  ^]
+
+  set^3count^8value^9 ^[
+    this.^;count ^- value;
+  ^]
+^]`}</code></pre>
+  <p>{lang === "ja" ? "コンパイル後:" : "Compiles to:"}</p>
+  <pre><code>{`class Counter {
+  #count = 0;
+
+  getCount() {
+    return this.#count;
+  }
+
+  setCount(value) {
+    this.#count = value;
+  }
+}`}</code></pre>
+
+  <h2>{t(lang, "classes.staticTitle")}</h2>
+  <p set:html={t(lang, "classes.staticDesc")} />
+  <pre><code>{`class ^3math^3helper ^[
+  static ^3p^3i ^- 3.14159;
+
+  static circle^3area^8r^9 ^[
+    return ^3math^3helper.^3p^3i ^: r ^: r;
+  ^]
+^]
+
+console.log^8^3math^3helper.circle^3area^85^9^9;`}</code></pre>
+  <p>{lang === "ja" ? "コンパイル後:" : "Compiles to:"}</p>
+  <pre><code>{`class MathHelper {
+  static PI = 3.14159;
+
+  static circleArea(r) {
+    return MathHelper.PI * r * r;
+  }
+}
+
+console.log(MathHelper.circleArea(5));`}</code></pre>
+</DocsLayout>

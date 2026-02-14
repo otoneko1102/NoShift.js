@@ -22,7 +22,6 @@
         "id": "noshift",
         "aliases": ["NoShift.js", "noshift"],
         "extensions": [".nsjs"],
-        "filenames": ["nsjsconfig.json"],
         "configuration": "./language-configuration.json",
         "icon": {
           "light": "./icons/noshift-file-icon.svg",

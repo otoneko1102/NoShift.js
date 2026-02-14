@@ -28,7 +28,7 @@ const templateExprLabel =
     href: `/${lang}/getting-started/`,
     title: t(lang, "nav.gettingStarted"),
   }}
-  next={{ href: `/${lang}/cli/`, title: t(lang, "nav.cli") }}
+  next={{ href: `/${lang}/classes/`, title: t(lang, "nav.classes") }}
 >
   <h1>{t(lang, "syntax.title")}</h1>
 
@@ -57,6 +57,14 @@ const templateExprLabel =
     />
   </div>
   <p>{templateExprLabel}: <code>^4^[</code> → <code>{"${"}</code></p>
+
+  <h2>{t(lang, "syntax.capitalizeTitle")}</h2>
+  <p set:html={t(lang, "syntax.capitalizeDesc")} />
+  <pre><code>{`class ^3animal ^[\n  constructor^8name^9 ^[\n    this.name ^- name;\n  ^]\n^]\n\n// compiles to:\nclass Animal {\n  constructor(name) {\n    this.name = name;\n  }\n}`}</code></pre>
+
+  <h2>{t(lang, "syntax.commentTitle")}</h2>
+  <p set:html={t(lang, "syntax.commentDesc")} />
+  <pre><code>{`// line comment\n\n/^: block comment ^:/\n\n/^:\n  multi-line\n  block comment\n^:/\n\n// compiles to:\n// line comment\n\n/* block comment */\n\n/*\n  multi-line\n  block comment\n*/`}</code></pre>
 
   <h2>{t(lang, "syntax.escapeTitle")}</h2>
   <p set:html={t(lang, "syntax.escapeDesc")} />

@@ -1,4 +1,5 @@
-function convertNsjsToJs(nsjsCode) {
+function convertNsjsToJs(nsjsCode, options = {}) {
+  const capitalizeInStrings = options.capitalizeInStrings !== false;
   let jsCode = "";
   let i = 0;
   const len_ns = nsjsCode.length;
@@ -15,6 +16,8 @@ function convertNsjsToJs(nsjsCode) {
     IN_TEMPLATE_EXPRESSION: "IN_TEMPLATE_EXPRESSION", // ${ … } の中
     RAW_DQ_IN_EXPR: "RAW_DQ_IN_EXPR", // テンプレート式内の " … " の中 （NoShift 変換なし）
     RAW_SQ_IN_EXPR: "RAW_SQ_IN_EXPR", // テンプレート式内の ' … ' の中 （NoShift 変換なし）
+    IN_LINE_COMMENT: "IN_LINE_COMMENT", // // … の中
+    IN_BLOCK_COMMENT: "IN_BLOCK_COMMENT", // /^: … ^:/ の中
   };
 
   let currentState = STATE.NORMAL;
@@ -236,7 +239,11 @@ function convertNsjsToJs(nsjsCode) {
 
     // (A) IN_DQ_STRING 内 (" … ")
     if (currentState === STATE.IN_DQ_STRING) {
-      if (nsjsCode.startsWith("\\^2", i)) {
+      if (nsjsCode.startsWith("\\^3", i)) {
+        jsCode += "^3"; // "\^3" を文字列中のリテラル "^3" として出力
+        i += 3;
+        consumed = true;
+      } else if (nsjsCode.startsWith("\\^2", i)) {
         jsCode += "^2"; // "\^2" を文字列中の "^2" として出力
         i += 3;
         consumed = true;
@@ -248,7 +255,11 @@ function convertNsjsToJs(nsjsCode) {
     }
     // (B) IN_SQ_STRING 内 (' … ')
     else if (currentState === STATE.IN_SQ_STRING) {
-      if (nsjsCode.startsWith("\\^7", i)) {
+      if (nsjsCode.startsWith("\\^3", i)) {
+        jsCode += "^3";
+        i += 3;
+        consumed = true;
+      } else if (nsjsCode.startsWith("\\^7", i)) {
         jsCode += "^7";
         i += 3;
         consumed = true;
@@ -260,7 +271,11 @@ function convertNsjsToJs(nsjsCode) {
     }
     // (C) RAW_DQ_IN_EXPR 内 (テンプレート式中の " … ")
     else if (currentState === STATE.RAW_DQ_IN_EXPR) {
-      if (nsjsCode.startsWith("\\^2", i)) {
+      if (nsjsCode.startsWith("\\^3", i)) {
+        jsCode += "^3";
+        i += 3;
+        consumed = true;
+      } else if (nsjsCode.startsWith("\\^2", i)) {
         jsCode += "^2";
         i += 3;
         consumed = true;
@@ -284,7 +299,11 @@ function convertNsjsToJs(nsjsCode) {
     }
     // (D) RAW_SQ_IN_EXPR 内 (テンプレート式中の ' … ')
     else if (currentState === STATE.RAW_SQ_IN_EXPR) {
-      if (nsjsCode.startsWith("\\^7", i)) {
+      if (nsjsCode.startsWith("\\^3", i)) {
+        jsCode += "^3";
+        i += 3;
+        consumed = true;
+      } else if (nsjsCode.startsWith("\\^7", i)) {
         jsCode += "^7";
         i += 3;
         consumed = true;
@@ -308,7 +327,11 @@ function convertNsjsToJs(nsjsCode) {
     }
     // (E) IN_BT_SINGLE_STRING 内 (` … `)
     else if (currentState === STATE.IN_BT_SINGLE_STRING) {
-      if (nsjsCode.startsWith("\\^@", i)) {
+      if (nsjsCode.startsWith("\\^3", i)) {
+        jsCode += "^3";
+        i += 3;
+        consumed = true;
+      } else if (nsjsCode.startsWith("\\^@", i)) {
         jsCode += "^@";
         i += 3;
         consumed = true;
@@ -333,14 +356,93 @@ function convertNsjsToJs(nsjsCode) {
     }
 
     // ======
-    // ステップ2: NoShift シーケンスや文字列/テンプレートの開閉、式展開を試す
+    // ステップ2: ^3 大文字化モディファイア (RAW 状態とコメント以外で動作)
+    //   - コード上 (NORMAL, IN_TEMPLATE_EXPRESSION) では常に有効
+    //   - 文字列内は capitalizeInStrings オプションに従う
+    // ======
+    if (
+      !consumed &&
+      currentState !== STATE.RAW_DQ_IN_EXPR &&
+      currentState !== STATE.RAW_SQ_IN_EXPR &&
+      currentState !== STATE.IN_LINE_COMMENT &&
+      currentState !== STATE.IN_BLOCK_COMMENT
+    ) {
+      if (nsjsCode.startsWith("^3", i)) {
+        const inString =
+          currentState === STATE.IN_DQ_STRING ||
+          currentState === STATE.IN_SQ_STRING ||
+          currentState === STATE.IN_BT_SINGLE_STRING ||
+          currentState === STATE.IN_BT_MULTI_STRING;
+        if (!inString || capitalizeInStrings) {
+          i += 2;
+          if (i < len_ns) {
+            jsCode += nsjsCode[i].toUpperCase();
+            i += 1;
+          }
+          consumed = true;
+        }
+      }
+    }
+
+    // ======
+    // ステップ2.5: コメントの処理
+    // ======
+    if (!consumed) {
+      // 行コメント開始 (//)
+      if (currentState === STATE.NORMAL && nsjsCode.startsWith("//", i)) {
+        jsCode += "//";
+        i += 2;
+        stateStack.push(currentState);
+        currentState = STATE.IN_LINE_COMMENT;
+        consumed = true;
+      }
+      // 行コメント終了 (改行)
+      else if (currentState === STATE.IN_LINE_COMMENT) {
+        if (nsjsCode[i] === "\n") {
+          jsCode += "\n";
+          i += 1;
+          currentState = stateStack.pop();
+        } else {
+          jsCode += nsjsCode[i];
+          i += 1;
+        }
+        consumed = true;
+      }
+      // ブロックコメント開始 (/^:)
+      else if (currentState === STATE.NORMAL && nsjsCode.startsWith("/^:", i)) {
+        jsCode += "/*";
+        i += 3;
+        stateStack.push(currentState);
+        currentState = STATE.IN_BLOCK_COMMENT;
+        consumed = true;
+      }
+      // ブロックコメント終了 (^:/)
+      else if (
+        currentState === STATE.IN_BLOCK_COMMENT &&
+        nsjsCode.startsWith("^:/", i)
+      ) {
+        jsCode += "*/";
+        i += 3;
+        currentState = stateStack.pop();
+        consumed = true;
+      }
+      // ブロックコメント内の文字 (そのまま出力)
+      else if (currentState === STATE.IN_BLOCK_COMMENT) {
+        jsCode += nsjsCode[i];
+        i += 1;
+        consumed = true;
+      }
+    }
+
+    // ======
+    // ステップ3: NoShift シーケンスや文字列/テンプレートの開閉、式展開を試す
     // ======
     if (!consumed) {
       consumed = tryConsumeNsjsSequence();
     }
 
     // ======
-    // ステップ3: 何も消費しなかったら文字をそのまま出力
+    // ステップ4: 何も消費しなかったら文字をそのまま出力
     // ======
     if (!consumed) {
       jsCode += nsjsCode[i];
@@ -357,6 +459,141 @@ function convertNsjsToJs(nsjsCode) {
     );
   }
   return jsCode;
+}
+
+/**
+ * ソースコード内の大文字、_, $, # の使用を警告する。
+ * 文字列・コメント内は無視する。
+ * @param {string} nsjsCode
+ * @returns {{ line: number, column: number, char: string, message: string }[]}
+ */
+export function checkUppercaseWarnings(nsjsCode) {
+  const warnings = [];
+  const lines = nsjsCode.split("\n");
+
+  // シンプルな状態追跡（文字列・コメント内を除外）
+  let inDQ = false; // ^2...^2
+  let inSQ = false; // ^7...^7
+  let inBT = false; // ^@...^@
+  let inLineComment = false;
+  let inBlockComment = false;
+
+  for (let lineNum = 0; lineNum < lines.length; lineNum++) {
+    const line = lines[lineNum];
+    inLineComment = false; // 行コメントは行ごとにリセット
+
+    for (let col = 0; col < line.length; col++) {
+      const ch = line[col];
+      const next = line[col + 1];
+
+      // エスケープ (\^2, \^7, \^@) をスキップ
+      if (ch === "\\" && next === "^") {
+        col += 2;
+        continue;
+      }
+
+      // ブロックコメント終了 (^:/)
+      if (
+        inBlockComment &&
+        ch === "^" &&
+        next === ":" &&
+        line[col + 2] === "/"
+      ) {
+        inBlockComment = false;
+        col += 2;
+        continue;
+      }
+      if (inBlockComment) continue;
+
+      // 行コメント開始
+      if (!inDQ && !inSQ && !inBT && ch === "/" && next === "/") {
+        inLineComment = true;
+        break;
+      }
+      // ブロックコメント開始 (/^:)
+      if (
+        !inDQ &&
+        !inSQ &&
+        !inBT &&
+        ch === "/" &&
+        next === "^" &&
+        line[col + 2] === ":"
+      ) {
+        inBlockComment = true;
+        col += 2;
+        continue;
+      }
+
+      if (inLineComment) continue;
+
+      // ^3 モディファイア → 次の文字はスキップ（意図的な大文字化）
+      if (ch === "^" && next === "3") {
+        col += 2; // ^3 と次の文字をスキップ
+        continue;
+      }
+
+      // 文字列リテラルの開閉
+      if (ch === "^" && next === "2") {
+        inDQ = !inDQ;
+        col += 1;
+        continue;
+      }
+      if (ch === "^" && next === "7") {
+        inSQ = !inSQ;
+        col += 1;
+        continue;
+      }
+      if (ch === "^" && next === "@") {
+        inBT = !inBT;
+        col += 1;
+        continue;
+      }
+
+      // 文字列内はスキップ
+      if (inDQ || inSQ || inBT) continue;
+
+      // 他の ^X シーケンスをスキップ
+      if (ch === "^" && next && /[0-9\-^\\@\[\];:,./]/.test(next)) {
+        col += 1;
+        continue;
+      }
+
+      // 大文字の警告
+      if (/[A-Z]/.test(ch)) {
+        warnings.push({
+          line: lineNum + 1,
+          column: col + 1,
+          char: ch,
+          message: `Uppercase letter '${ch}' found. Use ^3${ch.toLowerCase()} instead.`,
+        });
+      }
+      // _, $, # の警告
+      else if (ch === "_") {
+        warnings.push({
+          line: lineNum + 1,
+          column: col + 1,
+          char: ch,
+          message: "Underscore '_' found in code.",
+        });
+      } else if (ch === "$") {
+        warnings.push({
+          line: lineNum + 1,
+          column: col + 1,
+          char: ch,
+          message: "Dollar sign '$' found. Use ^4 instead.",
+        });
+      } else if (ch === "#") {
+        warnings.push({
+          line: lineNum + 1,
+          column: col + 1,
+          char: ch,
+          message: "Hash '#' found in code.",
+        });
+      }
+    }
+  }
+
+  return warnings;
 }
 
 export default convertNsjsToJs;

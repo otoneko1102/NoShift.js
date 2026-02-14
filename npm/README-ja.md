@@ -19,11 +19,11 @@ npm install -g noshift.js@latest
 ## はじめに
 
 ```bash
-# インタラクティブなプロジェクトスキャフォールド
-nsc create
+# 新しいプロジェクトを作成
+nsc create my-project
 
 # または、現在のディレクトリに nsjsconfig.json だけを作成
-nsc --init
+nsc init
 ```
 
 ---
@@ -32,37 +32,41 @@ nsc --init
 
 `nsc` は TypeScript の `tsc` に似た使い心地を目指しています。
 
-| コマンド | 説明 |
-|---|---|
-| `nsc` | `nsjsconfig.json` を使って `.nsjs` → `.js` にコンパイル |
-| `nsc -w` / `nsc --watch` | 変更を監視して自動的に再コンパイル |
-| `nsc --init` | 現在のディレクトリに `nsjsconfig.json` を作成 |
-| `nsc --clean` | 出力ディレクトリ (`outDir`) を削除 |
-| `nsc run <file>` | `.nsjs` ファイルを直接実行 |
-| `nsc create [name]` | インタラクティブに新しいプロジェクトを作成 |
-| `nsc -V` | バージョンを表示 |
-| `nsc -h` | ヘルプを表示 |
+| コマンド | エイリアス | 説明 |
+|---|---|---|
+| `nsc` | | `nsjsconfig.json` を使って `.nsjs` → `.js` にコンパイル |
+| `nsc watch` | `nsc -w` `nsc --watch` | 変更を監視して自動的に再コンパイル |
+| `nsc init` | `nsc --init` | 現在のディレクトリに `nsjsconfig.json` を作成 |
+| `nsc clean` | `nsc --clean` | 出力ディレクトリ (`outdir`) を削除 |
+| `nsc run <file>` | `nsc -r <file>` `nsc --run <file>` | `.nsjs` ファイルを直接実行 |
+| `nsc create [name]` | `nsc --create [name]` | 新しいプロジェクトを作成（`--no-prettier` で Prettier スキップ） |
+| `nsc version` | `nsc -v` `nsc --version` | バージョンを表示 |
+| `nsc help` | `nsc -h` `nsc --help` | ヘルプを表示 |
 
 ---
 
 ## nsjsconfig.json
 
 プロジェクトルートに `nsjsconfig.json` を置くとコンパイル設定を行えます。
-`nsc --init` または `nsc create` で自動生成されます。
+`nsc init` または `nsc create` で自動生成されます。
 
 ```json
 {
-  "compilerOptions": {
-    "rootDir": "src",
-    "outDir": "dist"
+  "compileroptions": {
+    "rootdir": "src",
+    "outdir": "dist",
+    "warnuppercase": true,
+    "capitalizeinstrings": true
   }
 }
 ```
 
 | オプション | デフォルト | 説明 |
 |---|---|---|
-| `compilerOptions.rootDir` | `"src"` | ソースディレクトリ |
-| `compilerOptions.outDir` | `"dist"` | 出力ディレクトリ |
+| `compileroptions.rootdir` | `"src"` | ソースディレクトリ |
+| `compileroptions.outdir` | `"dist"` | 出力ディレクトリ |
+| `compileroptions.warnuppercase` | `true` | ソースコード内の大文字を警告 |
+| `compileroptions.capitalizeinstrings` | `true` | 文字列リテラル内で `^3` 大文字化修飾子を有効にする |
 
 ---
 
@@ -76,14 +80,14 @@ nsc --init
 |:-------:|:--:|---|:-------:|:--:|
 | `^1`    | `!`        | | `^^`    | `~`        |
 | `^2`    | `"`        | | `^\`    | `\|`       |
-| `^4`    | `$`        | | `^@`    | `` ` ``    |
-| `^5`    | `%`        | | `^[`    | `{`        |
-| `^6`    | `&`        | | `^]`    | `}`        |
-| `^7`    | `'`        | | `^;`    | `+`        |
-| `^8`    | `(`        | | `^:`    | `*`        |
-| `^9`    | `)`        | | `^,`    | `<`        |
-| `^-`    | `=`        | | `^.`    | `>`        |
-|         |            | | `^/`    | `?`        |
+| `^3x`   | `X`（大文字化） | | `^@`    | `` ` ``    |
+| `^4`    | `$`        | | `^[`    | `{`        |
+| `^5`    | `%`        | | `^]`    | `}`        |
+| `^6`    | `&`        | | `^;`    | `+`        |
+| `^7`    | `'`        | | `^:`    | `*`        |
+| `^8`    | `(`        | | `^,`    | `<`        |
+| `^9`    | `)`        | | `^.`    | `>`        |
+| `^-`    | `=`        | | `^/`    | `?`        |
 
 テンプレート式: `^4^[` → `${`
 
@@ -99,6 +103,44 @@ console.log^8^2Hello, World!^2^9;
 
 ```js
 console.log("Hello, World!");
+```
+
+### 大文字化修飾子
+
+`^3` は次の文字を大文字にします:
+
+```nsjs
+class ^3animal ^[
+^]
+```
+
+```js
+class Animal {
+}
+```
+
+### コメント
+
+```nsjs
+// 行コメント
+
+/^: ブロックコメント ^:/
+
+/^:
+  複数行の
+  ブロックコメント
+^:/
+```
+
+```js
+// 行コメント
+
+/* ブロックコメント */
+
+/*
+  複数行の
+  ブロックコメント
+*/
 ```
 
 ### 変数とアロー関数
@@ -165,7 +207,7 @@ const arr = [1, 2, 3];
 ### クラス
 
 ```nsjs
-class Animal ^[
+class ^3animal ^[
   constructor^8name^9 ^[
     this.name ^- name;
   ^]
@@ -175,7 +217,7 @@ class Animal ^[
   ^]
 ^]
 
-const dog ^- new Animal^8^2Dog^2^9;
+const dog ^- new ^3animal^8^2Dog^2^9;
 dog.speak^8^9;
 ```
 

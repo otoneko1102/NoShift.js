@@ -1,6 +1,6 @@
 import { promises as fs } from "fs";
 import path from "path";
-import convert from "../src/convert.js";
+import convert, { checkUppercaseWarnings } from "../src/convert.js";
 import { loadConfig } from "../src/config.js";
 import { handleSigint } from "../src/signal-handler.js";
 import * as logger from "../src/logger.js";
@@ -39,15 +39,15 @@ export default async function compile() {
     process.exit(1);
   }
 
-  const rootDir = path.resolve(cwd, config.compilerOptions.rootDir);
-  const outDir = path.resolve(cwd, config.compilerOptions.outDir);
+  const rootDir = path.resolve(cwd, config.compileroptions.rootdir);
+  const outDir = path.resolve(cwd, config.compileroptions.outdir);
 
   const files = await findNsjsFiles(rootDir);
 
   if (files === null) {
     logger.errorCode(
       "NS0",
-      `rootDir '${config.compilerOptions.rootDir}' not found.`,
+      `rootdir '${config.compileroptions.rootdir}' not found.`,
     );
     process.exit(1);
   }
@@ -61,6 +61,11 @@ export default async function compile() {
 
   let compiled = 0;
   let errors = 0;
+  let totalWarnings = 0;
+  const warnUppercase = config.compileroptions.warnuppercase !== false;
+  const convertOptions = {
+    capitalizeInStrings: config.compileroptions.capitalizeinstrings !== false,
+  };
 
   for (const file of files) {
     const relative = path.relative(rootDir, file);
@@ -68,7 +73,19 @@ export default async function compile() {
 
     try {
       const code = await fs.readFile(file, "utf-8");
-      const js = convert(code);
+
+      // 大文字警告チェック
+      if (warnUppercase) {
+        const warnings = checkUppercaseWarnings(code);
+        for (const w of warnings) {
+          logger.warn(
+            `${relative.replace(/\\/g, "/")}:${w.line}:${w.column} - ${w.message}`,
+          );
+          totalWarnings++;
+        }
+      }
+
+      const js = convert(code, convertOptions);
 
       await fs.mkdir(path.dirname(destPath), { recursive: true });
       await fs.writeFile(destPath, js, "utf-8");
@@ -78,10 +95,7 @@ export default async function compile() {
       );
       compiled++;
     } catch (e) {
-      logger.errorCode(
-        "NS1",
-        `${relative.replace(/\\/g, "/")}: ${e.message}`,
-      );
+      logger.errorCode("NS1", `${relative.replace(/\\/g, "/")}: ${e.message}`);
       errors++;
     }
   }
@@ -91,6 +105,10 @@ export default async function compile() {
     logger.error(`Found ${errors} error(s). Compiled ${compiled} file(s).`);
     process.exit(1);
   } else {
-    logger.success(`Compiled ${compiled} file(s).`);
+    let msg = `Compiled ${compiled} file(s).`;
+    if (totalWarnings > 0) {
+      msg += ` (${totalWarnings} warning(s))`;
+    }
+    logger.success(msg);
   }
 }

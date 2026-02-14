@@ -19,11 +19,11 @@ npm install -g noshift.js@latest
 ## Getting Started
 
 ```bash
-# Interactive full project scaffold
-nsc create
+# Create a new project
+nsc create my-project
 
 # Or initialize only a nsjsconfig.json in the current directory
-nsc --init
+nsc init
 ```
 
 ---
@@ -32,37 +32,41 @@ nsc --init
 
 `nsc` is designed to feel like TypeScript's `tsc`.
 
-| Command | Description |
-|---|---|
-| `nsc` | Compile `.nsjs` → `.js` using `nsjsconfig.json` |
-| `nsc -w` / `nsc --watch` | Watch for changes and recompile automatically |
-| `nsc --init` | Create `nsjsconfig.json` in the current directory |
-| `nsc --clean` | Delete the output directory (`outDir`) |
-| `nsc run <file>` | Run a `.nsjs` file directly |
-| `nsc create [name]` | Scaffold a new project interactively |
-| `nsc -V` | Show version |
-| `nsc -h` | Show help |
+| Command | Alias | Description |
+|---|---|---|
+| `nsc` | | Compile `.nsjs` → `.js` using `nsjsconfig.json` |
+| `nsc watch` | `nsc -w` `nsc --watch` | Watch for changes and recompile automatically |
+| `nsc init` | `nsc --init` | Create `nsjsconfig.json` in the current directory |
+| `nsc clean` | `nsc --clean` | Delete the output directory (`outdir`) |
+| `nsc run <file>` | `nsc -r <file>` `nsc --run <file>` | Run a `.nsjs` file directly |
+| `nsc create [name]` | `nsc --create [name]` | Scaffold a new project (`--no-prettier` to skip Prettier) |
+| `nsc version` | `nsc -v` `nsc --version` | Show version |
+| `nsc help` | `nsc -h` `nsc --help` | Show help |
 
 ---
 
 ## nsjsconfig.json
 
 Place a `nsjsconfig.json` at the project root to configure compilation.
-Generated automatically by `nsc --init` or `nsc create`.
+Generated automatically by `nsc init` or `nsc create`.
 
 ```json
 {
-  "compilerOptions": {
-    "rootDir": "src",
-    "outDir": "dist"
+  "compileroptions": {
+    "rootdir": "src",
+    "outdir": "dist",
+    "warnuppercase": true,
+    "capitalizeinstrings": true
   }
 }
 ```
 
 | Option | Default | Description |
 |---|---|---|
-| `compilerOptions.rootDir` | `"src"` | Source directory |
-| `compilerOptions.outDir` | `"dist"` | Output directory |
+| `compileroptions.rootdir` | `"src"` | Source directory |
+| `compileroptions.outdir` | `"dist"` | Output directory |
+| `compileroptions.warnuppercase` | `true` | Warn about uppercase characters in source code |
+| `compileroptions.capitalizeinstrings` | `true` | Enable `^3` capitalize modifier inside string literals |
 
 ---
 
@@ -76,14 +80,14 @@ Generated automatically by `nsc --init` or `nsc create`.
 |:-------:|:--:|---|:-------:|:--:|
 | `^1`    | `!`        | | `^^`    | `~`        |
 | `^2`    | `"`        | | `^\`    | `\|`       |
-| `^4`    | `$`        | | `^@`    | `` ` ``    |
-| `^5`    | `%`        | | `^[`    | `{`        |
-| `^6`    | `&`        | | `^]`    | `}`        |
-| `^7`    | `'`        | | `^;`    | `+`        |
-| `^8`    | `(`        | | `^:`    | `*`        |
-| `^9`    | `)`        | | `^,`    | `<`        |
-| `^-`    | `=`        | | `^.`    | `>`        |
-|         |            | | `^/`    | `?`        |
+| `^3x`   | `X` (capitalize) | | `^@`    | `` ` ``    |
+| `^4`    | `$`        | | `^[`    | `{`        |
+| `^5`    | `%`        | | `^]`    | `}`        |
+| `^6`    | `&`        | | `^;`    | `+`        |
+| `^7`    | `'`        | | `^:`    | `*`        |
+| `^8`    | `(`        | | `^,`    | `<`        |
+| `^9`    | `)`        | | `^.`    | `>`        |
+| `^-`    | `=`        | | `^/`    | `?`        |
 
 Template expression: `^4^[` → `${`
 
@@ -99,6 +103,44 @@ console.log^8^2Hello, World!^2^9;
 
 ```js
 console.log("Hello, World!");
+```
+
+### Capitalize Modifier
+
+`^3` capitalizes the next character:
+
+```nsjs
+class ^3animal ^[
+^]
+```
+
+```js
+class Animal {
+}
+```
+
+### Comments
+
+```nsjs
+// line comment
+
+/^: block comment ^:/
+
+/^:
+  multi-line
+  block comment
+^:/
+```
+
+```js
+// line comment
+
+/* block comment */
+
+/*
+  multi-line
+  block comment
+*/
 ```
 
 ### Variables & Arrow Functions
@@ -165,7 +207,7 @@ const arr = [1, 2, 3];
 ### Classes
 
 ```nsjs
-class Animal ^[
+class ^3animal ^[
   constructor^8name^9 ^[
     this.name ^- name;
   ^]
@@ -175,7 +217,7 @@ class Animal ^[
   ^]
 ^]
 
-const dog ^- new Animal^8^2Dog^2^9;
+const dog ^- new ^3animal^8^2Dog^2^9;
 dog.speak^8^9;
 ```
 

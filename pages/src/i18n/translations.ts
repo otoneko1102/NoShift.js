@@ -33,7 +33,9 @@ export const ui = {
     "nav.home": "Home",
     "nav.gettingStarted": "Getting Started",
     "nav.syntax": "Syntax & Symbols",
+    "nav.classes": "Classes",
     "nav.cli": "CLI Reference",
+    "nav.config": "Configuration",
     "nav.vscode": "VS Code Extension",
     "nav.github": "GitHub",
     "nav.npm": "npm",
@@ -68,7 +70,7 @@ export const ui = {
     "gs.installTitle": "Installation",
     "gs.installDesc": "Install globally via npm:",
     "gs.createTitle": "Create a Project",
-    "gs.createDesc": "Scaffold a new NoShift.js project interactively:",
+    "gs.createDesc": "Scaffold a new NoShift.js project:",
     "gs.createNote":
       "This creates a project directory with <code>nsjsconfig.json</code>, <code>src/</code> folder, and installs dependencies.",
     "gs.configTitle": "Configuration",
@@ -76,6 +78,10 @@ export const ui = {
       "The project config file <code>nsjsconfig.json</code> controls compiler options:",
     "gs.configRootDir": "Source file directory (default: <code>src</code>)",
     "gs.configOutDir": "Output directory (default: <code>dist</code>)",
+    "gs.configWarnUppercase":
+      "Warn about uppercase characters in source code (default: <code>true</code>)",
+    "gs.configCapitalizeInStrings":
+      "Enable <code>^3</code> capitalize modifier inside string literals (default: <code>true</code>)",
     "gs.compileTitle": "Compile & Run",
     "gs.compileDesc": "Compile all <code>.nsjs</code> files:",
     "gs.runDesc": "Or run a file directly without compiling:",
@@ -99,33 +105,85 @@ export const ui = {
     "syntax.templateTitle": "Template Literals",
     "syntax.templateDesc":
       "Template literals use <code>^@</code> (backtick) and template expressions use <code>^4^[</code> (<code>${</code>) to start and <code>^]</code> (<code>}</code>) to end:",
+    "syntax.capitalizeTitle": "Capitalize Modifier",
+    "syntax.capitalizeDesc":
+      "<code>^3</code> capitalizes the next character. Useful for class names, constants, etc.:",
+    "syntax.commentTitle": "Comments",
+    "syntax.commentDesc":
+      "Line comments use <code>//</code> as usual. Block comments use <code>/^:</code> to open and <code>^:/</code> to close:",
     "syntax.helloTitle": "Hello World",
     "syntax.helloInput": "Input:",
     "syntax.helloOutput": "Output:",
+
+    // Classes
+    "classes.title": "Classes",
+    "classes.introDesc":
+      "In NoShift.js, class names and other identifiers that need uppercase letters use the <code>^3</code> capitalize modifier.",
+    "classes.basicTitle": "Basic Class",
+    "classes.basicDesc":
+      "Use <code>^3</code> before each character that should be uppercase:",
+    "classes.inheritTitle": "Inheritance",
+    "classes.inheritDesc":
+      "Extends works the same way — just capitalize the parent class name:",
+    "classes.methodTitle": "Methods & Properties",
+    "classes.methodDesc":
+      "Method names that contain uppercase letters also use <code>^3</code>:",
+    "classes.staticTitle": "Static Members",
+    "classes.staticDesc": "Static methods and properties work as expected:",
 
     // CLI
     "cli.title": "CLI Reference",
     "cli.introDesc":
       "The <code>nsc</code> command-line tool compiles and manages NoShift.js projects.",
-    "cli.compileTitle": "nsc (compile)",
+    "cli.compileTitle": "nsc",
     "cli.compileDesc":
-      "Compile all <code>.nsjs</code> files from <code>rootDir</code> to <code>outDir</code> as defined in <code>nsjsconfig.json</code>.",
-    "cli.watchTitle": "nsc -w, --watch",
+      "Compile all <code>.nsjs</code> files from <code>rootdir</code> to <code>outdir</code> as defined in <code>nsjsconfig.json</code>.",
+    "cli.watchTitle": "nsc watch",
     "cli.watchDesc": "Watch for file changes and recompile automatically.",
     "cli.runTitle": "nsc run &lt;file&gt;",
     "cli.runDesc":
       "Compile and execute a <code>.nsjs</code> file directly without writing output files.",
     "cli.createCmdTitle": "nsc create [name]",
     "cli.createCmdDesc":
-      "Scaffold a new NoShift.js project interactively. Prompts for language, project name, and Prettier configuration.",
-    "cli.initTitle": "nsc --init",
+      "Scaffold a new NoShift.js project. Use <code>--no-prettier</code> to skip Prettier setup.",
+    "cli.initTitle": "nsc init",
     "cli.initDesc":
       "Create a <code>nsjsconfig.json</code> in the current directory with default settings.",
-    "cli.cleanTitle": "nsc --clean",
+    "cli.cleanTitle": "nsc clean",
     "cli.cleanDesc":
-      "Delete the output directory (<code>outDir</code>) defined in <code>nsjsconfig.json</code>.",
-    "cli.versionTitle": "nsc --version",
-    "cli.versionDesc": "Display the current version of noshift.js.",
+      "Delete the output directory (<code>outdir</code>) defined in <code>nsjsconfig.json</code>.",
+    "cli.versionTitle": "nsc version",
+    "cli.versionDesc":
+      "Display the current version of noshift.js. Also available as <code>nsc -v</code> or <code>nsc --version</code>.",
+    "cli.helpTitle": "nsc help",
+    "cli.helpDesc":
+      "Show help information. Also available as <code>nsc -h</code> or <code>nsc --help</code>. Includes a link to the documentation site.",
+
+    // Config
+    "config.title": "Configuration",
+    "config.introDesc":
+      "NoShift.js uses a <code>nsjsconfig.json</code> file in the project root to configure compilation behavior.",
+    "config.fileTitle": "Config File",
+    "config.fileDesc":
+      "Create <code>nsjsconfig.json</code> manually or generate it with <code>nsc init</code> or <code>nsc create</code>.",
+    "config.optionsTitle": "Options",
+    "config.rootdirLabel": "rootdir",
+    "config.rootdirDesc": "Source file directory (default: <code>src</code>)",
+    "config.outdirLabel": "outdir",
+    "config.outdirDesc": "Output directory (default: <code>dist</code>)",
+    "config.warnuppercaseLabel": "warnuppercase",
+    "config.warnuppercaseDesc":
+      "Warn about uppercase characters in source code (default: <code>true</code>)",
+    "config.capitalizeinstringsLabel": "capitalizeinstrings",
+    "config.capitalizeinstringsDesc":
+      "Enable <code>^3</code> capitalize modifier inside string literals (default: <code>true</code>)",
+    "config.exampleTitle": "Example",
+    "config.defaultTitle": "Default Configuration",
+    "config.defaultDesc":
+      "If <code>nsjsconfig.json</code> is not found, the following defaults are used:",
+    "config.disableCapitalizeTitle": "Disable Capitalize in Strings",
+    "config.disableCapitalizeDesc":
+      "To treat <code>^3</code> as a literal caret + 3 inside strings:",
 
     // VS Code
     "vscode.title": "VS Code Extension",
@@ -165,7 +223,9 @@ export const ui = {
     "nav.home": "ホーム",
     "nav.gettingStarted": "はじめに",
     "nav.syntax": "構文と記号",
+    "nav.classes": "クラス",
     "nav.cli": "CLI リファレンス",
+    "nav.config": "設定",
     "nav.vscode": "VS Code 拡張機能",
     "nav.github": "GitHub",
     "nav.npm": "npm",
@@ -200,7 +260,7 @@ export const ui = {
     "gs.installTitle": "インストール",
     "gs.installDesc": "npm でグローバルにインストール:",
     "gs.createTitle": "プロジェクト作成",
-    "gs.createDesc": "対話式で新しい NoShift.js プロジェクトを作成:",
+    "gs.createDesc": "新しい NoShift.js プロジェクトを作成:",
     "gs.createNote":
       "プロジェクトディレクトリ、<code>nsjsconfig.json</code>、<code>src/</code> フォルダが作成され、依存パッケージがインストールされます。",
     "gs.configTitle": "設定",
@@ -209,6 +269,10 @@ export const ui = {
     "gs.configRootDir":
       "ソースファイルのディレクトリ（デフォルト: <code>src</code>）",
     "gs.configOutDir": "出力ディレクトリ（デフォルト: <code>dist</code>）",
+    "gs.configWarnUppercase":
+      "ソースコード内の大文字を警告する（デフォルト: <code>true</code>）",
+    "gs.configCapitalizeInStrings":
+      "文字列リテラル内で <code>^3</code> 大文字化修飾子を有効にする（デフォルト: <code>true</code>）",
     "gs.compileTitle": "コンパイルと実行",
     "gs.compileDesc": "すべての <code>.nsjs</code> ファイルをコンパイル:",
     "gs.runDesc": "コンパイルせずに直接実行:",
@@ -232,33 +296,84 @@ export const ui = {
     "syntax.templateTitle": "テンプレートリテラル",
     "syntax.templateDesc":
       "テンプレートリテラルは <code>^@</code>（バッククォート）を使い、テンプレート式は <code>^4^[</code>（<code>${</code>）で開始し、<code>^]</code>（<code>}</code>）で終了します:",
+    "syntax.capitalizeTitle": "大文字化修飾子",
+    "syntax.capitalizeDesc":
+      "<code>^3</code> は次の文字を大文字にします。クラス名や定数に便利です:",
+    "syntax.commentTitle": "コメント",
+    "syntax.commentDesc":
+      "行コメントは通常通り <code>//</code> を使います。ブロックコメントは <code>/^:</code> で開始、<code>^:/</code> で終了します:",
     "syntax.helloTitle": "Hello World",
     "syntax.helloInput": "入力:",
     "syntax.helloOutput": "出力:",
+
+    // Classes
+    "classes.title": "クラス",
+    "classes.introDesc":
+      "NoShift.js では、クラス名や大文字が必要な識別子に <code>^3</code> 大文字化修飾子を使います。",
+    "classes.basicTitle": "基本的なクラス",
+    "classes.basicDesc": "大文字にしたい文字の前に <code>^3</code> を付けます:",
+    "classes.inheritTitle": "継承",
+    "classes.inheritDesc": "extends も同様に、親クラス名を大文字化します:",
+    "classes.methodTitle": "メソッドとプロパティ",
+    "classes.methodDesc":
+      "大文字を含むメソッド名も <code>^3</code> を使います:",
+    "classes.staticTitle": "静的メンバー",
+    "classes.staticDesc": "静的メソッドやプロパティも同様に書けます:",
 
     // CLI
     "cli.title": "CLI リファレンス",
     "cli.introDesc":
       "<code>nsc</code> コマンドラインツールで NoShift.js プロジェクトのコンパイルと管理を行います。",
-    "cli.compileTitle": "nsc（コンパイル）",
+    "cli.compileTitle": "nsc",
     "cli.compileDesc":
-      "<code>nsjsconfig.json</code> で定義された <code>rootDir</code> から <code>outDir</code> へすべての <code>.nsjs</code> ファイルをコンパイルします。",
-    "cli.watchTitle": "nsc -w, --watch",
+      "<code>nsjsconfig.json</code> で定義された <code>rootdir</code> から <code>outdir</code> へすべての <code>.nsjs</code> ファイルをコンパイルします。",
+    "cli.watchTitle": "nsc watch",
     "cli.watchDesc": "ファイルの変更を監視し、自動的にリコンパイルします。",
     "cli.runTitle": "nsc run &lt;file&gt;",
     "cli.runDesc":
       "出力ファイルを書き出さずに、<code>.nsjs</code> ファイルを直接コンパイル・実行します。",
     "cli.createCmdTitle": "nsc create [name]",
     "cli.createCmdDesc":
-      "対話式で新しい NoShift.js プロジェクトをスキャフォールドします。言語、プロジェクト名、Prettier 設定を選択できます。",
-    "cli.initTitle": "nsc --init",
+      "新しい NoShift.js プロジェクトをスキャフォールドします。<code>--no-prettier</code> で Prettier 設定をスキップできます。",
+    "cli.initTitle": "nsc init",
     "cli.initDesc":
       "現在のディレクトリにデフォルト設定の <code>nsjsconfig.json</code> を作成します。",
-    "cli.cleanTitle": "nsc --clean",
+    "cli.cleanTitle": "nsc clean",
     "cli.cleanDesc":
-      "<code>nsjsconfig.json</code> で定義された出力ディレクトリ（<code>outDir</code>）を削除します。",
-    "cli.versionTitle": "nsc --version",
-    "cli.versionDesc": "noshift.js の現在のバージョンを表示します。",
+      "<code>nsjsconfig.json</code> で定義された出力ディレクトリ（<code>outdir</code>）を削除します。",
+    "cli.versionTitle": "nsc version",
+    "cli.versionDesc":
+      "noshift.js の現在のバージョンを表示します。<code>nsc -v</code> または <code>nsc --version</code> でも利用可能。",
+    "cli.helpTitle": "nsc help",
+    "cli.helpDesc":
+      "ヘルプ情報を表示します。<code>nsc -h</code> または <code>nsc --help</code> でも利用可能。ドキュメントサイトへのリンクも含まれます。",
+
+    // Config
+    "config.title": "設定",
+    "config.introDesc":
+      "NoShift.js はプロジェクトルートの <code>nsjsconfig.json</code> ファイルでコンパイル動作を設定します。",
+    "config.fileTitle": "設定ファイル",
+    "config.fileDesc":
+      "<code>nsjsconfig.json</code> を手動で作成するか、<code>nsc init</code> または <code>nsc create</code> で生成します。",
+    "config.optionsTitle": "オプション",
+    "config.rootdirLabel": "rootdir",
+    "config.rootdirDesc":
+      "ソースファイルのディレクトリ（デフォルト: <code>src</code>）",
+    "config.outdirLabel": "outdir",
+    "config.outdirDesc": "出力ディレクトリ（デフォルト: <code>dist</code>）",
+    "config.warnuppercaseLabel": "warnuppercase",
+    "config.warnuppercaseDesc":
+      "ソースコード内の大文字を警告する（デフォルト: <code>true</code>）",
+    "config.capitalizeinstringsLabel": "capitalizeinstrings",
+    "config.capitalizeinstringsDesc":
+      "文字列リテラル内で <code>^3</code> 大文字化修飾子を有効にする（デフォルト: <code>true</code>）",
+    "config.exampleTitle": "例",
+    "config.defaultTitle": "デフォルト設定",
+    "config.defaultDesc":
+      "<code>nsjsconfig.json</code> が見つからない場合、以下のデフォルトが使用されます:",
+    "config.disableCapitalizeTitle": "文字列内の大文字化を無効化",
+    "config.disableCapitalizeDesc":
+      "文字列内で <code>^3</code> をリテラルの <code>^</code> + <code>3</code> として扱う場合:",
 
     // VS Code
     "vscode.title": "VS Code 拡張機能",

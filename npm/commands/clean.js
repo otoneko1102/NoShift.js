@@ -17,17 +17,17 @@ export default async function clean() {
     process.exit(1);
   }
 
-  const outDir = path.resolve(cwd, config.compilerOptions.outDir);
+  const outDir = path.resolve(cwd, config.compileroptions.outdir);
 
   try {
     await access(outDir);
   } catch {
     logger.info(
-      `Nothing to clean (${logger.highlight(config.compilerOptions.outDir)} does not exist).`,
+      `Nothing to clean (${logger.highlight(config.compileroptions.outdir)} does not exist).`,
     );
     return;
   }
 
   await rm(outDir, { recursive: true, force: true });
-  logger.success(`Deleted ${logger.highlight(config.compilerOptions.outDir)}`);
+  logger.success(`Deleted ${logger.highlight(config.compileroptions.outdir)}`);
 }

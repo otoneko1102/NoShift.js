@@ -46,7 +46,5 @@ export function highlight(text) {
 }
 
 export function errorCode(code, message) {
-  console.error(
-    `${colors.red}error ${code}:${colors.reset} ${message}`,
-  );
+  console.error(`${colors.red}error ${code}:${colors.reset} ${message}`);
 }

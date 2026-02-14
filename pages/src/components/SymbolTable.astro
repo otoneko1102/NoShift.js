@@ -2,6 +2,7 @@
 interface SymbolPair {
   shifted: string;
   noshift: string;
+  special?: boolean;
 }
 
 interface Props {
@@ -24,9 +25,7 @@ const { headerShifted, headerNoshift, symbols } = Astro.props;
     {
       symbols.map((s) => (
         <tr>
-          <td>
-            <code>{s.shifted}</code>
-          </td>
+          <td>{s.special ? <em>{s.shifted}</em> : <code>{s.shifted}</code>}</td>
           <td>
             <code>{s.noshift}</code>
           </td>

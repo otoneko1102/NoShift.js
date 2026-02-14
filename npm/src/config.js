@@ -2,9 +2,11 @@ import { promises as fs } from "fs";
 import path from "path";
 
 const DEFAULT_CONFIG = {
-  compilerOptions: {
-    rootDir: "src",
-    outDir: "build",
+  compileroptions: {
+    rootdir: "src",
+    outdir: "dist",
+    warnuppercase: true,
+    capitalizeinstrings: true,
   },
 };
 
@@ -20,9 +22,9 @@ export async function loadConfig(cwd = process.cwd()) {
     const userConfig = JSON.parse(raw);
 
     return {
-      compilerOptions: {
-        ...DEFAULT_CONFIG.compilerOptions,
-        ...(userConfig.compilerOptions ?? {}),
+      compileroptions: {
+        ...DEFAULT_CONFIG.compileroptions,
+        ...(userConfig.compileroptions ?? {}),
       },
     };
   } catch (e) {

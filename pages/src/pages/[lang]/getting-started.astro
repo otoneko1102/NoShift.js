@@ -24,7 +24,7 @@ const { lang } = Astro.params as { lang: Lang };
 
   <h2>{t(lang, "gs.createTitle")}</h2>
   <p set:html={t(lang, "gs.createDesc")} />
-  <pre><code>nsc create</code></pre>
+  <pre><code>nsc create my-project</code></pre>
   <div class="callout">
     <p set:html={t(lang, "gs.createNote")} />
   </div>
@@ -32,17 +32,29 @@ const { lang } = Astro.params as { lang: Lang };
   <h2>{t(lang, "gs.configTitle")}</h2>
   <p set:html={t(lang, "gs.configDesc")} />
   <pre><code>{`{
-  "compilerOptions": {
-    "rootDir": "src",
-    "outDir": "dist"
+  "compileroptions": {
+    "rootdir": "src",
+    "outdir": "dist",
+    "warnuppercase": true,
+    "capitalizeinstrings": true
   }
 }`}</code></pre>
   <ul>
     <li>
-      <strong>rootDir</strong> — <span set:html={t(lang, "gs.configRootDir")} />
+      <strong>rootdir</strong> — <span set:html={t(lang, "gs.configRootDir")} />
     </li>
     <li>
-      <strong>outDir</strong> — <span set:html={t(lang, "gs.configOutDir")} />
+      <strong>outdir</strong> — <span set:html={t(lang, "gs.configOutDir")} />
+    </li>
+    <li>
+      <strong>warnuppercase</strong> — <span
+        set:html={t(lang, "gs.configWarnUppercase")}
+      />
+    </li>
+    <li>
+      <strong>capitalizeinstrings</strong> — <span
+        set:html={t(lang, "gs.configCapitalizeInStrings")}
+      />
     </li>
   </ul>
 

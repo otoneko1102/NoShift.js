@@ -14,7 +14,7 @@ const { lang } = Astro.params as { lang: Lang };
   lang={lang}
   title={t(lang, "vscode.title") + " — NoShift.js"}
   currentPath={`/${lang}/vscode/`}
-  prev={{ href: `/${lang}/cli/`, title: t(lang, "nav.cli") }}
+  prev={{ href: `/${lang}/config/`, title: t(lang, "nav.config") }}
 >
   <h1>{t(lang, "vscode.title")}</h1>
   <p set:html={t(lang, "vscode.introDesc")} />

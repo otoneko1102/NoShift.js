@@ -26,8 +26,8 @@
 
     "comment-block": {
       "name": "comment.block.noshift",
-      "begin": "/\\*",
-      "end": "\\*/",
+      "begin": "/\\^:",
+      "end": "\\^:/",
       "beginCaptures": { "0": { "name": "punctuation.definition.comment.begin.noshift" } },
       "endCaptures":   { "0": { "name": "punctuation.definition.comment.end.noshift" } }
     },
@@ -39,6 +39,10 @@
       "beginCaptures": { "0": { "name": "punctuation.definition.string.begin.noshift" } },
       "endCaptures":   { "0": { "name": "punctuation.definition.string.end.noshift" } },
       "patterns": [
+        {
+          "name": "keyword.operator.capitalize.noshift",
+          "match": "\\^3."
+        },
         {
           "name": "constant.character.escape.noshift",
           "match": "\\\\(?:\\^2|\\\\)"
@@ -54,6 +58,10 @@
       "endCaptures":   { "0": { "name": "punctuation.definition.string.end.noshift" } },
       "patterns": [
         {
+          "name": "keyword.operator.capitalize.noshift",
+          "match": "\\^3."
+        },
+        {
           "name": "constant.character.escape.noshift",
           "match": "\\\\(?:\\^7|\\\\)"
         }
@@ -68,6 +76,10 @@
       "endCaptures":   { "0": { "name": "punctuation.definition.string.end.noshift" } },
       "patterns": [
         { "include": "#template-expression" },
+        {
+          "name": "keyword.operator.capitalize.noshift",
+          "match": "\\^3."
+        },
         {
           "name": "constant.character.escape.noshift",
           "match": "\\\\(?:\\^@|\\\\)"
@@ -100,6 +112,11 @@
 
     "ns-operators": {
       "patterns": [
+        {
+          "comment": "^3 capitalize modifier — highlights ^3 + next char",
+          "name": "keyword.operator.capitalize.noshift",
+          "match": "\\^3."
+        },
         {
           "comment": "NoShift sequences for shift-required symbols (excludes string/bracket delimiters: ^2 ^7 ^@ ^8 ^9 ^[ ^])",
           "name": "keyword.operator.noshift",

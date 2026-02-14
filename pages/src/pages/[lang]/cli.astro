@@ -13,8 +13,8 @@ const { lang } = Astro.params as { lang: Lang };
   lang={lang}
   title={t(lang, "cli.title") + " — NoShift.js"}
   currentPath={`/${lang}/cli/`}
-  prev={{ href: `/${lang}/syntax/`, title: t(lang, "nav.syntax") }}
-  next={{ href: `/${lang}/vscode/`, title: t(lang, "nav.vscode") }}
+  prev={{ href: `/${lang}/classes/`, title: t(lang, "nav.classes") }}
+  next={{ href: `/${lang}/config/`, title: t(lang, "nav.config") }}
 >
   <h1>{t(lang, "cli.title")}</h1>
   <p set:html={t(lang, "cli.introDesc")} />
@@ -25,9 +25,9 @@ const { lang } = Astro.params as { lang: Lang };
 
   <h2>{t(lang, "cli.watchTitle")}</h2>
   <p set:html={t(lang, "cli.watchDesc")} />
-  <pre><code>nsc -w</code></pre>
+  <pre><code>nsc watch</code></pre>
 
-  <h2>{t(lang, "cli.runTitle")}</h2>
+  <h2 set:html={t(lang, "cli.runTitle")} />
   <p set:html={t(lang, "cli.runDesc")} />
   <pre><code>nsc run src/index.nsjs</code></pre>
 
@@ -37,13 +37,17 @@ const { lang } = Astro.params as { lang: Lang };
 
   <h2>{t(lang, "cli.initTitle")}</h2>
   <p set:html={t(lang, "cli.initDesc")} />
-  <pre><code>nsc --init</code></pre>
+  <pre><code>nsc init</code></pre>
 
   <h2>{t(lang, "cli.cleanTitle")}</h2>
   <p set:html={t(lang, "cli.cleanDesc")} />
-  <pre><code>nsc --clean</code></pre>
+  <pre><code>nsc clean</code></pre>
 
   <h2>{t(lang, "cli.versionTitle")}</h2>
   <p set:html={t(lang, "cli.versionDesc")} />
-  <pre><code>nsc --version</code></pre>
+  <pre><code>nsc version</code></pre>
+
+  <h2>{t(lang, "cli.helpTitle")}</h2>
+  <p set:html={t(lang, "cli.helpDesc")} />
+  <pre><code>nsc help</code></pre>
 </DocsLayout>
