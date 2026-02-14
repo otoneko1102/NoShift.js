@@ -2,6 +2,7 @@
 import { Icon } from "astro-icon/components";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Sidebar from "../components/Sidebar.astro";
+import CodeBlock from "../components/CodeBlock.astro";
 import { t, type Lang } from "../i18n/translations";
 import { links } from "../config/links";
 import "../styles/global.css";
@@ -197,14 +198,20 @@ try {
 
         <h2 id="example-title">{t("en", "home.quickExample")}</h2>
 
-        <pre><code>// src/index.nsjs
+        <CodeBlock
+          lang="nsjs"
+          code={`// src/index.nsjs
 const name ^- ^2NoShift.js^2;
-console.log^8^2Hello from ^2 ^; name ^; ^2!^2^9;</code></pre>
+console.log^8^2Hello from ^2 ^; name ^; ^2!^2^9;`}
+        />
 
         <p id="compiles-to">{t("en", "home.compilesTo")}</p>
 
-        <pre><code>const name = "NoShift.js";
-console.log("Hello from " + name + "!");</code></pre>
+        <CodeBlock
+          lang="javascript"
+          code={`const name = "NoShift.js";
+console.log("Hello from " + name + "!");`}
+        />
       </div>
       <footer class="footer">
         <p>

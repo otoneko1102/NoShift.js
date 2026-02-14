@@ -1,5 +1,6 @@
 ---
 import DocsLayout from "../../layouts/DocsLayout.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
 import { t, type Lang } from "../../i18n/translations";
 
 export function getStaticPaths() {
@@ -20,25 +21,28 @@ const { lang } = Astro.params as { lang: Lang };
 
   <h2>{t(lang, "gs.installTitle")}</h2>
   <p set:html={t(lang, "gs.installDesc")} />
-  <pre><code>npm install -g noshift.js@latest</code></pre>
+  <CodeBlock lang="bash" code="npm install -g noshift.js@latest" />
 
   <h2>{t(lang, "gs.createTitle")}</h2>
   <p set:html={t(lang, "gs.createDesc")} />
-  <pre><code>nsc create my-project</code></pre>
+  <CodeBlock lang="bash" code="nsc create my-project" />
   <div class="callout">
     <p set:html={t(lang, "gs.createNote")} />
   </div>
 
   <h2>{t(lang, "gs.configTitle")}</h2>
   <p set:html={t(lang, "gs.configDesc")} />
-  <pre><code>{`{
+  <CodeBlock
+    lang="json"
+    code={`{
   "compileroptions": {
     "rootdir": "src",
     "outdir": "dist",
     "warnuppercase": true,
     "capitalizeinstrings": true
   }
-}`}</code></pre>
+}`}
+  />
   <ul>
     <li>
       <strong>rootdir</strong> — <span set:html={t(lang, "gs.configRootDir")} />
@@ -60,9 +64,9 @@ const { lang } = Astro.params as { lang: Lang };
 
   <h2>{t(lang, "gs.compileTitle")}</h2>
   <p set:html={t(lang, "gs.compileDesc")} />
-  <pre><code>nsc</code></pre>
+  <CodeBlock lang="bash" code="nsc" />
   <p set:html={t(lang, "gs.runDesc")} />
-  <pre><code>nsc run src/index.nsjs</code></pre>
+  <CodeBlock lang="bash" code="nsc run src/index.nsjs" />
 
   <h2>{t(lang, "gs.fileExt")}</h2>
   <p set:html={t(lang, "gs.fileExtDesc")} />

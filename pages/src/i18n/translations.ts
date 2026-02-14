@@ -138,26 +138,26 @@ export const ui = {
     "cli.compileTitle": "nsc",
     "cli.compileDesc":
       "Compile all <code>.nsjs</code> files from <code>rootdir</code> to <code>outdir</code> as defined in <code>nsjsconfig.json</code>.",
-    "cli.watchTitle": "nsc watch",
+    "cli.watchTitle": "nsc watch | w | -w | --watch",
     "cli.watchDesc": "Watch for file changes and recompile automatically.",
-    "cli.runTitle": "nsc run &lt;file&gt;",
+    "cli.runTitle":
+      "nsc run &lt;file&gt; | -r &lt;file&gt; | --run &lt;file&gt;",
     "cli.runDesc":
       "Compile and execute a <code>.nsjs</code> file directly without writing output files.",
-    "cli.createCmdTitle": "nsc create [name]",
+    "cli.createCmdTitle": "nsc create [name] | --create [name]",
     "cli.createCmdDesc":
       "Scaffold a new NoShift.js project. Use <code>--no-prettier</code> to skip Prettier setup.",
-    "cli.initTitle": "nsc init",
+    "cli.initTitle": "nsc init | --init",
     "cli.initDesc":
       "Create a <code>nsjsconfig.json</code> in the current directory with default settings.",
-    "cli.cleanTitle": "nsc clean",
+    "cli.cleanTitle": "nsc clean | --clean",
     "cli.cleanDesc":
       "Delete the output directory (<code>outdir</code>) defined in <code>nsjsconfig.json</code>.",
-    "cli.versionTitle": "nsc version",
-    "cli.versionDesc":
-      "Display the current version of noshift.js. Also available as <code>nsc -v</code> or <code>nsc --version</code>.",
-    "cli.helpTitle": "nsc help",
+    "cli.versionTitle": "nsc version | -v | --version",
+    "cli.versionDesc": "Display the current version of noshift.js.",
+    "cli.helpTitle": "nsc help | -h | --help",
     "cli.helpDesc":
-      "Show help information. Also available as <code>nsc -h</code> or <code>nsc --help</code>. Includes a link to the documentation site.",
+      "Show help information. Includes a link to the documentation site.",
 
     // Config
     "config.title": "Configuration",
@@ -220,13 +220,13 @@ export const ui = {
       "Shift が必要な記号を ^ プレフィックスの配列に置換する Joke 言語。コンパイルすると JavaScript になります。",
 
     // Nav
-    "nav.home": "ホーム",
-    "nav.gettingStarted": "はじめに",
-    "nav.syntax": "構文と記号",
-    "nav.classes": "クラス",
-    "nav.cli": "CLI リファレンス",
-    "nav.config": "設定",
-    "nav.vscode": "VS Code 拡張機能",
+    "nav.home": "Home",
+    "nav.gettingStarted": "Getting Started",
+    "nav.syntax": "Syntax & Symbols",
+    "nav.classes": "Classes",
+    "nav.cli": "CLI Reference",
+    "nav.config": "Configuration",
+    "nav.vscode": "VS Code Extension",
     "nav.github": "GitHub",
     "nav.npm": "npm",
 
@@ -327,26 +327,26 @@ export const ui = {
     "cli.compileTitle": "nsc",
     "cli.compileDesc":
       "<code>nsjsconfig.json</code> で定義された <code>rootdir</code> から <code>outdir</code> へすべての <code>.nsjs</code> ファイルをコンパイルします。",
-    "cli.watchTitle": "nsc watch",
+    "cli.watchTitle": "nsc watch | w | -w | --watch",
     "cli.watchDesc": "ファイルの変更を監視し、自動的にリコンパイルします。",
-    "cli.runTitle": "nsc run &lt;file&gt;",
+    "cli.runTitle":
+      "nsc run &lt;file&gt; | -r &lt;file&gt; | --run &lt;file&gt;",
     "cli.runDesc":
       "出力ファイルを書き出さずに、<code>.nsjs</code> ファイルを直接コンパイル・実行します。",
-    "cli.createCmdTitle": "nsc create [name]",
+    "cli.createCmdTitle": "nsc create [name] | --create [name]",
     "cli.createCmdDesc":
       "新しい NoShift.js プロジェクトをスキャフォールドします。<code>--no-prettier</code> で Prettier 設定をスキップできます。",
-    "cli.initTitle": "nsc init",
+    "cli.initTitle": "nsc init | --init",
     "cli.initDesc":
       "現在のディレクトリにデフォルト設定の <code>nsjsconfig.json</code> を作成します。",
-    "cli.cleanTitle": "nsc clean",
+    "cli.cleanTitle": "nsc clean | --clean",
     "cli.cleanDesc":
       "<code>nsjsconfig.json</code> で定義された出力ディレクトリ（<code>outdir</code>）を削除します。",
-    "cli.versionTitle": "nsc version",
-    "cli.versionDesc":
-      "noshift.js の現在のバージョンを表示します。<code>nsc -v</code> または <code>nsc --version</code> でも利用可能。",
-    "cli.helpTitle": "nsc help",
+    "cli.versionTitle": "nsc version | -v | --version",
+    "cli.versionDesc": "noshift.js の現在のバージョンを表示します。",
+    "cli.helpTitle": "nsc help | -h | --help",
     "cli.helpDesc":
-      "ヘルプ情報を表示します。<code>nsc -h</code> または <code>nsc --help</code> でも利用可能。ドキュメントサイトへのリンクも含まれます。",
+      "ヘルプ情報を表示します。ドキュメントサイトへのリンクも含まれます。",
 
     // Config
     "config.title": "設定",

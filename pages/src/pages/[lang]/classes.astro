@@ -1,5 +1,6 @@
 ---
 import DocsLayout from "../../layouts/DocsLayout.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
 import { t, type Lang } from "../../i18n/translations";
 
 export function getStaticPaths() {
@@ -21,7 +22,9 @@ const { lang } = Astro.params as { lang: Lang };
 
   <h2>{t(lang, "classes.basicTitle")}</h2>
   <p set:html={t(lang, "classes.basicDesc")} />
-  <pre><code>{`class ^3animal ^[
+  <CodeBlock
+    lang="nsjs"
+    code={`class ^3animal ^[
   constructor^8name^9 ^[
     this.name ^- name;
   ^]
@@ -32,9 +35,12 @@ const { lang } = Astro.params as { lang: Lang };
 ^]
 
 const dog ^- new ^3animal^8^2Dog^2^9;
-dog.speak^8^9;`}</code></pre>
+dog.speak^8^9;`}
+  />
   <p>{lang === "ja" ? "コンパイル後:" : "Compiles to:"}</p>
-  <pre><code>{`class Animal {
+  <CodeBlock
+    lang="javascript"
+    code={`class Animal {
   constructor(name) {
     this.name = name;
   }
@@ -45,11 +51,14 @@ dog.speak^8^9;`}</code></pre>
 }
 
 const dog = new Animal("Dog");
-dog.speak();`}</code></pre>
+dog.speak();`}
+  />
 
   <h2>{t(lang, "classes.inheritTitle")}</h2>
   <p set:html={t(lang, "classes.inheritDesc")} />
-  <pre><code>{`class ^3dog extends ^3animal ^[
+  <CodeBlock
+    lang="nsjs"
+    code={`class ^3dog extends ^3animal ^[
   constructor^8name^9 ^[
     super^8name^9;
   ^]
@@ -60,9 +69,12 @@ dog.speak();`}</code></pre>
 ^]
 
 const d ^- new ^3dog^8^2Rex^2^9;
-d.bark^8^9;`}</code></pre>
+d.bark^8^9;`}
+  />
   <p>{lang === "ja" ? "コンパイル後:" : "Compiles to:"}</p>
-  <pre><code>{`class Dog extends Animal {
+  <CodeBlock
+    lang="javascript"
+    code={`class Dog extends Animal {
   constructor(name) {
     super(name);
   }
@@ -73,11 +85,14 @@ d.bark^8^9;`}</code></pre>
 }
 
 const d = new Dog("Rex");
-d.bark();`}</code></pre>
+d.bark();`}
+  />
 
   <h2>{t(lang, "classes.methodTitle")}</h2>
   <p set:html={t(lang, "classes.methodDesc")} />
-  <pre><code>{`class ^3counter ^[
+  <CodeBlock
+    lang="nsjs"
+    code={`class ^3counter ^[
   ^;count ^- 0;
 
   get^3count^8^9 ^[
@@ -87,9 +102,12 @@ d.bark();`}</code></pre>
   set^3count^8value^9 ^[
     this.^;count ^- value;
   ^]
-^]`}</code></pre>
+^]`}
+  />
   <p>{lang === "ja" ? "コンパイル後:" : "Compiles to:"}</p>
-  <pre><code>{`class Counter {
+  <CodeBlock
+    lang="javascript"
+    code={`class Counter {
   #count = 0;
 
   getCount() {
@@ -99,11 +117,14 @@ d.bark();`}</code></pre>
   setCount(value) {
     this.#count = value;
   }
-}`}</code></pre>
+}`}
+  />
 
   <h2>{t(lang, "classes.staticTitle")}</h2>
   <p set:html={t(lang, "classes.staticDesc")} />
-  <pre><code>{`class ^3math^3helper ^[
+  <CodeBlock
+    lang="nsjs"
+    code={`class ^3math^3helper ^[
   static ^3p^3i ^- 3.14159;
 
   static circle^3area^8r^9 ^[
@@ -111,9 +132,12 @@ d.bark();`}</code></pre>
   ^]
 ^]
 
-console.log^8^3math^3helper.circle^3area^85^9^9;`}</code></pre>
+console.log^8^3math^3helper.circle^3area^85^9^9;`}
+  />
   <p>{lang === "ja" ? "コンパイル後:" : "Compiles to:"}</p>
-  <pre><code>{`class MathHelper {
+  <CodeBlock
+    lang="javascript"
+    code={`class MathHelper {
   static PI = 3.14159;
 
   static circleArea(r) {
@@ -121,5 +145,6 @@ console.log^8^3math^3helper.circle^3area^85^9^9;`}</code></pre>
   }
 }
 
-console.log(MathHelper.circleArea(5));`}</code></pre>
+console.log(MathHelper.circleArea(5));`}
+  />
 </DocsLayout>

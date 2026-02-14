@@ -1,5 +1,6 @@
 ---
 import DocsLayout from "../../layouts/DocsLayout.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
 import { t, type Lang } from "../../i18n/translations";
 import { links } from "../../config/links";
 
@@ -21,7 +22,7 @@ const { lang } = Astro.params as { lang: Lang };
 
   <h2>{t(lang, "vscode.installTitle")}</h2>
   <p set:html={t(lang, "vscode.installDesc")} />
-  <pre><code>ext install {links.extensionId}</code></pre>
+  <CodeBlock lang="bash" code={`ext install ${links.extensionId}`} />
   <p>
     <a href={links.vscodeExtension} target="_blank" rel="noopener">
       {t(lang, "vscode.installLink")} →
@@ -37,5 +38,5 @@ const { lang } = Astro.params as { lang: Lang };
   </ul>
 
   <h2>{t(lang, "vscode.idTitle")}</h2>
-  <pre><code>{links.extensionId}</code></pre>
+  <CodeBlock code={links.extensionId} />
 </DocsLayout>

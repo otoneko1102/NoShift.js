@@ -1,0 +1,23 @@
+---
+import { Code } from "astro:components";
+import noshiftGrammar from "../../../vscode-extension/syntaxes/noshift.tmLanguage.json";
+
+interface Props {
+  code: string;
+  lang?: string;
+}
+
+const { code, lang = "text" } = Astro.props;
+
+const resolvedLang = lang === "nsjs" ? noshiftGrammar : lang;
+---
+
+<div class="code-block">
+  <Code code={code.trim()} lang={resolvedLang as any} theme="tokyo-night" />
+</div>
+
+<style>
+  .code-block :global(pre) {
+    background-color: var(--bg-code) !important;
+  }
+</style>

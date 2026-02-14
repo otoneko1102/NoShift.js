@@ -1,5 +1,6 @@
 ---
 import DocsLayout from "../../layouts/DocsLayout.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
 import { t, type Lang } from "../../i18n/translations";
 
 export function getStaticPaths() {
@@ -21,18 +22,21 @@ const { lang } = Astro.params as { lang: Lang };
 
   <h2>{t(lang, "config.fileTitle")}</h2>
   <p set:html={t(lang, "config.fileDesc")} />
-  <pre><code>nsc init</code></pre>
+  <CodeBlock lang="bash" code="nsc init" />
 
   <h2>{t(lang, "config.defaultTitle")}</h2>
   <p set:html={t(lang, "config.defaultDesc")} />
-  <pre><code>{`{
+  <CodeBlock
+    lang="json"
+    code={`{
   "compileroptions": {
     "rootdir": "src",
     "outdir": "dist",
     "warnuppercase": true,
     "capitalizeinstrings": true
   }
-}`}</code></pre>
+}`}
+  />
 
   <h2>{t(lang, "config.optionsTitle")}</h2>
   <table>
@@ -69,9 +73,12 @@ const { lang } = Astro.params as { lang: Lang };
 
   <h2>{t(lang, "config.disableCapitalizeTitle")}</h2>
   <p set:html={t(lang, "config.disableCapitalizeDesc")} />
-  <pre><code>{`{
+  <CodeBlock
+    lang="json"
+    code={`{
   "compileroptions": {
     "capitalizeinstrings": false
   }
-}`}</code></pre>
+}`}
+  />
 </DocsLayout>
