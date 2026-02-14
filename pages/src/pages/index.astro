@@ -8,37 +8,6 @@ import { links } from "../config/links";
 import "../styles/global.css";
 
 const lang: Lang = "en";
-
-// Fetch npm package data at build time
-let version = "";
-let monthlyDownloads = "";
-let lastPublished = "";
-
-try {
-  const [pkgRes, dlRes] = await Promise.all([
-    fetch("https://registry.npmjs.org/noshift.js"),
-    fetch("https://api.npmjs.org/downloads/point/last-month/noshift.js"),
-  ]);
-  if (pkgRes.ok) {
-    const pkg = await pkgRes.json();
-    version = pkg["dist-tags"]?.latest ?? "";
-    const timeStr = pkg.time?.[version] ?? "";
-    if (timeStr) {
-      lastPublished = new Date(timeStr).toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-      });
-    }
-  }
-  if (dlRes.ok) {
-    const dl = await dlRes.json();
-    const count = dl.downloads ?? 0;
-    monthlyDownloads = count.toLocaleString("en-US");
-  }
-} catch (_) {
-  /* fallback: leave empty */
-}
 ---
 
 <BaseLayout lang={lang} title="NoShift.js — Documentation">
@@ -91,44 +60,32 @@ try {
         </div>
 
         {/* Package Stats */}
-        {
-          version && (
-            <div class="pkg-stats">
-              <div class="stat-item">
-                <Icon name="material-symbols:tag" class="stat-icon" />
-                <span class="stat-label" id="stat-version-label">
-                  {t("en", "home.version")}
-                </span>
-                <span class="stat-value">{version}</span>
-              </div>
-              <div class="stat-item">
-                <Icon name="material-symbols:download" class="stat-icon" />
-                <span class="stat-label" id="stat-dl-label">
-                  {t("en", "home.monthlyDownloads")}
-                </span>
-                <span class="stat-value">{monthlyDownloads}</span>
-              </div>
-              {lastPublished && (
-                <div class="stat-item">
-                  <Icon
-                    name="material-symbols:calendar-month-outline"
-                    class="stat-icon"
-                  />
-                  <span class="stat-label" id="stat-pub-label">
-                    {t("en", "home.lastPublished")}
-                  </span>
-                  <span
-                    class="stat-value"
-                    id="stat-pub-value"
-                    data-raw={lastPublished}
-                  >
-                    {lastPublished}
-                  </span>
-                </div>
-              )}
-            </div>
-          )
-        }
+        <div class="pkg-stats" id="pkg-stats">
+          <div class="stat-item">
+            <Icon name="material-symbols:tag" class="stat-icon" />
+            <span class="stat-label" id="stat-version-label">
+              {t("en", "home.version")}
+            </span>
+            <span class="stat-value" id="stat-version-value">—</span>
+          </div>
+          <div class="stat-item">
+            <Icon name="material-symbols:download" class="stat-icon" />
+            <span class="stat-label" id="stat-dl-label">
+              {t("en", "home.monthlyDownloads")}
+            </span>
+            <span class="stat-value" id="stat-dl-value">—</span>
+          </div>
+          <div class="stat-item">
+            <Icon
+              name="material-symbols:calendar-month-outline"
+              class="stat-icon"
+            />
+            <span class="stat-label" id="stat-pub-label">
+              {t("en", "home.lastPublished")}
+            </span>
+            <span class="stat-value" id="stat-pub-value">—</span>
+          </div>
+        </div>
 
         {/* Install command */}
         <div class="install-bar">
@@ -370,8 +327,49 @@ console.log("Hello from " + name + "!");`}
     });
 
     // Auto-detect browser language on load
-    if (navigator.language.startsWith("ja")) {
+    const currentLang = navigator.language.startsWith("ja") ? "ja" : "en";
+    if (currentLang === "ja") {
       applyLang("ja");
     }
+
+    // Fetch npm package stats dynamically
+    (async () => {
+      try {
+        const [pkgRes, dlRes] = await Promise.all([
+          fetch("https://registry.npmjs.org/noshift.js"),
+          fetch("https://api.npmjs.org/downloads/point/last-month/noshift.js"),
+        ]);
+
+        if (pkgRes.ok) {
+          const pkg = await pkgRes.json();
+          const ver = pkg["dist-tags"]?.latest ?? "";
+          if (ver) {
+            const versionEl = document.getElementById("stat-version-value");
+            if (versionEl) versionEl.textContent = ver;
+          }
+          const timeStr = pkg.time?.[ver] ?? "";
+          if (timeStr) {
+            const pubEl = document.getElementById("stat-pub-value");
+            if (pubEl) {
+              pubEl.dataset.raw = timeStr;
+              const lang = document.documentElement.lang || "en";
+              pubEl.textContent = new Date(timeStr).toLocaleDateString(
+                lang === "ja" ? "ja-JP" : "en-US",
+                { year: "numeric", month: "short", day: "numeric" },
+              );
+            }
+          }
+        }
+
+        if (dlRes.ok) {
+          const dl = await dlRes.json();
+          const count = dl.downloads ?? 0;
+          const dlEl = document.getElementById("stat-dl-value");
+          if (dlEl) dlEl.textContent = count.toLocaleString("en-US");
+        }
+      } catch (_) {
+        /* silently fail */
+      }
+    })();
   </script>
 </BaseLayout>
