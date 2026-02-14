@@ -514,6 +514,13 @@ pre code {
   padding: 3rem 0 2rem;
 }
 
+.hero-icon {
+  width: 96px;
+  height: 96px;
+  border-radius: var(--radius-lg);
+  margin-bottom: 1rem;
+}
+
 .hero h1 {
   font-size: 3.5rem;
   margin-bottom: 0.75rem;

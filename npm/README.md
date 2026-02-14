@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/otoneko1102/NoShift.js/refs/heads/main/vscode-extension/icons/noshift-extension-icon.png" alt="noshift.js" width="96" height="96">
+</p>
+
 # noshift.js
 
 > A joke language that lets you write JavaScript without pressing the Shift key.

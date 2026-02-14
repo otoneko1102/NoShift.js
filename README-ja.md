@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="vscode-extension/icons/noshift-extension-icon.png" alt="NoShift.js" width="96" height="96">
+</p>
+
 # NoShift.js
 
 > Shift キーを押さずに JavaScript を書ける Joke 言語
