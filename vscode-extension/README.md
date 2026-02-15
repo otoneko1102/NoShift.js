@@ -9,6 +9,10 @@
 
 > Syntax highlighting, auto-complete, and file icons for `.nsjs` files
 
+Typing shifted symbols (`!`, `"`, `(`, `)`, `{`, `}` …) is tiring.  
+**NoShift.js** replaces every shift-required symbol with a `^`-prefixed sequence, so you can write JavaScript using only unshifted keys.  
+`.nsjs` files compile directly to plain JavaScript via the `nsc` CLI.
+
 ---
 
 ## Features
