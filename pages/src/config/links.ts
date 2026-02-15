@@ -3,6 +3,7 @@ export const links = {
   github: "https://github.com/otoneko1102/NoShift.js",
   githubAuthor: "https://github.com/otoneko1102",
   npm: "https://www.npmjs.com/package/noshift.js",
+  npmPrettier: "https://www.npmjs.com/package/prettier-plugin-noshift.js",
   vscodeExtension:
     "https://marketplace.visualstudio.com/items?itemName=otoneko1102.noshift-vscode",
   extensionId: "otoneko1102.noshift-vscode",

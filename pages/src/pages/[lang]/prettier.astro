@@ -1,0 +1,121 @@
+---
+import DocsLayout from "../../layouts/DocsLayout.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
+import { t, type Lang } from "../../i18n/translations";
+import { links } from "../../config/links";
+
+export function getStaticPaths() {
+  return [{ params: { lang: "en" } }, { params: { lang: "ja" } }];
+}
+
+const { lang } = Astro.params as { lang: Lang };
+---
+
+<DocsLayout
+  lang={lang}
+  title={t(lang, "prettier.title") + "  NoShift.js"}
+  currentPath={`/${lang}/prettier/`}
+  prev={{ href: `/${lang}/config/`, title: t(lang, "nav.config") }}
+  next={{ href: `/${lang}/vscode/`, title: t(lang, "nav.vscode") }}
+>
+  <h1>{t(lang, "prettier.title")}</h1>
+  <p set:html={t(lang, "prettier.introDesc")} />
+
+  <h2>{t(lang, "prettier.installTitle")}</h2>
+  <p set:html={t(lang, "prettier.installDesc")} />
+  <CodeBlock lang="bash" code="npm install --save-dev prettier prettier-plugin-noshift.js" />
+
+  <h2>{t(lang, "prettier.configTitle")}</h2>
+  <p set:html={t(lang, "prettier.configDesc")} />
+  <CodeBlock
+    lang="json"
+    code={`{
+  "semi": true,
+  "singleQuote": false,
+  "plugins": ["prettier-plugin-noshift.js"]
+}`}
+  />
+  <p set:html={t(lang, "prettier.createNote")} />
+
+  <h2>{t(lang, "prettier.howTitle")}</h2>
+  <p set:html={t(lang, "prettier.howDesc")} />
+
+  <h3>{t(lang, "prettier.pipelineTitle")}</h3>
+  <ol>
+    <li set:html={t(lang, "prettier.pipeline1")} />
+    <li set:html={t(lang, "prettier.pipeline2")} />
+    <li set:html={t(lang, "prettier.pipeline3")} />
+  </ol>
+
+  <h2>{t(lang, "prettier.exampleTitle")}</h2>
+  <p>{t(lang, "prettier.exampleBefore")}</p>
+  <CodeBlock
+    lang="nsjs"
+    code={`const  x  =  1  ;
+function greet^8name^9 ^[
+  const msg=^2^3hello, ^2^;name;
+console.log^8msg^9 ;
+  return  msg ;
+^]`}
+  />
+  <p>{t(lang, "prettier.exampleAfter")}</p>
+  <CodeBlock
+    lang="nsjs"
+    code={`const x ^- 1;
+function greet^8name^9 ^[
+  const msg ^- ^2^3hello, ^2 ^; name;
+  console.log^8msg^9;
+  return msg;
+^]`}
+  />
+
+  <h2>{t(lang, "prettier.optionsTitle")}</h2>
+  <p set:html={t(lang, "prettier.optionsDesc")} />
+  <table>
+    <thead>
+      <tr>
+        <th>Option</th>
+        <th>Default</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>semi</code></td>
+        <td><code>true</code></td>
+        <td>{lang === "ja" ? "文末にセミコロンを付ける" : "Add semicolons at the end of statements"}</td>
+      </tr>
+      <tr>
+        <td><code>singleQuote</code></td>
+        <td><code>false</code></td>
+        <td>{lang === "ja" ? "シングルクォートを使う" : "Use single quotes instead of double quotes"}</td>
+      </tr>
+      <tr>
+        <td><code>tabWidth</code></td>
+        <td><code>2</code></td>
+        <td>{lang === "ja" ? "インデント幅" : "Indentation width"}</td>
+      </tr>
+      <tr>
+        <td><code>trailingComma</code></td>
+        <td><code>"all"</code></td>
+        <td>{lang === "ja" ? "末尾カンマ" : "Trailing commas"}</td>
+      </tr>
+      <tr>
+        <td><code>printWidth</code></td>
+        <td><code>80</code></td>
+        <td>{lang === "ja" ? "1行の最大文字数" : "Max line width"}</td>
+      </tr>
+      <tr>
+        <td><code>bracketSpacing</code></td>
+        <td><code>true</code></td>
+        <td>{lang === "ja" ? "オブジェクト括弧内のスペース" : "Spaces inside object braces"}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    <a href={links.npmPrettier} target="_blank" rel="noopener">
+      {t(lang, "prettier.npmLink")} →
+    </a>
+  </p>
+</DocsLayout>

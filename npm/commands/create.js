@@ -49,13 +49,20 @@ export default async function create(projectNameArg, options = {}) {
 
   // Prettier
   if (usePrettier) {
-    logger.step("Installing Prettier...");
-    execSync("npm install --save-dev prettier", { stdio: "ignore" });
+    logger.step("Installing Prettier & prettier-plugin-noshift.js ...");
+    execSync("npm install --save-dev prettier prettier-plugin-noshift.js", {
+      stdio: "ignore",
+    });
     await fs.writeFile(".prettierignore", "dist/\nnode_modules/\n");
     await fs.writeFile(
       ".prettierrc",
       JSON.stringify(
-        { semi: true, singleQuote: false, trailingComma: "es5" },
+        {
+          semi: true,
+          singleQuote: false,
+          trailingComma: "es5",
+          plugins: ["prettier-plugin-noshift.js"],
+        },
         null,
         2,
       ) + "\n",

@@ -37,6 +37,7 @@ export const ui = {
     "nav.classes": "Classes",
     "nav.cli": "CLI Reference",
     "nav.config": "Configuration",
+    "nav.prettier": "Prettier Plugin",
     "nav.vscode": "VS Code Extension",
     "nav.github": "GitHub",
     "nav.npm": "npm",
@@ -228,6 +229,33 @@ export const ui = {
     "config.disableCapitalizeDesc":
       "To treat <code>^3</code> as a literal caret + 3 inside strings:",
 
+    // Prettier
+    "prettier.title": "Prettier Plugin",
+    "prettier.introDesc":
+      "<strong>prettier-plugin-noshift.js</strong> is an official Prettier plugin that formats <code>.nsjs</code> files.",
+    "prettier.installTitle": "Installation",
+    "prettier.installDesc":
+      "Install the plugin as a dev dependency alongside Prettier:",
+    "prettier.configTitle": "Configuration",
+    "prettier.configDesc":
+      "Add the plugin to your <code>.prettierrc</code> (or equivalent config file):",
+    "prettier.createNote":
+      "If you scaffold a project with <code>nsc create</code>, the Prettier plugin is automatically installed and configured.",
+    "prettier.howTitle": "How It Works",
+    "prettier.howDesc":
+      "The plugin converts <code>.nsjs</code> code to JavaScript, formats it with Prettier's built-in JavaScript formatter, then converts the result back to NoShift.js syntax. All standard Prettier options (e.g., <code>semi</code>, <code>singleQuote</code>, <code>tabWidth</code>) are forwarded.",
+    "prettier.pipelineTitle": "Pipeline",
+    "prettier.pipeline1": "<code>.nsjs</code> → JavaScript (convert)",
+    "prettier.pipeline2": "JavaScript → formatted JavaScript (Prettier)",
+    "prettier.pipeline3": "formatted JavaScript → <code>.nsjs</code> (reverse convert)",
+    "prettier.exampleTitle": "Example",
+    "prettier.exampleBefore": "Before:",
+    "prettier.exampleAfter": "After formatting:",
+    "prettier.optionsTitle": "Supported Options",
+    "prettier.optionsDesc":
+      "All standard Prettier options are supported. Common ones include:",
+    "prettier.npmLink": "View on npm",
+
     // VS Code
     "vscode.title": "VS Code Extension",
     "vscode.introDesc":
@@ -270,6 +298,7 @@ export const ui = {
     "nav.classes": "Classes",
     "nav.cli": "CLI Reference",
     "nav.config": "Configuration",
+    "nav.prettier": "Prettier Plugin",
     "nav.vscode": "VS Code Extension",
     "nav.github": "GitHub",
     "nav.npm": "npm",
@@ -460,6 +489,33 @@ export const ui = {
     "config.disableCapitalizeTitle": "文字列内の大文字化を無効化",
     "config.disableCapitalizeDesc":
       "文字列内で <code>^3</code> をリテラルの <code>^</code> + <code>3</code> として扱う場合:",
+
+    // Prettier
+    "prettier.title": "Prettier プラグイン",
+    "prettier.introDesc":
+      "<strong>prettier-plugin-noshift.js</strong> は <code>.nsjs</code> ファイルをフォーマットする公式 Prettier プラグインです。",
+    "prettier.installTitle": "インストール",
+    "prettier.installDesc":
+      "Prettier と一緒にプラグインを devDependencies としてインストールします:",
+    "prettier.configTitle": "設定",
+    "prettier.configDesc":
+      "<code>.prettierrc</code>（または同等の設定ファイル）にプラグインを追加します:",
+    "prettier.createNote":
+      "<code>nsc create</code> でプロジェクトをスキャフォールドすると、Prettier プラグインは自動的にインストール・設定されます。",
+    "prettier.howTitle": "仕組み",
+    "prettier.howDesc":
+      "プラグインは <code>.nsjs</code> コードを JavaScript に変換し、Prettier の組み込み JavaScript フォーマッターでフォーマットした後、結果を NoShift.js 構文に戻します。標準的な Prettier オプション（<code>semi</code>、<code>singleQuote</code>、<code>tabWidth</code> など）はすべて転送されます。",
+    "prettier.pipelineTitle": "パイプライン",
+    "prettier.pipeline1": "<code>.nsjs</code> → JavaScript（変換）",
+    "prettier.pipeline2": "JavaScript → フォーマット済み JavaScript（Prettier）",
+    "prettier.pipeline3": "フォーマット済み JavaScript → <code>.nsjs</code>（逆変換）",
+    "prettier.exampleTitle": "例",
+    "prettier.exampleBefore": "フォーマット前:",
+    "prettier.exampleAfter": "フォーマット後:",
+    "prettier.optionsTitle": "対応オプション",
+    "prettier.optionsDesc":
+      "すべての標準 Prettier オプションがサポートされています。一般的なものは:",
+    "prettier.npmLink": "npm で見る",
 
     // VS Code
     "vscode.title": "VS Code 拡張機能",

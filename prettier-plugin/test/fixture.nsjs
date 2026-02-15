@@ -1,0 +1,16 @@
+// テスト用 NoShift.js ファイル（フォーマット前）
+const x  =  1  ;
+function greet^8name^9 ^[
+  const msg=^2^3hello, ^2^;name;
+console.log^8msg^9 ;
+  return  msg ;
+^]
+
+class ^3animal ^[
+  constructor^8name^9 ^[
+this.name ^- name  ;
+^]
+  speak^8^9 ^[
+console.log^8^@^4^[this.name^] makes a noise^@^9;
+^]
+^]

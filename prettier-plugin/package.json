@@ -1,0 +1,39 @@
+{
+  "name": "prettier-plugin-noshift.js",
+  "version": "0.0.1",
+  "description": "Prettier plugin for NoShift.js",
+  "type": "module",
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "files": [
+    "src/"
+  ],
+  "scripts": {
+    "test": "node test/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/otoneko1102/NoShift.js.git"
+  },
+  "keywords": [
+    "noshift",
+    "nsjs",
+    "joke",
+    "prettier",
+    "prettier-plugin",
+    "format",
+    "formatter",
+    "fmt"
+  ],
+  "author": "otoneko.",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/otoneko1102/NoShift.js/issues"
+  },
+  "homepage": "https://github.com/otoneko1102/NoShift.js#readme",
+  "peerDependencies": {
+    "prettier": "^3.8.1"
+  }
+}
