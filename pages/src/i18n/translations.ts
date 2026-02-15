@@ -33,6 +33,7 @@ export const ui = {
     "nav.home": "Home",
     "nav.gettingStarted": "Getting Started",
     "nav.syntax": "Syntax & Symbols",
+    "nav.capitalize": "Capitalize (^3)",
     "nav.classes": "Classes",
     "nav.cli": "CLI Reference",
     "nav.config": "Configuration",
@@ -114,6 +115,48 @@ export const ui = {
     "syntax.helloTitle": "Hello World",
     "syntax.helloInput": "Input:",
     "syntax.helloOutput": "Output:",
+
+    // Capitalize
+    "cap.title": "Capitalize Modifier (^3)",
+    "cap.introDesc":
+      "The <code>^3</code> modifier capitalizes the next character. Since NoShift.js is designed to avoid the Shift key, this is how you produce uppercase letters.",
+    "cap.basicTitle": "Basic Usage",
+    "cap.basicDesc":
+      "Place <code>^3</code> immediately before the character you want to capitalize. Only the single character after <code>^3</code> is affected:",
+    "cap.multiTitle": "Multiple Capitalizations",
+    "cap.multiDesc":
+      "To capitalize multiple characters (e.g., camelCase or PascalCase identifiers), repeat <code>^3</code> before each character:",
+    "cap.classTitle": "Class Names",
+    "cap.classDesc":
+      "Class names in JavaScript are conventionally PascalCase. Use <code>^3</code> before each uppercase letter:",
+    "cap.methodTitle": "Methods & Properties",
+    "cap.methodDesc":
+      "camelCase method names use <code>^3</code> at each uppercase boundary:",
+    "cap.constTitle": "Constants (UPPER_SNAKE_CASE)",
+    "cap.constDesc":
+      "For ALL_CAPS constants, capitalize every letter with <code>^3</code>:",
+    "cap.stringTitle": "Inside Strings",
+    "cap.stringDesc":
+      "By default, <code>^3</code> also works inside string literals (<code>^2...^2</code>, <code>^7...^7</code>, <code>^@...^@</code>). This means you can produce uppercase text in strings without Shift:",
+    "cap.stringNoteTitle": "Disable in Strings",
+    "cap.stringNoteDesc":
+      "If you want <code>^3</code> inside strings to be treated as a literal caret + character (not capitalized), set <code>capitalizeinstrings</code> to <code>false</code> in <code>nsjsconfig.json</code>:",
+    "cap.configTitle": "Related Configuration",
+    "cap.configDesc":
+      "Two config options in <code>nsjsconfig.json</code> affect <code>^3</code> behavior:",
+    "cap.configWarnUppercase":
+      "When <code>true</code> (default), the compiler warns if you write uppercase letters directly in source code instead of using <code>^3</code>.",
+    "cap.configCapitalizeInStrings":
+      "When <code>true</code> (default), <code>^3</code> works inside string literals. Set to <code>false</code> to disable.",
+    "cap.stringWarnTitle": "Uppercase Warnings in Strings",
+    "cap.stringWarnDesc":
+      "When both <code>warnuppercase</code> and <code>capitalizeinstrings</code> are <code>true</code> (default), the compiler also warns about uppercase letters found inside string literals. Since <code>^3</code> is available in strings, writing uppercase directly is discouraged:",
+    "cap.commentTitle": "In Comments",
+    "cap.commentDesc":
+      "<code>^3</code> does <strong>not</strong> work inside comments. Comments are passed through as-is:",
+    "cap.escapeTitle": "In Raw/Escape Strings",
+    "cap.escapeDesc":
+      "Inside raw string sequences (within template expression strings), <code>^3</code> is <strong>not</strong> processed. It appears literally:",
 
     // Classes
     "classes.title": "Classes",
@@ -223,6 +266,7 @@ export const ui = {
     "nav.home": "Home",
     "nav.gettingStarted": "Getting Started",
     "nav.syntax": "Syntax & Symbols",
+    "nav.capitalize": "Capitalize (^3)",
     "nav.classes": "Classes",
     "nav.cli": "CLI Reference",
     "nav.config": "Configuration",
@@ -305,6 +349,48 @@ export const ui = {
     "syntax.helloTitle": "Hello World",
     "syntax.helloInput": "入力:",
     "syntax.helloOutput": "出力:",
+
+    // Capitalize
+    "cap.title": "大文字化修飾子 (^3)",
+    "cap.introDesc":
+      "<code>^3</code> 修飾子は次の文字を大文字にします。NoShift.js は Shift キーを使わずにコードを書くための言語なので、大文字はこの方法で生成します。",
+    "cap.basicTitle": "基本的な使い方",
+    "cap.basicDesc":
+      "大文字にしたい文字の直前に <code>^3</code> を置きます。<code>^3</code> の直後の1文字だけが大文字になります:",
+    "cap.multiTitle": "複数の大文字化",
+    "cap.multiDesc":
+      "複数の文字を大文字化する場合（camelCase や PascalCase の識別子など）、各文字の前に <code>^3</code> を繰り返します:",
+    "cap.classTitle": "クラス名",
+    "cap.classDesc":
+      "JavaScript のクラス名は慣習的に PascalCase です。大文字にする各文字の前に <code>^3</code> を使います:",
+    "cap.methodTitle": "メソッドとプロパティ",
+    "cap.methodDesc":
+      "camelCase のメソッド名は、大文字の境界ごとに <code>^3</code> を使います:",
+    "cap.constTitle": "定数 (UPPER_SNAKE_CASE)",
+    "cap.constDesc":
+      "全て大文字の定数は、すべての文字を <code>^3</code> で大文字化します:",
+    "cap.stringTitle": "文字列内での使用",
+    "cap.stringDesc":
+      "デフォルトでは、<code>^3</code> は文字列リテラル（<code>^2...^2</code>、<code>^7...^7</code>、<code>^@...^@</code>）内でも動作します。つまり、Shift キーなしで文字列中に大文字テキストを生成できます:",
+    "cap.stringNoteTitle": "文字列内での無効化",
+    "cap.stringNoteDesc":
+      "文字列内の <code>^3</code> をリテラルなキャレット + 文字として扱いたい場合は、<code>nsjsconfig.json</code> で <code>capitalizeinstrings</code> を <code>false</code> に設定します:",
+    "cap.configTitle": "関連する設定",
+    "cap.configDesc":
+      "<code>nsjsconfig.json</code> の2つの設定オプションが <code>^3</code> の動作に影響します:",
+    "cap.configWarnUppercase":
+      "<code>true</code>（デフォルト）の場合、<code>^3</code> を使わずにソースコードに直接大文字を書くとコンパイラが警告します。",
+    "cap.configCapitalizeInStrings":
+      "<code>true</code>（デフォルト）の場合、<code>^3</code> は文字列リテラル内でも動作します。<code>false</code> に設定すると無効になります。",
+    "cap.stringWarnTitle": "文字列内の大文字警告",
+    "cap.stringWarnDesc":
+      "<code>warnuppercase</code> と <code>capitalizeinstrings</code> が両方 <code>true</code>（デフォルト）の場合、コンパイラは文字列リテラル内の大文字も警告します。<code>^3</code> が文字列内で使えるため、大文字を直接書くことは推奨されません:",
+    "cap.commentTitle": "コメント内",
+    "cap.commentDesc":
+      "<code>^3</code> はコメント内では動作<strong>しません</strong>。コメントはそのまま出力されます:",
+    "cap.escapeTitle": "RAW/エスケープ文字列内",
+    "cap.escapeDesc":
+      "テンプレート式内の RAW 文字列シーケンスでは、<code>^3</code> は処理<strong>されません</strong>。そのまま出力されます:",
 
     // Classes
     "classes.title": "クラス",

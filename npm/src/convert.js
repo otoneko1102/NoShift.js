@@ -1,3 +1,37 @@
+// ======
+// NoShift.js → JavaScript 置換用マップ
+// ======
+const noShiftMap = {
+  // "^@^@^@": "```", // マルチバックチック
+  "^4^[": "${", // テンプレート式展開開始
+  "^1": "!",
+  "^2": '"',
+  "^4": "$",
+  "^5": "%",
+  "^6": "&",
+  "^7": "'",
+  "^8": "(",
+  "^9": ")",
+  "^-": "=",
+  "^^": "~",
+  "^\\": "|",
+  "^@": "`",
+  "^[": "{",
+  "^]": "}",
+  "^;": "+",
+  "^:": "*",
+  "^,": "<",
+  "^.": ">",
+  "^/": "?",
+};
+
+// 逆引きマップ: JavaScript 記号 → NoShift 表記（単一記号のみ）
+const symbolToNoshift = Object.fromEntries(
+  Object.entries(noShiftMap)
+    .filter(([key, value]) => key.length === 2 && value.length === 1)
+    .map(([key, value]) => [value, key]),
+);
+
 function convertNsjsToJs(nsjsCode, options = {}) {
   const capitalizeInStrings = options.capitalizeInStrings !== false;
   let jsCode = "";
@@ -22,33 +56,6 @@ function convertNsjsToJs(nsjsCode, options = {}) {
 
   let currentState = STATE.NORMAL;
   const stateStack = [];
-
-  // ======
-  // NoShift.js → JavaScript 置換用マップ
-  // ======
-  const noShiftMap = {
-    // "^@^@^@": "```", // マルチバックチック
-    "^4^[": "${", // テンプレート式展開開始
-    "^1": "!",
-    "^2": '"',
-    "^4": "$",
-    "^5": "%",
-    "^6": "&",
-    "^7": "'",
-    "^8": "(",
-    "^9": ")",
-    "^-": "=",
-    "^^": "~",
-    "^\\": "|",
-    "^@": "`",
-    "^[": "{",
-    "^]": "}",
-    "^;": "+",
-    "^:": "*",
-    "^,": "<",
-    "^.": ">",
-    "^/": "?",
-  };
 
   // マッピングキーは長いものからマッチさせる
   const sortedNsKeys = Object.keys(noShiftMap).sort(
@@ -463,11 +470,14 @@ function convertNsjsToJs(nsjsCode, options = {}) {
 
 /**
  * ソースコード内の大文字、_, $, # の使用を警告する。
- * 文字列・コメント内は無視する。
+ * コメント内は無視する。
+ * capitalizeInStrings が true の場合、文字列内の大文字も警告する。
  * @param {string} nsjsCode
+ * @param {{ capitalizeInStrings?: boolean }} [options={}]
  * @returns {{ line: number, column: number, char: string, message: string }[]}
  */
-export function checkUppercaseWarnings(nsjsCode) {
+export function checkUppercaseWarnings(nsjsCode, options = {}) {
+  const capitalizeInStrings = options.capitalizeInStrings !== false;
   const warnings = [];
   const lines = nsjsCode.split("\n");
 
@@ -549,8 +559,19 @@ export function checkUppercaseWarnings(nsjsCode) {
         continue;
       }
 
-      // 文字列内はスキップ
-      if (inDQ || inSQ || inBT) continue;
+      // 文字列内の処理
+      if (inDQ || inSQ || inBT) {
+        // capitalizeInStrings が有効なら、文字列内の大文字も警告
+        if (capitalizeInStrings && /[A-Z]/.test(ch)) {
+          warnings.push({
+            line: lineNum + 1,
+            column: col + 1,
+            char: ch,
+            message: `Uppercase letter '${ch}' found in string. Use ^3${ch.toLowerCase()} instead.`,
+          });
+        }
+        continue;
+      }
 
       // 他の ^X シーケンスをスキップ
       if (ch === "^" && next && /[0-9\-^\\@\[\];:,./]/.test(next)) {
@@ -567,20 +588,22 @@ export function checkUppercaseWarnings(nsjsCode) {
           message: `Uppercase letter '${ch}' found. Use ^3${ch.toLowerCase()} instead.`,
         });
       }
-      // _, $, # の警告
+      // Shift キーが必要な記号の警告
+      else if (symbolToNoshift[ch]) {
+        warnings.push({
+          line: lineNum + 1,
+          column: col + 1,
+          char: ch,
+          message: `Symbol '${ch}' found. Use ${symbolToNoshift[ch]} instead.`,
+        });
+      }
+      // _, # の警告
       else if (ch === "_") {
         warnings.push({
           line: lineNum + 1,
           column: col + 1,
           char: ch,
           message: "Underscore '_' found in code.",
-        });
-      } else if (ch === "$") {
-        warnings.push({
-          line: lineNum + 1,
-          column: col + 1,
-          char: ch,
-          message: "Dollar sign '$' found. Use ^4 instead.",
         });
       } else if (ch === "#") {
         warnings.push({

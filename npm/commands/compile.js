@@ -76,7 +76,7 @@ export default async function compile() {
 
       // 大文字警告チェック
       if (warnUppercase) {
-        const warnings = checkUppercaseWarnings(code);
+        const warnings = checkUppercaseWarnings(code, convertOptions);
         for (const w of warnings) {
           logger.warn(
             `${relative.replace(/\\/g, "/")}:${w.line}:${w.column} - ${w.message}`,

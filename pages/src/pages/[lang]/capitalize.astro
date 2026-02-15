@@ -1,0 +1,173 @@
+---
+import DocsLayout from "../../layouts/DocsLayout.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
+import { t, type Lang } from "../../i18n/translations";
+
+export function getStaticPaths() {
+  return [{ params: { lang: "en" } }, { params: { lang: "ja" } }];
+}
+
+const { lang } = Astro.params as { lang: Lang };
+---
+
+<DocsLayout
+  lang={lang}
+  title={t(lang, "cap.title") + " — NoShift.js"}
+  currentPath={`/${lang}/capitalize/`}
+  prev={{ href: `/${lang}/syntax/`, title: t(lang, "nav.syntax") }}
+  next={{ href: `/${lang}/classes/`, title: t(lang, "nav.classes") }}
+>
+  <h1>{t(lang, "cap.title")}</h1>
+  <p set:html={t(lang, "cap.introDesc")} />
+
+  <h2>{t(lang, "cap.basicTitle")}</h2>
+  <p set:html={t(lang, "cap.basicDesc")} />
+  <CodeBlock
+    lang="nsjs"
+    code={`const name ^- ^2^3hello^2;\n// ^3h → H,残りはそのまま`}
+  />
+  <p>{lang === "ja" ? "コンパイル後:" : "Compiles to:"}</p>
+  <CodeBlock lang="javascript" code={`const name = "Hello";`} />
+
+  <h2>{t(lang, "cap.multiTitle")}</h2>
+  <p set:html={t(lang, "cap.multiDesc")} />
+  <CodeBlock
+    lang="nsjs"
+    code={`const my^3var ^- ^2^3hello ^3world^2;\nconsole.log^8my^3var^9;`}
+  />
+  <p>{lang === "ja" ? "コンパイル後:" : "Compiles to:"}</p>
+  <CodeBlock
+    lang="javascript"
+    code={`const myVar = "Hello World";\nconsole.log(myVar);`}
+  />
+
+  <h2>{t(lang, "cap.classTitle")}</h2>
+  <p set:html={t(lang, "cap.classDesc")} />
+  <CodeBlock
+    lang="nsjs"
+    code={`class ^3animal ^[\n  constructor^8name^9 ^[\n    this.name ^- name;\n  ^]\n^]\n\nclass ^3my^3app extends ^3animal ^[\n  constructor^8^9 ^[\n    super^8^2^3app^2^9;\n  ^]\n^]`}
+  />
+  <p>{lang === "ja" ? "コンパイル後:" : "Compiles to:"}</p>
+  <CodeBlock
+    lang="javascript"
+    code={`class Animal {\n  constructor(name) {\n    this.name = name;\n  }\n}\n\nclass MyApp extends Animal {\n  constructor() {\n    super("App");\n  }\n}`}
+  />
+
+  <h2>{t(lang, "cap.methodTitle")}</h2>
+  <p set:html={t(lang, "cap.methodDesc")} />
+  <CodeBlock
+    lang="nsjs"
+    code={`const obj ^- ^[\n  get^3name^8^9 ^[\n    return this.name;\n  ^],\n  set^3value^8v^9 ^[\n    this.value ^- v;\n  ^],\n^];`}
+  />
+  <p>{lang === "ja" ? "コンパイル後:" : "Compiles to:"}</p>
+  <CodeBlock
+    lang="javascript"
+    code={`const obj = {\n  getName() {\n    return this.name;\n  },\n  setValue(v) {\n    this.value = v;\n  },\n};`}
+  />
+
+  <h2>{t(lang, "cap.constTitle")}</h2>
+  <p set:html={t(lang, "cap.constDesc")} />
+  <CodeBlock
+    lang="nsjs"
+    code={`const ^3m^3a^3x_^3s^3i^3z^3e ^- 1024;\nconsole.log^8^3m^3a^3x_^3s^3i^3z^3e^9;`}
+  />
+  <p>{lang === "ja" ? "コンパイル後:" : "Compiles to:"}</p>
+  <CodeBlock
+    lang="javascript"
+    code={`const MAX_SIZE = 1024;\nconsole.log(MAX_SIZE);`}
+  />
+
+  <h2>{t(lang, "cap.stringTitle")}</h2>
+  <p set:html={t(lang, "cap.stringDesc")} />
+  <CodeBlock
+    lang="nsjs"
+    code={`console.log^8^2^3hello, ^3world!^2^9;\nconsole.log^8^7^3yes^7^9;\nconsole.log^8^@^3template ^3string^@^9;`}
+  />
+  <p>{lang === "ja" ? "コンパイル後:" : "Compiles to:"}</p>
+  <CodeBlock
+    lang="javascript"
+    code={`console.log("Hello, World!");\nconsole.log('Yes');\nconsole.log(\`Template String\`);`}
+  />
+
+  <h2>{t(lang, "cap.stringNoteTitle")}</h2>
+  <p set:html={t(lang, "cap.stringNoteDesc")} />
+  <CodeBlock
+    lang="json"
+    code={`{\n  "compileroptions": {\n    "capitalizeinstrings": false\n  }\n}`}
+  />
+  <p>
+    {
+      lang === "ja"
+        ? "この設定の場合、文字列内の ^3 はそのまま出力されます:"
+        : "With this setting, ^3 inside strings is output literally:"
+    }
+  </p>
+  <CodeBlock lang="nsjs" code={`console.log^8^2^3hello^2^9;`} />
+  <p>{lang === "ja" ? "コンパイル後:" : "Compiles to:"}</p>
+  <CodeBlock lang="javascript" code={`console.log("^3hello");`} />
+
+  <h2>{t(lang, "cap.stringWarnTitle")}</h2>
+  <p set:html={t(lang, "cap.stringWarnDesc")} />
+  <CodeBlock
+    lang="nsjs"
+    code={`console.log^8^2Hello World^2^9;`}
+  />
+  <p>
+    {
+      lang === "ja"
+        ? "コンパイル時の警告例:"
+        : "Example warnings during compilation:"
+    }
+  </p>
+  <CodeBlock
+    lang="text"
+    code={`⚠ src/main.nsjs:1:18 - Uppercase letter 'H' found in string. Use ^3h instead.\n⚠ src/main.nsjs:1:24 - Uppercase letter 'W' found in string. Use ^3w instead.`}
+  />
+  <p>
+    {
+      lang === "ja"
+        ? "^3 を使って書き直すと:"
+        : "Rewrite using ^3:"
+    }
+  </p>
+  <CodeBlock
+    lang="nsjs"
+    code={`console.log^8^2^3hello ^3world^2^9;`}
+  />
+
+  <h2>{t(lang, "cap.commentTitle")}</h2>
+  <p set:html={t(lang, "cap.commentDesc")} />
+  <CodeBlock
+    lang="nsjs"
+    code={`// ^3this is a comment, ^3 does not capitalize\n/^: ^3block comment, also literal ^:/`}
+  />
+  <p>{lang === "ja" ? "コンパイル後:" : "Compiles to:"}</p>
+  <CodeBlock
+    lang="javascript"
+    code={`// ^3this is a comment, ^3 does not capitalize\n/* ^3block comment, also literal */`}
+  />
+
+  <h2>{t(lang, "cap.configTitle")}</h2>
+  <p set:html={t(lang, "cap.configDesc")} />
+  <table>
+    <thead>
+      <tr>
+        <th>Option</th>
+        <th>Default</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>warnuppercase</code></td>
+        <td><code>true</code></td>
+        <td set:html={t(lang, "cap.configWarnUppercase")} />
+      </tr>
+      <tr>
+        <td><code>capitalizeinstrings</code></td>
+        <td><code>true</code></td>
+        <td set:html={t(lang, "cap.configCapitalizeInStrings")} />
+      </tr>
+    </tbody>
+  </table>
+</DocsLayout>

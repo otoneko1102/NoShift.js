@@ -41,7 +41,7 @@
       "patterns": [
         {
           "name": "keyword.operator.capitalize.noshift",
-          "match": "\\^3."
+          "match": "\\^3.[a-zA-Z0-9_$]*"
         },
         {
           "name": "constant.character.escape.noshift",
@@ -59,7 +59,7 @@
       "patterns": [
         {
           "name": "keyword.operator.capitalize.noshift",
-          "match": "\\^3."
+          "match": "\\^3.[a-zA-Z0-9_$]*"
         },
         {
           "name": "constant.character.escape.noshift",
@@ -78,7 +78,7 @@
         { "include": "#template-expression" },
         {
           "name": "keyword.operator.capitalize.noshift",
-          "match": "\\^3."
+          "match": "\\^3.[a-zA-Z0-9_$]*"
         },
         {
           "name": "constant.character.escape.noshift",
@@ -113,9 +113,9 @@
     "ns-operators": {
       "patterns": [
         {
-          "comment": "^3 capitalize modifier - highlights ^3 + next char",
+          "comment": "^3 capitalize modifier - highlights ^3 + next char + rest of identifier",
           "name": "keyword.operator.capitalize.noshift",
-          "match": "\\^3."
+          "match": "\\^3.[a-zA-Z0-9_$]*"
         },
         {
           "comment": "NoShift sequences for shift-required symbols (excludes string/bracket delimiters: ^2 ^7 ^@ ^8 ^9 ^[ ^])",
