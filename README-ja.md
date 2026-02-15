@@ -80,6 +80,24 @@ console.log("Hello from " + name + "!");
 
 ---
 
+## プログラマティック API
+
+コード内からライブラリとしても使えます:
+
+```js
+// ESM
+import { compile } from "noshift.js";
+
+// CJS
+const { compile } = require("noshift.js");
+
+const result = compile('console.log^8^2^3hello^2^9;');
+console.log(result.outputText);
+// => console.log("Hello");
+```
+
+---
+
 ## リンク
 
 | | |

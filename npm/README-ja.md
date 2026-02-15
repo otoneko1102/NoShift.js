@@ -298,6 +298,40 @@ for (let i = 0; i < 3; i++) {
 
 ---
 
+## プログラマティック API
+
+TypeScript の `ts.transpileModule()` のように、コード内からライブラリとして `.nsjs` コードをコンパイルできます。
+
+### ESM
+
+```js
+import { compile } from "noshift.js";
+
+const result = compile('console.log^8^2^3hello^2^9;');
+console.log(result.outputText);
+// => console.log("Hello");
+```
+
+### CJS
+
+```js
+const { compile } = require("noshift.js");
+
+const result = compile('console.log^8^2^3hello^2^9;');
+console.log(result.outputText);
+// => console.log("Hello");
+```
+
+### オプション
+
+```js
+const result = compile(source, {
+  capitalizeInStrings: false, // 文字列内の ^3 を無効化
+});
+```
+
+---
+
 ## ファイル名の規則
 
 `_` で始まるファイルはコンパイル対象から除外されます（パーシャル・ユーティリティ用途に便利）。

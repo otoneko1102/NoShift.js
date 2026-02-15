@@ -299,6 +299,40 @@ for (let i = 0; i < 3; i++) {
 
 ---
 
+## Programmatic API
+
+You can use NoShift.js as a library to compile `.nsjs` code from within your own scripts — similar to TypeScript's `ts.transpileModule()`.
+
+### ESM
+
+```js
+import { compile } from "noshift.js";
+
+const result = compile('console.log^8^2^3hello^2^9;');
+console.log(result.outputText);
+// => console.log("Hello");
+```
+
+### CJS
+
+```js
+const { compile } = require("noshift.js");
+
+const result = compile('console.log^8^2^3hello^2^9;');
+console.log(result.outputText);
+// => console.log("Hello");
+```
+
+### Options
+
+```js
+const result = compile(source, {
+  capitalizeInStrings: false, // Disable ^3 inside strings
+});
+```
+
+---
+
 ## File Naming
 
 Files starting with `_` are excluded from compilation (useful for partials/utilities).

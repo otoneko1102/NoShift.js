@@ -96,6 +96,16 @@ export const ui = {
     "gs.fileExtDesc":
       "NoShift.js files use the <code>.nsjs</code> extension. Files prefixed with <code>_</code> (e.g. <code>_helper.nsjs</code>) are ignored by the compiler.",
 
+    // Programmatic API
+    "gs.apiTitle": "Programmatic API",
+    "gs.apiDesc":
+      "You can also use NoShift.js as a library in your code, similar to TypeScript's <code>ts.transpileModule()</code>.",
+    "gs.apiEsmTitle": "ESM",
+    "gs.apiCjsTitle": "CJS",
+    "gs.apiOptionsTitle": "Options",
+    "gs.apiOptionsDesc":
+      "Pass options as the second argument:",
+
     // Syntax
     "syntax.title": "Syntax & Symbols",
     "syntax.introTitle": "How It Works",
@@ -365,6 +375,16 @@ export const ui = {
     "gs.fileExt": "ファイル拡張子",
     "gs.fileExtDesc":
       "NoShift.js ファイルは <code>.nsjs</code> 拡張子を使います。<code>_</code> で始まるファイル（例: <code>_helper.nsjs</code>）はコンパイラに無視されます。",
+
+    // Programmatic API
+    "gs.apiTitle": "プログラマティック API",
+    "gs.apiDesc":
+      "TypeScript の <code>ts.transpileModule()</code> のように、コード内からライブラリとしても使えます。",
+    "gs.apiEsmTitle": "ESM",
+    "gs.apiCjsTitle": "CJS",
+    "gs.apiOptionsTitle": "オプション",
+    "gs.apiOptionsDesc":
+      "第2引数でオプションを渡します:",
 
     // Syntax
     "syntax.title": "構文と記号",

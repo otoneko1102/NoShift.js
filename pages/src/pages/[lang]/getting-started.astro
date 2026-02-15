@@ -79,4 +79,17 @@ const { lang } = Astro.params as { lang: Lang };
 
   <h2>{t(lang, "gs.fileExt")}</h2>
   <p set:html={t(lang, "gs.fileExtDesc")} />
+
+  <h2>{t(lang, "gs.apiTitle")}</h2>
+  <p set:html={t(lang, "gs.apiDesc")} />
+
+  <h3>{t(lang, "gs.apiEsmTitle")}</h3>
+  <CodeBlock lang="js" code={`import { compile } from "noshift.js";\n\nconst result = compile('console.log^8^2^3hello^2^9;');\nconsole.log(result.outputText);\n// => console.log("Hello");`} />
+
+  <h3>{t(lang, "gs.apiCjsTitle")}</h3>
+  <CodeBlock lang="js" code={`const { compile } = require("noshift.js");\n\nconst result = compile('console.log^8^2^3hello^2^9;');\nconsole.log(result.outputText);\n// => console.log("Hello");`} />
+
+  <h3>{t(lang, "gs.apiOptionsTitle")}</h3>
+  <p set:html={t(lang, "gs.apiOptionsDesc")} />
+  <CodeBlock lang="js" code={`const result = compile(source, {\n  capitalizeInStrings: false, // Disable ^3 inside strings\n});`} />
 </DocsLayout>

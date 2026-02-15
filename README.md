@@ -81,6 +81,24 @@ console.log("Hello from " + name + "!");
 
 ---
 
+## Programmatic API
+
+You can also use NoShift.js as a library in your code:
+
+```js
+// ESM
+import { compile } from "noshift.js";
+
+// CJS
+const { compile } = require("noshift.js");
+
+const result = compile('console.log^8^2^3hello^2^9;');
+console.log(result.outputText);
+// => console.log("Hello");
+```
+
+---
+
 ## Links
 
 | | |
