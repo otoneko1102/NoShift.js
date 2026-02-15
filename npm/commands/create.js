@@ -3,25 +3,40 @@ import fs from "fs/promises";
 import path from "path";
 import { handleSigint } from "../src/signal-handler.js";
 import * as logger from "../src/logger.js";
+import { askInput, askConfirm } from "../src/prompt.js";
 
 export default async function create(projectNameArg, options = {}) {
   handleSigint();
 
   const cwd = process.cwd();
-  const projectName = projectNameArg || "my-noshift-app";
-  const usePrettier = options.prettier !== false; // default: true
+
+  // ── プロジェクト名 ──
+  let projectName = projectNameArg;
+  if (!projectName) {
+    projectName = await askInput("Project name", "my-noshift-app");
+  }
+
+  // ── Prettier ──
+  // --no-prettier で明示的に無効化された場合はスキップ、
+  // それ以外はユーザーに尋ねる
+  let usePrettier;
+  if (options.prettier === false) {
+    usePrettier = false;
+  } else {
+    usePrettier = await askConfirm("Use Prettier?", true);
+  }
 
   const projectPath = path.join(cwd, projectName);
 
   // Create project directory
-  logger.step("Creating project directory...");
+  logger.step("Creating project directory ...");
   await fs.mkdir(projectPath, { recursive: true });
   logger.dim(`  ${projectPath}`);
 
   process.chdir(projectPath);
 
   // npm init
-  logger.step("Initializing npm...");
+  logger.step("Initializing npm ...");
   execSync("npm init -y", { stdio: "ignore" });
 
   // Add scripts to package.json
@@ -30,6 +45,9 @@ export default async function create(projectNameArg, options = {}) {
   pkg.scripts = pkg.scripts ?? {};
   pkg.scripts.compile = "nsc compile";
   pkg.scripts.dev = "nsc dev";
+  if (usePrettier) {
+    pkg.scripts.format = "prettier --write ./src";
+  }
   await fs.writeFile(pkgPath, JSON.stringify(pkg, null, 2) + "\n");
 
   // Create nsjsconfig.json
@@ -53,32 +71,33 @@ export default async function create(projectNameArg, options = {}) {
     execSync("npm install --save-dev prettier prettier-plugin-noshift.js", {
       stdio: "ignore",
     });
-    await fs.writeFile(".prettierignore", "dist/\nnode_modules/\n");
+
+    const prettierConfig = {
+      semi: true,
+      singleQuote: false,
+      trailingComma: "es5",
+      plugins: ["prettier-plugin-noshift.js"],
+    };
     await fs.writeFile(
       ".prettierrc",
-      JSON.stringify(
-        {
-          semi: true,
-          singleQuote: false,
-          trailingComma: "es5",
-          plugins: ["prettier-plugin-noshift.js"],
-        },
-        null,
-        2,
-      ) + "\n",
+      JSON.stringify(prettierConfig, null, 2) + "\n",
     );
+    logger.success("Created .prettierrc");
+
+    await fs.writeFile(".prettierignore", "dist/\nnode_modules/\n");
+    logger.success("Created .prettierignore");
   }
 
   // Install noshift.js
-  logger.step("Installing noshift.js...");
+  logger.step("Installing noshift.js ...");
   execSync("npm install noshift.js", { stdio: "ignore" });
 
   // Create project files
-  logger.step("Creating project files...");
+  logger.step("Creating project files ...");
   await fs.mkdir("src", { recursive: true });
   await fs.writeFile(
     "src/index.nsjs",
-    "console.log^8^2^3hello, ^3world!^2^9;\n",
+    "console.log^8^2^3hello, ^3world^1^2^9;\n",
   );
 
   // .gitignore
