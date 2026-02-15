@@ -24,7 +24,9 @@ const { lang } = Astro.params as { lang: Lang };
   <p set:html={t(lang, "cap.basicDesc")} />
   <CodeBlock
     lang="nsjs"
-    code={`const name ^- ^2^3hello^2;\n// ^3h → H,残りはそのまま`}
+    code={lang === "ja"
+      ? `const name ^- ^2^3hello^2;\n// ^3h → H,残りはそのまま`
+      : `const name ^- ^2^3hello^2;\n// ^3h → H, rest stays as-is`}
   />
   <p>{lang === "ja" ? "コンパイル後:" : "Compiles to:"}</p>
   <CodeBlock lang="javascript" code={`const name = "Hello";`} />

@@ -34,7 +34,7 @@ const { lang } = Astro.params as { lang: Lang };
   ^]
 ^]
 
-const dog ^- new ^3animal^8^2Dog^2^9;
+const dog ^- new ^3animal^8^2^3dog^2^9;
 dog.speak^8^9;`}
   />
   <p>{lang === "ja" ? "コンパイル後:" : "Compiles to:"}</p>
@@ -68,7 +68,7 @@ dog.speak();`}
   ^]
 ^]
 
-const d ^- new ^3dog^8^2Rex^2^9;
+const d ^- new ^3dog^8^2^3rex^2^9;
 d.bark^8^9;`}
   />
   <p>{lang === "ja" ? "コンパイル後:" : "Compiles to:"}</p>
@@ -92,30 +92,36 @@ d.bark();`}
   <p set:html={t(lang, "classes.methodDesc")} />
   <CodeBlock
     lang="nsjs"
-    code={`class ^3counter ^[
-  ^;count ^- 0;
-
-  get^3count^8^9 ^[
-    return this.^;count;
+    code={`class ^3person ^[
+  constructor^8name, age^9 ^[
+    this.name ^- name;
+    this.age ^- age;
   ^]
 
-  set^3count^8value^9 ^[
-    this.^;count ^- value;
+  get^3info^8^9 ^[
+    return ^@^4^[this.name^] ^8^4^[this.age^]^9^@;
+  ^]
+
+  set^3name^8new^3name^9 ^[
+    this.name ^- new^3name;
   ^]
 ^]`}
   />
   <p>{lang === "ja" ? "コンパイル後:" : "Compiles to:"}</p>
   <CodeBlock
     lang="javascript"
-    code={`class Counter {
-  #count = 0;
-
-  getCount() {
-    return this.#count;
+    code={`class Person {
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
   }
 
-  setCount(value) {
-    this.#count = value;
+  getInfo() {
+    return \`\${this.name} (\${this.age})\`;
+  }
+
+  setName(newName) {
+    this.name = newName;
   }
 }`}
   />

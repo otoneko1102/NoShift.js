@@ -288,17 +288,29 @@
           "match": "(?:\\b|(?<=\\^\\d))(this|super|arguments)\\b"
         },
         {
+          "comment": "UPPER_SNAKE_CASE constants",
           "name": "variable.other.constant.noshift",
           "match": "(?:\\b|(?<=\\^\\d))[A-Z][A-Z0-9_]{2,}\\b"
         },
         {
-          "comment": "PascalCase: starts with ^3 (= uppercase first letter) or raw [A-Z]",
-          "name": "entity.name.type.noshift",
-          "match": "(?:\\b|(?<=\\^\\d)|(?=\\^3))(?:\\^3[a-zA-Z](?:(?:\\^3)?[a-zA-Z0-9_$])*|[A-Z][a-zA-Z0-9_$]*)"
+          "comment": "^3-capitalized ALL_CAPS constant (e.g. ^3m^3a^3x_^3s^3i^3z^3e)",
+          "name": "variable.other.constant.noshift",
+          "match": "(?:\\b|(?=\\^3))(?:\\^3[a-zA-Z])(?:\\^3[a-zA-Z0-9]|_)*(?![a-zA-Z0-9_$])"
         },
         {
+          "comment": "Class/type name after class/extends/new keyword",
+          "name": "entity.name.type.noshift",
+          "match": "(?<=\\b(?:class|extends|new)\\s)((?:\\^3)?[a-zA-Z_$](?:(?:\\^3)?[a-zA-Z0-9_$])*)"
+        },
+        {
+          "comment": "Raw PascalCase identifier (starts with uppercase letter)",
+          "name": "entity.name.type.noshift",
+          "match": "(?:\\b|(?<=\\^\\d))[A-Z][a-zA-Z0-9_$]*\\b"
+        },
+        {
+          "comment": "Regular variable (may contain ^3 for camelCase)",
           "name": "variable.other.noshift",
-          "match": "(?:\\b|(?<=\\^\\d))[a-zA-Z_$](?:(?:\\^3)?[a-zA-Z0-9_$])*"
+          "match": "(?:\\b|(?<=\\^\\d)|(?=\\^3))(?:\\^3)?[a-zA-Z_$](?:(?:\\^3)?[a-zA-Z0-9_$])*"
         }
       ]
     }
