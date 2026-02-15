@@ -1,14 +1,18 @@
-<p align="center">
-  <img src="https://raw.githubusercontent.com/otoneko1102/NoShift.js/refs/heads/main/vscode-extension/icons/noshift-extension-icon.png" alt="noshift.js" width="96" height="96">
-</p>
+[![npm](https://img.shields.io/npm/v/noshift.js)](https://www.npmjs.com/package/noshift.js) [![license](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
-# noshift.js
+# NoShift.js
+
+<div align="center">
+  <img src="https://raw.githubusercontent.com/otoneko1102/NoShift.js/refs/heads/main/icon.png" alt="noshift.js" width="128" height="128">
+</div>
+
+<div align="center">
+
+**English** | [日本語](./README-ja.md)
+
+</div>
 
 > A joke language that lets you write JavaScript without pressing the Shift key.
-
-[![npm](https://img.shields.io/npm/v/noshift.js)](https://www.npmjs.com/package/noshift.js)
-[![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![ja](https://img.shields.io/badge/lang-日本語_バージョン-red)](README-ja.md)
 
 ---
 

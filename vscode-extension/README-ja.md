@@ -1,9 +1,14 @@
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+
 # NoShift.js - VS Code 拡張機能
 
-> `.nsjs` ファイルの構文ハイライト・補完・アイコン対応 VS Code 拡張機能
+<div align="center">
 
-[![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![en](https://img.shields.io/badge/lang-English_version-blue)](README.md)
+[English](./README.md) | **日本語**
+
+</div>
+
+> `.nsjs` ファイルの構文ハイライト・補完・アイコン対応 VS Code 拡張機能
 
 ---
 

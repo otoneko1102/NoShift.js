@@ -1,9 +1,13 @@
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 # NoShift.js - VS Code Extension
 
-> Syntax highlighting, auto-complete, and file icons for `.nsjs` files
+<div align="center">
 
-[![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![ja](https://img.shields.io/badge/lang-日本語_バージョン-red)](README-ja.md)
+**English** | [日本語](./README-ja.md)
+
+</div>
+
+> Syntax highlighting, auto-complete, and file icons for `.nsjs` files
 
 ---
 

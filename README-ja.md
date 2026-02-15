@@ -1,9 +1,9 @@
-[![npm](https://img.shields.io/npm/v/noshift.js)](https://www.npmjs.com/package/noshift.js) [![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![npm](https://img.shields.io/npm/v/noshift.js)](https://www.npmjs.com/package/noshift.js) [![license](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
 # NoShift.js
 
 <div align="center">
-  <img src="vscode-extension/icons/noshift-extension-icon.png" alt="NoShift.js" width="128" height="128">
+  <img src="./icon.png" alt="NoShift.js" width="128" height="128">
 </div>
 
 <div align="center">
