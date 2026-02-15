@@ -48,9 +48,18 @@ Template expression: `^4^[` → `${`
 
 ## Quick Start
 
+### Global Install
+
 ```bash
 npm install -g noshift.js@latest
-nsc create
+nsc create my-project
+```
+
+### Local Install
+
+```bash
+npm install -D noshift.js@latest
+npx nsc create my-project
 ```
 
 ---

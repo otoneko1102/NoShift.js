@@ -42,12 +42,14 @@ export default async function create(projectNameArg, options = {}) {
   // Add scripts to package.json
   const pkgPath = path.join(projectPath, "package.json");
   const pkg = JSON.parse(await fs.readFile(pkgPath, "utf-8"));
-  pkg.scripts = pkg.scripts ?? {};
-  pkg.scripts.compile = "nsc";
-  pkg.scripts.dev = "nsc watch";
+  pkg.scripts = {};
   if (usePrettier) {
     pkg.scripts.format = "prettier --write ./src";
   }
+  pkg.scripts.compile = "nsc";
+  pkg.scripts.dev = "nsc watch";
+  pkg.scripts.clean = "nsc clean";
+  pkg.scripts.script = "nsc run";
   await fs.writeFile(pkgPath, JSON.stringify(pkg, null, 2) + "\n");
 
   // Create nsjsconfig.json

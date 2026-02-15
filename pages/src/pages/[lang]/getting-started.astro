@@ -21,11 +21,18 @@ const { lang } = Astro.params as { lang: Lang };
 
   <h2>{t(lang, "gs.installTitle")}</h2>
   <p set:html={t(lang, "gs.installDesc")} />
+
+  <h3>{t(lang, "gs.installGlobalTitle")}</h3>
+  <p set:html={t(lang, "gs.installGlobalDesc")} />
   <CodeBlock lang="bash" code="npm install -g noshift.js@latest" />
+
+  <h3>{t(lang, "gs.installLocalTitle")}</h3>
+  <p set:html={t(lang, "gs.installLocalDesc")} />
+  <CodeBlock lang="bash" code="npm install -D noshift.js@latest" />
 
   <h2>{t(lang, "gs.createTitle")}</h2>
   <p set:html={t(lang, "gs.createDesc")} />
-  <CodeBlock lang="bash" code="nsc create my-project" />
+  <CodeBlock lang="bash" code={`# Global\nnsc create my-project\n\n# Local\nnpx nsc create my-project`} />
   <div class="callout">
     <p set:html={t(lang, "gs.createNote")} />
   </div>
@@ -65,8 +72,10 @@ const { lang } = Astro.params as { lang: Lang };
   <h2>{t(lang, "gs.compileTitle")}</h2>
   <p set:html={t(lang, "gs.compileDesc")} />
   <CodeBlock lang="bash" code="nsc" />
+  <p set:html={t(lang, "gs.compileLocalNote")} />
+  <CodeBlock lang="bash" code="npx nsc" />
   <p set:html={t(lang, "gs.runDesc")} />
-  <CodeBlock lang="bash" code="nsc run src/index.nsjs" />
+  <CodeBlock lang="bash" code={`# Global\nnsc run src/index.nsjs\n\n# Local\nnpx nsc run src/index.nsjs`} />
 
   <h2>{t(lang, "gs.fileExt")}</h2>
   <p set:html={t(lang, "gs.fileExtDesc")} />

@@ -22,8 +22,16 @@ Typing shifted symbols (`!`, `"`, `(`, `)`, `{`, `}` …) is tiring.
 
 ## Installation
 
+### Global Install
+
 ```bash
 npm install -g noshift.js@latest
+```
+
+### Local Install
+
+```bash
+npm install -D noshift.js@latest
 ```
 
 ---
@@ -32,10 +40,20 @@ npm install -g noshift.js@latest
 
 ```bash
 # Create a new project
+
+# Global
 nsc create my-project
 
+# Local
+npx nsc create my-project
+
 # Or initialize only a nsjsconfig.json in the current directory
+
+# Global
 nsc init
+
+# Local
+npx nsc init
 ```
 
 ---
@@ -46,14 +64,14 @@ nsc init
 
 | Command | Alias | Description |
 |---|---|---|
-| `nsc` | | Compile `.nsjs` → `.js` using `nsjsconfig.json` |
-| `nsc watch` | `nsc -w` `nsc --watch` | Watch for changes and recompile automatically |
-| `nsc init` | `nsc --init` | Create `nsjsconfig.json` in the current directory |
-| `nsc clean` | `nsc --clean` | Delete the output directory (`outdir`) |
-| `nsc run <file>` | `nsc -r <file>` `nsc --run <file>` | Run a `.nsjs` file directly |
-| `nsc create [name]` | `nsc --create [name]` | Scaffold a new project (`--no-prettier` to skip Prettier) |
-| `nsc version` | `nsc -v` `nsc --version` | Show version |
-| `nsc help` | `nsc -h` `nsc --help` | Show help |
+| `nsc` / `npx nsc` | | Compile `.nsjs` → `.js` using `nsjsconfig.json` |
+| `nsc watch` / `npx nsc watch` | `nsc -w` `nsc --watch` | Watch for changes and recompile automatically |
+| `nsc init` / `npx nsc init` | `nsc --init` | Create `nsjsconfig.json` in the current directory |
+| `nsc clean` / `npx nsc clean` | `nsc --clean` | Delete the output directory (`outdir`) |
+| `nsc run <file>` / `npx nsc run <file>` | `nsc -r <file>` `nsc --run <file>` | Run a `.nsjs` file directly |
+| `nsc create [name]` / `npx nsc create [name]` | `nsc --create [name]` | Scaffold a new project (`--no-prettier` to skip Prettier) |
+| `nsc version` / `npx nsc version` | `nsc -v` `nsc --version` | Show version |
+| `nsc help` / `npx nsc help` | `nsc -h` `nsc --help` | Show help |
 
 ---
 

@@ -5,9 +5,18 @@ import convert from "../src/convert.js";
 import { loadConfig } from "../src/config.js";
 import { handleSigint } from "../src/signal-handler.js";
 import * as logger from "../src/logger.js";
+import { askInput } from "../src/prompt.js";
 
 export default async function run(file) {
   handleSigint();
+
+  if (!file) {
+    file = await askInput("File path");
+    if (!file) {
+      logger.error("File path is required.");
+      process.exit(1);
+    }
+  }
 
   const cwd = process.cwd();
   let config;

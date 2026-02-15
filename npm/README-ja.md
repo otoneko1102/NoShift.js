@@ -21,8 +21,16 @@
 
 ## インストール
 
+### グローバルインストール
+
 ```bash
 npm install -g noshift.js@latest
+```
+
+### ローカルインストール
+
+```bash
+npm install -D noshift.js@latest
 ```
 
 ---
@@ -31,10 +39,20 @@ npm install -g noshift.js@latest
 
 ```bash
 # 新しいプロジェクトを作成
+
+# グローバル
 nsc create my-project
 
+# ローカル
+npx nsc create my-project
+
 # または、現在のディレクトリに nsjsconfig.json だけを作成
+
+# グローバル
 nsc init
+
+# ローカル
+npx nsc init
 ```
 
 ---
@@ -45,14 +63,14 @@ nsc init
 
 | コマンド | エイリアス | 説明 |
 |---|---|---|
-| `nsc` | | `nsjsconfig.json` を使って `.nsjs` → `.js` にコンパイル |
-| `nsc watch` | `nsc -w` `nsc --watch` | 変更を監視して自動的に再コンパイル |
-| `nsc init` | `nsc --init` | 現在のディレクトリに `nsjsconfig.json` を作成 |
-| `nsc clean` | `nsc --clean` | 出力ディレクトリ (`outdir`) を削除 |
-| `nsc run <file>` | `nsc -r <file>` `nsc --run <file>` | `.nsjs` ファイルを直接実行 |
-| `nsc create [name]` | `nsc --create [name]` | 新しいプロジェクトを作成（`--no-prettier` で Prettier スキップ） |
-| `nsc version` | `nsc -v` `nsc --version` | バージョンを表示 |
-| `nsc help` | `nsc -h` `nsc --help` | ヘルプを表示 |
+| `nsc` / `npx nsc` | | `nsjsconfig.json` を使って `.nsjs` → `.js` にコンパイル |
+| `nsc watch` / `npx nsc watch` | `nsc -w` `nsc --watch` | 変更を監視して自動的に再コンパイル |
+| `nsc init` / `npx nsc init` | `nsc --init` | 現在のディレクトリに `nsjsconfig.json` を作成 |
+| `nsc clean` / `npx nsc clean` | `nsc --clean` | 出力ディレクトリ (`outdir`) を削除 |
+| `nsc run <file>` / `npx nsc run <file>` | `nsc -r <file>` `nsc --run <file>` | `.nsjs` ファイルを直接実行 |
+| `nsc create [name]` / `npx nsc create [name]` | `nsc --create [name]` | 新しいプロジェクトを作成（`--no-prettier` で Prettier スキップ） |
+| `nsc version` / `npx nsc version` | `nsc -v` `nsc --version` | バージョンを表示 |
+| `nsc help` / `npx nsc help` | `nsc -h` `nsc --help` | ヘルプを表示 |
 
 ---
 

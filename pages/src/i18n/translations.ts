@@ -70,7 +70,11 @@ export const ui = {
     // Getting Started
     "gs.title": "Getting Started",
     "gs.installTitle": "Installation",
-    "gs.installDesc": "Install globally via npm:",
+    "gs.installDesc": "Install via npm:",
+    "gs.installGlobalTitle": "Global Install",
+    "gs.installGlobalDesc": "Install globally to use <code>nsc</code> directly:",
+    "gs.installLocalTitle": "Local Install",
+    "gs.installLocalDesc": "Install as a dev dependency and use via <code>npx</code>:",
     "gs.createTitle": "Create a Project",
     "gs.createDesc": "Scaffold a new NoShift.js project:",
     "gs.createNote":
@@ -86,6 +90,7 @@ export const ui = {
       "Enable <code>^3</code> capitalize modifier inside string literals (default: <code>true</code>)",
     "gs.compileTitle": "Compile & Run",
     "gs.compileDesc": "Compile all <code>.nsjs</code> files:",
+    "gs.compileLocalNote": "With local install, prefix commands with <code>npx</code>:",
     "gs.runDesc": "Or run a file directly without compiling:",
     "gs.fileExt": "File Extension",
     "gs.fileExtDesc":
@@ -181,7 +186,7 @@ export const ui = {
     // CLI
     "cli.title": "CLI Reference",
     "cli.introDesc":
-      "The <code>nsc</code> command-line tool compiles and manages NoShift.js projects.",
+      "The <code>nsc</code> command-line tool compiles and manages NoShift.js projects. If installed locally, prefix commands with <code>npx</code> (e.g. <code>npx nsc</code>).",
     "cli.compileTitle": "nsc",
     "cli.compileDesc":
       "Compile all <code>.nsjs</code> files from <code>rootdir</code> to <code>outdir</code> as defined in <code>nsjsconfig.json</code>.",
@@ -334,7 +339,11 @@ export const ui = {
     // Getting Started
     "gs.title": "はじめに",
     "gs.installTitle": "インストール",
-    "gs.installDesc": "npm でグローバルにインストール:",
+    "gs.installDesc": "npm でインストール:",
+    "gs.installGlobalTitle": "グローバルインストール",
+    "gs.installGlobalDesc": "グローバルにインストールすると <code>nsc</code> を直接使えます:",
+    "gs.installLocalTitle": "ローカルインストール",
+    "gs.installLocalDesc": "devDependencies としてインストールし、<code>npx</code> 経由で使います:",
     "gs.createTitle": "プロジェクト作成",
     "gs.createDesc": "新しい NoShift.js プロジェクトを作成:",
     "gs.createNote":
@@ -351,6 +360,7 @@ export const ui = {
       "文字列リテラル内で <code>^3</code> 大文字化修飾子を有効にする（デフォルト: <code>true</code>）",
     "gs.compileTitle": "コンパイルと実行",
     "gs.compileDesc": "すべての <code>.nsjs</code> ファイルをコンパイル:",
+    "gs.compileLocalNote": "ローカルインストールの場合は <code>npx</code> を付けます:",
     "gs.runDesc": "コンパイルせずに直接実行:",
     "gs.fileExt": "ファイル拡張子",
     "gs.fileExtDesc":
@@ -444,7 +454,7 @@ export const ui = {
     // CLI
     "cli.title": "CLI リファレンス",
     "cli.introDesc":
-      "<code>nsc</code> コマンドラインツールで NoShift.js プロジェクトのコンパイルと管理を行います。",
+      "<code>nsc</code> コマンドラインツールで NoShift.js プロジェクトのコンパイルと管理を行います。ローカルインストールの場合は <code>npx</code> を付けて実行します（例: <code>npx nsc</code>）。",
     "cli.compileTitle": "nsc",
     "cli.compileDesc":
       "<code>nsjsconfig.json</code> で定義された <code>rootdir</code> から <code>outdir</code> へすべての <code>.nsjs</code> ファイルをコンパイルします。",
