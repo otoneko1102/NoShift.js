@@ -41,7 +41,7 @@
       "patterns": [
         {
           "name": "keyword.operator.capitalize.noshift",
-          "match": "\\^3.[a-zA-Z0-9_$]*"
+          "match": "\\^3."
         },
         {
           "name": "constant.character.escape.noshift",
@@ -59,7 +59,7 @@
       "patterns": [
         {
           "name": "keyword.operator.capitalize.noshift",
-          "match": "\\^3.[a-zA-Z0-9_$]*"
+          "match": "\\^3."
         },
         {
           "name": "constant.character.escape.noshift",
@@ -78,7 +78,7 @@
         { "include": "#template-expression" },
         {
           "name": "keyword.operator.capitalize.noshift",
-          "match": "\\^3.[a-zA-Z0-9_$]*"
+          "match": "\\^3."
         },
         {
           "name": "constant.character.escape.noshift",
