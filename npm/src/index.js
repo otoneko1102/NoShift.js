@@ -2,7 +2,6 @@
  * NoShift.js Public API
  *
  * Programmatic interface for compiling NoShift.js code to JavaScript.
- * Similar to TypeScript's `ts.transpileModule()`.
  *
  * @example
  * import { compile } from "noshift.js";
@@ -16,7 +15,7 @@
  * const result = compile(code, { capitalizeInStrings: false });
  */
 
-import convertNsjsToJs from "./convert.js";
+import convertNsjsToJs, { diagnose as _diagnose } from "./convert.js";
 
 /**
  * Compile NoShift.js source code to JavaScript.
@@ -31,6 +30,16 @@ export function compile(source, options = {}) {
     capitalizeInStrings: options.capitalizeInStrings !== false,
   });
   return { outputText };
+}
+
+/**
+ * Diagnose NoShift.js source code for syntax errors.
+ *
+ * @param {string} source - NoShift.js source code
+ * @returns {{ line: number, column: number, message: string }[]} Array of diagnostic errors
+ */
+export function diagnose(source) {
+  return _diagnose(source);
 }
 
 export default compile;

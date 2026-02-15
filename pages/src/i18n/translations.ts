@@ -99,12 +99,15 @@ export const ui = {
     // Programmatic API
     "gs.apiTitle": "Programmatic API",
     "gs.apiDesc":
-      "You can also use NoShift.js as a library in your code, similar to TypeScript's <code>ts.transpileModule()</code>.",
+      "You can also use NoShift.js as a library in your code.",
     "gs.apiEsmTitle": "ESM",
     "gs.apiCjsTitle": "CJS",
     "gs.apiOptionsTitle": "Options",
     "gs.apiOptionsDesc":
       "Pass options as the second argument:",
+    "gs.apiDiagnoseTitle": "Syntax Diagnostics",
+    "gs.apiDiagnoseDesc":
+      "Use <code>diagnose()</code> to check for syntax errors before compiling:",
 
     // Syntax
     "syntax.title": "Syntax & Symbols",
@@ -199,7 +202,7 @@ export const ui = {
       "The <code>nsc</code> command-line tool compiles and manages NoShift.js projects. If installed locally, prefix commands with <code>npx</code> (e.g. <code>npx nsc</code>).",
     "cli.compileTitle": "nsc",
     "cli.compileDesc":
-      "Compile all <code>.nsjs</code> files from <code>rootdir</code> to <code>outdir</code> as defined in <code>nsjsconfig.json</code>.",
+      "Compile all <code>.nsjs</code> files from <code>rootdir</code> to <code>outdir</code> as defined in <code>nsjsconfig.json</code>. Files with syntax errors are skipped and reported.",
     "cli.watchTitle": "nsc watch | w | -w | --watch",
     "cli.watchDesc": "Watch for file changes and recompile automatically.",
     "cli.runTitle":
@@ -287,6 +290,8 @@ export const ui = {
     "vscode.feature2": "Auto-complete for NoShift.js <code>^</code> sequences",
     "vscode.feature3": "File icon for <code>.nsjs</code> files",
     "vscode.feature4": "Code snippets for common patterns",
+    "vscode.feature5":
+      "Real-time syntax error diagnostics (unclosed strings, unknown <code>^</code> sequences, etc.)",
     "vscode.idTitle": "Extension ID",
 
     // Footer
@@ -379,12 +384,15 @@ export const ui = {
     // Programmatic API
     "gs.apiTitle": "プログラマティック API",
     "gs.apiDesc":
-      "TypeScript の <code>ts.transpileModule()</code> のように、コード内からライブラリとしても使えます。",
+      "コード内からライブラリとしても使えます。",
     "gs.apiEsmTitle": "ESM",
     "gs.apiCjsTitle": "CJS",
     "gs.apiOptionsTitle": "オプション",
     "gs.apiOptionsDesc":
       "第2引数でオプションを渡します:",
+    "gs.apiDiagnoseTitle": "構文診断",
+    "gs.apiDiagnoseDesc":
+      "<code>diagnose()</code> を使ってコンパイル前に構文エラーをチェックできます:",
 
     // Syntax
     "syntax.title": "構文と記号",
@@ -477,7 +485,7 @@ export const ui = {
       "<code>nsc</code> コマンドラインツールで NoShift.js プロジェクトのコンパイルと管理を行います。ローカルインストールの場合は <code>npx</code> を付けて実行します（例: <code>npx nsc</code>）。",
     "cli.compileTitle": "nsc",
     "cli.compileDesc":
-      "<code>nsjsconfig.json</code> で定義された <code>rootdir</code> から <code>outdir</code> へすべての <code>.nsjs</code> ファイルをコンパイルします。",
+      "<code>nsjsconfig.json</code> で定義された <code>rootdir</code> から <code>outdir</code> へすべての <code>.nsjs</code> ファイルをコンパイルします。構文エラーのあるファイルはスキップされ、エラーが報告されます。",
     "cli.watchTitle": "nsc watch | w | -w | --watch",
     "cli.watchDesc": "ファイルの変更を監視し、自動的にリコンパイルします。",
     "cli.runTitle":
@@ -566,6 +574,8 @@ export const ui = {
     "vscode.feature2": "NoShift.js の <code>^</code> シーケンスの自動補完",
     "vscode.feature3": "<code>.nsjs</code> ファイルのアイコン",
     "vscode.feature4": "共通パターンのコードスニペット",
+    "vscode.feature5":
+      "リアルタイムの構文エラー診断（閉じ忘れ文字列、不明な <code>^</code> シーケンスなど）",
     "vscode.idTitle": "拡張機能 ID",
 
     // Footer

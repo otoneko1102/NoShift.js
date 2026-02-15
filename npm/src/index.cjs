@@ -14,6 +14,16 @@
 const convertNsjsToJs = require("./convert.cjs");
 
 /**
+ * Diagnose NoShift.js source code for syntax errors.
+ *
+ * @param {string} source - NoShift.js source code
+ * @returns {{ line: number, column: number, message: string }[]} Array of diagnostic errors
+ */
+function diagnose(source) {
+  return convertNsjsToJs.diagnose(source);
+}
+
+/**
  * Compile NoShift.js source code to JavaScript.
  *
  * @param {string} source - NoShift.js source code
@@ -28,4 +38,4 @@ function compile(source, options = {}) {
   return { outputText };
 }
 
-module.exports = { compile };
+module.exports = { compile, diagnose };

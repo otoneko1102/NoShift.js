@@ -460,11 +460,14 @@ function convertNsjsToJs(nsjsCode, options = {}) {
 
   // スタックに残りがあればリテラル/テンプレートの閉じ忘れ
   if (stateStack.length > 0) {
-    console.warn(
-      `Warning: Unmatched literal/templating states. Final state: ${currentState}, Remaining stack: ${stateStack.join(
-        ", ",
-      )}`,
-    );
+    // diagnostics モードでない場合のみ警告を出す
+    if (!options._silent) {
+      console.warn(
+        `Warning: Unmatched literal/templating states. Final state: ${currentState}, Remaining stack: ${stateStack.join(
+          ", ",
+        )}`,
+      );
+    }
   }
   return jsCode;
 }
@@ -622,3 +625,229 @@ function checkUppercaseWarnings(nsjsCode, options = {}) {
 
 module.exports = convertNsjsToJs;
 module.exports.checkUppercaseWarnings = checkUppercaseWarnings;
+module.exports.diagnose = diagnose;
+
+// ======
+// 有効な ^X シーケンスの一覧（^3 は別扱い）
+// ======
+const validCaretKeys = new Set(
+  Object.keys(noShiftMap).map((k) => k[1]),
+);
+// ^3 (capitalize) も有効
+validCaretKeys.add("3");
+
+/**
+ * NoShift.js ソースコードの構文エラーを検出する。
+ *
+ * 検出するエラー:
+ *   - 閉じられていない文字列リテラル (^2, ^7, ^@)
+ *   - 閉じられていないブロックコメント (/^:)
+ *   - 閉じられていないテンプレート式 (^4^[)
+ *   - ファイル末尾の ^3 (大文字化対象の文字がない)
+ *   - 不明な ^ シーケンス
+ *
+ * @param {string} nsjsCode
+ * @returns {{ line: number, column: number, message: string }[]}
+ */
+function diagnose(nsjsCode) {
+  const errors = [];
+  const lines = nsjsCode.split("\n");
+
+  // 状態: "NORMAL" | "DQ" | "SQ" | "BT" | "BLOCK_COMMENT" | "LINE_COMMENT" | "TEMPLATE_EXPR"
+  let state = "NORMAL";
+  const stateStack = [];
+  // 開始位置のスタック (エラー報告用)
+  const openPositions = [];
+
+  for (let lineNum = 0; lineNum < lines.length; lineNum++) {
+    const line = lines[lineNum];
+
+    // 行コメントは行ごとにリセット
+    if (state === "LINE_COMMENT") {
+      state = stateStack.pop() || "NORMAL";
+    }
+
+    for (let col = 0; col < line.length; col++) {
+      const ch = line[col];
+      const next = col + 1 < line.length ? line[col + 1] : undefined;
+      const next2 = col + 2 < line.length ? line[col + 2] : undefined;
+
+      // エスケープ (\^X) をスキップ
+      if (ch === "\\" && next === "^") {
+        col += 2;
+        continue;
+      }
+      // \\\\ をスキップ
+      if (ch === "\\" && next === "\\") {
+        col += 1;
+        continue;
+      }
+
+      // ── ブロックコメント内 ──
+      if (state === "BLOCK_COMMENT") {
+        if (ch === "^" && next === ":" && next2 === "/") {
+          state = stateStack.pop() || "NORMAL";
+          openPositions.pop();
+          col += 2;
+        }
+        continue;
+      }
+
+      // ── 行コメント内 ──
+      if (state === "LINE_COMMENT") {
+        continue; // 改行で自動リセット（上で処理済み）
+      }
+
+      // ── 文字列内 ──
+      if (state === "DQ") {
+        if (ch === "^" && next === "2") {
+          state = stateStack.pop() || "NORMAL";
+          openPositions.pop();
+          col += 1;
+        }
+        continue;
+      }
+      if (state === "SQ") {
+        if (ch === "^" && next === "7") {
+          state = stateStack.pop() || "NORMAL";
+          openPositions.pop();
+          col += 1;
+        }
+        continue;
+      }
+      if (state === "BT") {
+        // テンプレート式展開開始
+        if (ch === "^" && next === "4" && (next2 === "^" || next2 === "[")) {
+          if (next2 === "^" && col + 3 < line.length && line[col + 3] === "[") {
+            stateStack.push(state);
+            openPositions.push({ line: lineNum + 1, column: col + 1, type: "TEMPLATE_EXPR" });
+            state = "TEMPLATE_EXPR";
+            col += 3;
+          } else if (next2 === "[") {
+            stateStack.push(state);
+            openPositions.push({ line: lineNum + 1, column: col + 1, type: "TEMPLATE_EXPR" });
+            state = "TEMPLATE_EXPR";
+            col += 2;
+          }
+          continue;
+        }
+        if (ch === "^" && next === "@") {
+          state = stateStack.pop() || "NORMAL";
+          openPositions.pop();
+          col += 1;
+        }
+        continue;
+      }
+
+      // ── テンプレート式内 ──
+      if (state === "TEMPLATE_EXPR") {
+        if (ch === "^" && next === "]") {
+          state = stateStack.pop() || "NORMAL";
+          openPositions.pop();
+          col += 1;
+          continue;
+        }
+        // テンプレート式内の文字列もチェック → fall through to NORMAL logic
+      }
+
+      // ── NORMAL / TEMPLATE_EXPR 共通 ──
+
+      // 行コメント開始
+      if (ch === "/" && next === "/") {
+        stateStack.push(state);
+        state = "LINE_COMMENT";
+        break; // 行末まで読み飛ばし
+      }
+
+      // ブロックコメント開始 (/^:)
+      if (ch === "/" && next === "^" && next2 === ":") {
+        stateStack.push(state);
+        openPositions.push({ line: lineNum + 1, column: col + 1, type: "BLOCK_COMMENT" });
+        state = "BLOCK_COMMENT";
+        col += 2;
+        continue;
+      }
+
+      // ダブルクォート文字列開始 (^2)
+      if (ch === "^" && next === "2") {
+        stateStack.push(state);
+        openPositions.push({ line: lineNum + 1, column: col + 1, type: "DQ" });
+        state = "DQ";
+        col += 1;
+        continue;
+      }
+
+      // シングルクォート文字列開始 (^7)
+      if (ch === "^" && next === "7") {
+        stateStack.push(state);
+        openPositions.push({ line: lineNum + 1, column: col + 1, type: "SQ" });
+        state = "SQ";
+        col += 1;
+        continue;
+      }
+
+      // テンプレートリテラル開始 (^@)
+      if (ch === "^" && next === "@") {
+        stateStack.push(state);
+        openPositions.push({ line: lineNum + 1, column: col + 1, type: "BT" });
+        state = "BT";
+        col += 1;
+        continue;
+      }
+
+      // ^3 大文字化: 次の文字がなければエラー
+      if (ch === "^" && next === "3") {
+        if (col + 2 >= line.length && lineNum === lines.length - 1) {
+          errors.push({
+            line: lineNum + 1,
+            column: col + 1,
+            message: "^3 at end of file with no following character to capitalize.",
+          });
+        }
+        col += 2; // ^3 + 次の1文字をスキップ
+        continue;
+      }
+
+      // その他の ^X シーケンス: 有効性チェック
+      if (ch === "^" && next !== undefined) {
+        if (!validCaretKeys.has(next)) {
+          errors.push({
+            line: lineNum + 1,
+            column: col + 1,
+            message: `Unknown sequence '^${next}'.`,
+          });
+        }
+        col += 1;
+        continue;
+      }
+
+      // ファイル末尾の孤立 ^
+      if (ch === "^" && next === undefined && lineNum === lines.length - 1) {
+        errors.push({
+          line: lineNum + 1,
+          column: col + 1,
+          message: "Lone '^' at end of file.",
+        });
+      }
+    }
+  }
+
+  // ── 閉じられていない構造を報告 ──
+  while (openPositions.length > 0) {
+    const pos = openPositions.pop();
+    const labels = {
+      DQ: "string literal (^2...^2)",
+      SQ: "string literal (^7...^7)",
+      BT: "template literal (^@...^@)",
+      BLOCK_COMMENT: "block comment (/^:...^:/)",
+      TEMPLATE_EXPR: "template expression (^4^[...^])",
+    };
+    errors.push({
+      line: pos.line,
+      column: pos.column,
+      message: `Unclosed ${labels[pos.type] || pos.type} opened here.`,
+    });
+  }
+
+  return errors;
+}

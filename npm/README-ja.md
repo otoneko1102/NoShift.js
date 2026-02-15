@@ -59,7 +59,7 @@ npx nsc init
 
 ## CLI リファレンス
 
-`nsc` は TypeScript の `tsc` に似た使い心地を目指しています。
+`nsc` は NoShift.js のコンパイラ CLI です。
 
 | コマンド | エイリアス | 説明 |
 |---|---|---|
@@ -300,7 +300,7 @@ for (let i = 0; i < 3; i++) {
 
 ## プログラマティック API
 
-TypeScript の `ts.transpileModule()` のように、コード内からライブラリとして `.nsjs` コードをコンパイルできます。
+コード内からライブラリとして `.nsjs` コードをコンパイルできます。
 
 ### ESM
 
@@ -328,6 +328,21 @@ console.log(result.outputText);
 const result = compile(source, {
   capitalizeInStrings: false, // 文字列内の ^3 を無効化
 });
+```
+
+### 構文診断
+
+`diagnose()` を使ってコンパイル前に構文エラーをチェックできます:
+
+```js
+import { diagnose } from "noshift.js";
+
+const errors = diagnose(source);
+if (errors.length > 0) {
+  for (const e of errors) {
+    console.error(`Line ${e.line}:${e.column} - ${e.message}`);
+  }
+}
 ```
 
 ---

@@ -1,9 +1,67 @@
 // extension.js
 const vscode = require("vscode");
+const { diagnose } = require("./diagnostics");
 
 let inProgrammaticEdit = false;
 
 function activate(context) {
+  // ── Diagnostics (構文エラー検出) ──
+  const diagnosticCollection =
+    vscode.languages.createDiagnosticCollection("noshift");
+  context.subscriptions.push(diagnosticCollection);
+
+  function updateDiagnostics(document) {
+    if (document.languageId !== "noshift") return;
+
+    const text = document.getText();
+    const errors = diagnose(text);
+    const diagnostics = errors.map((e) => {
+      const range = new vscode.Range(
+        e.line,
+        e.column,
+        e.line,
+        e.endColumn,
+      );
+      const diag = new vscode.Diagnostic(
+        range,
+        e.message,
+        vscode.DiagnosticSeverity.Error,
+      );
+      diag.source = "NoShift.js";
+      return diag;
+    });
+    diagnosticCollection.set(document.uri, diagnostics);
+  }
+
+  // 現在開いている .nsjs ファイルを即座にチェック
+  for (const editor of vscode.window.visibleTextEditors) {
+    updateDiagnostics(editor.document);
+  }
+
+  // ファイルを開いた・切り替えたとき
+  context.subscriptions.push(
+    vscode.window.onDidChangeActiveTextEditor((editor) => {
+      if (editor) updateDiagnostics(editor.document);
+    }),
+  );
+
+  // テキストが変更されたとき (デバウンス付き)
+  let diagnosticTimer;
+  context.subscriptions.push(
+    vscode.workspace.onDidChangeTextDocument((e) => {
+      if (e.document.languageId !== "noshift") return;
+      if (diagnosticTimer) clearTimeout(diagnosticTimer);
+      diagnosticTimer = setTimeout(() => updateDiagnostics(e.document), 300);
+    }),
+  );
+
+  // ファイルを閉じたとき
+  context.subscriptions.push(
+    vscode.workspace.onDidCloseTextDocument((document) => {
+      diagnosticCollection.delete(document.uri);
+    }),
+  );
+
   // ^[ を入力したとき ^] を自動補完
   const bracketDisposable = vscode.workspace.onDidChangeTextDocument((e) => {
     if (inProgrammaticEdit) return;

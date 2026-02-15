@@ -60,7 +60,7 @@ npx nsc init
 
 ## CLI Reference
 
-`nsc` is designed to feel like TypeScript's `tsc`.
+`nsc` is the NoShift.js compiler CLI.
 
 | Command | Alias | Description |
 |---|---|---|
@@ -301,7 +301,7 @@ for (let i = 0; i < 3; i++) {
 
 ## Programmatic API
 
-You can use NoShift.js as a library to compile `.nsjs` code from within your own scripts — similar to TypeScript's `ts.transpileModule()`.
+You can use NoShift.js as a library to compile `.nsjs` code from within your own scripts.
 
 ### ESM
 
@@ -329,6 +329,21 @@ console.log(result.outputText);
 const result = compile(source, {
   capitalizeInStrings: false, // Disable ^3 inside strings
 });
+```
+
+### Syntax Diagnostics
+
+Use `diagnose()` to check for syntax errors before compiling:
+
+```js
+import { diagnose } from "noshift.js";
+
+const errors = diagnose(source);
+if (errors.length > 0) {
+  for (const e of errors) {
+    console.error(`Line ${e.line}:${e.column} - ${e.message}`);
+  }
+}
 ```
 
 ---

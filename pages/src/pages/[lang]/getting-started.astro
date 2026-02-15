@@ -92,4 +92,8 @@ const { lang } = Astro.params as { lang: Lang };
   <h3>{t(lang, "gs.apiOptionsTitle")}</h3>
   <p set:html={t(lang, "gs.apiOptionsDesc")} />
   <CodeBlock lang="js" code={`const result = compile(source, {\n  capitalizeInStrings: false, // Disable ^3 inside strings\n});`} />
+
+  <h3>{t(lang, "gs.apiDiagnoseTitle")}</h3>
+  <p set:html={t(lang, "gs.apiDiagnoseDesc")} />
+  <CodeBlock lang="js" code={`import { diagnose } from "noshift.js";\n\nconst errors = diagnose(source);\nif (errors.length > 0) {\n  for (const e of errors) {\n    console.error(\`Line \${e.line}:\${e.column} - \${e.message}\`);\n  }\n}`} />
 </DocsLayout>

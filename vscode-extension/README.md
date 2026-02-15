@@ -50,6 +50,16 @@ Result: ^[|^]   (| = cursor position)
 |--------|----------|
 | `^[`   | `^[${1}^]` |
 
+### Diagnostics
+
+Real-time syntax error detection as you type. Errors appear as red squiggly underlines in the editor and in the Problems panel.
+
+- Unclosed string literals (`^2`, `^7`, `^@`)
+- Unclosed block comments (`/^: ... ^:/`)
+- Unclosed template expressions (`^4^[...^]`)
+- Unknown `^` sequences
+- Lone `^` or `^3` at end of file
+
 ---
 
 ## Requirements

@@ -1,6 +1,6 @@
 import { promises as fs } from "fs";
 import path from "path";
-import convert, { checkUppercaseWarnings } from "../src/convert.js";
+import convert, { checkUppercaseWarnings, diagnose } from "../src/convert.js";
 import { loadConfig } from "../src/config.js";
 import { handleSigint } from "../src/signal-handler.js";
 import * as logger from "../src/logger.js";
@@ -73,6 +73,19 @@ export default async function compile() {
 
     try {
       const code = await fs.readFile(file, "utf-8");
+
+      // 構文エラーチェック
+      const syntaxErrors = diagnose(code);
+      if (syntaxErrors.length > 0) {
+        for (const e of syntaxErrors) {
+          logger.errorCode(
+            "NS1",
+            `${relative.replace(/\\/g, "/")}:${e.line}:${e.column} - ${e.message}`,
+          );
+        }
+        errors += syntaxErrors.length;
+        continue;
+      }
 
       // 大文字警告チェック
       if (warnUppercase) {

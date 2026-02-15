@@ -1,6 +1,6 @@
 import { promises as fs, watch } from "fs";
 import path from "path";
-import convert from "../src/convert.js";
+import convert, { diagnose } from "../src/convert.js";
 import { loadConfig } from "../src/config.js";
 import { handleSigint } from "../src/signal-handler.js";
 import * as logger from "../src/logger.js";
@@ -35,6 +35,17 @@ async function compileFile(file, rootDir, outDir, cwd, convertOptions = {}) {
     .join(outDir, path.relative(rootDir, file))
     .replace(/\.nsjs$/, ".js");
   const code = await fs.readFile(file, "utf-8");
+
+  // 構文エラーチェック
+  const syntaxErrors = diagnose(code);
+  if (syntaxErrors.length > 0) {
+    const rel = relative;
+    for (const e of syntaxErrors) {
+      logger.errorCode("NS1", `${rel}:${e.line}:${e.column} - ${e.message}`);
+    }
+    throw new Error(`${syntaxErrors.length} syntax error(s)`);
+  }
+
   const js = convert(code, convertOptions);
   await fs.mkdir(path.dirname(destPath), { recursive: true });
   await fs.writeFile(destPath, js, "utf-8");

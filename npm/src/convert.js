@@ -3,4 +3,5 @@
 // the same implementation without duplication.
 import convertNsjsToJs from "./convert.cjs";
 export const checkUppercaseWarnings = convertNsjsToJs.checkUppercaseWarnings;
+export const diagnose = convertNsjsToJs.diagnose;
 export default convertNsjsToJs;
