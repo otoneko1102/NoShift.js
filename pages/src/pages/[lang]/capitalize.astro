@@ -71,12 +71,12 @@ const { lang } = Astro.params as { lang: Lang };
   <p set:html={t(lang, "cap.constDesc")} />
   <CodeBlock
     lang="nsjs"
-    code={`const ^3m^3a^3x_^3s^3i^3z^3e ^- 1024;\nconsole.log^8^3m^3a^3x_^3s^3i^3z^3e^9;`}
+    code={`const ^3m^3a^3x^3c^3o^3u^3n^3t ^- 1024;\nconsole.log^8^3m^3a^3x^3c^3o^3u^3n^3t^9;`}
   />
   <p>{lang === "ja" ? "コンパイル後:" : "Compiles to:"}</p>
   <CodeBlock
     lang="javascript"
-    code={`const MAX_SIZE = 1024;\nconsole.log(MAX_SIZE);`}
+    code={`const MAXCOUNT = 1024;\nconsole.log(MAXCOUNT);`}
   />
 
   <h2>{t(lang, "cap.stringTitle")}</h2>

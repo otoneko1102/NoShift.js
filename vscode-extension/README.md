@@ -26,7 +26,7 @@ Full syntax highlighting for `.nsjs` files.
 - **String literals**: `^2...^2` (double-quote), `^7...^7` (single-quote), `^@...^@` (template literal)
 - **Template expressions**: Code inside `^4^[...^]` highlighted as nested expressions
 - **Built-in objects**: `console`, `Math`, `Promise`, `Array`, etc.
-- **Comments**: `//` line comments and `/* */` block comments
+- **Comments**: `//` line comments and `/^: ^:/` block comments
 
 ### File Icon
 
@@ -70,7 +70,7 @@ Result: ^[|^]   (| = cursor position)
 | Extension | `.nsjs` |
 | Language ID | `noshift` |
 | Line comment | `//` |
-| Block comment | `/* */` |
+| Block comment | `/^: ^:/` |
 | Bracket pairs | `^[` / `^]`, `^8` / `^9`, `[` / `]` |
 | Auto-close | `^2`, `^7`, `^@`, `^[`, `^8` |
 

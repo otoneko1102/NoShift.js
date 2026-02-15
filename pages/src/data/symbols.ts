@@ -8,6 +8,7 @@ export const symbolMap = [
   { shifted: "'", noshift: "^7" },
   { shifted: "(", noshift: "^8" },
   { shifted: ")", noshift: "^9" },
+  { shifted: "^ (Caret/XOR)", noshift: "^0", special: true },
   { shifted: "=", noshift: "^-" },
   { shifted: "~", noshift: "^^" },
   { shifted: "|", noshift: "^\\" },

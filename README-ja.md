@@ -39,6 +39,7 @@
 | `^8`    | `(`        | | `^,`    | `<`        |
 | `^9`    | `)`        | | `^.`    | `>`        |
 | `^-`    | `=`        | | `^/`    | `?`        |
+| `^0`    | `^` (XOR)  | | | |
 
 テンプレート式: `^4^[` → `${`
 
@@ -57,8 +58,8 @@ nsc create
 
 ```nsjs
 // src/index.nsjs
-const name ^- ^2NoShift.js^2;
-console.log^8^2Hello from ^2 ^; name ^; ^2!^2^9;
+const name ^- ^2^3no^3shift.js^2;
+console.log^8^2^3hello from ^2 ^; name ^; ^2!^2^9;
 ```
 
 コンパイル後:

@@ -116,6 +116,9 @@ export const ui = {
     "syntax.helloTitle": "Hello World",
     "syntax.helloInput": "Input:",
     "syntax.helloOutput": "Output:",
+    "syntax.bitwiseTitle": "Bitwise & Shift Operations",
+    "syntax.bitwiseDesc":
+      "JavaScript's bitwise operators work in NoShift.js using existing <code>^</code> sequences. The XOR operator (<code>^</code>) uses <code>^0</code> since the caret character is the NoShift.js prefix:",
 
     // Capitalize
     "cap.title": "Capitalize Modifier (^3)",
@@ -378,6 +381,9 @@ export const ui = {
     "syntax.helloTitle": "Hello World",
     "syntax.helloInput": "入力:",
     "syntax.helloOutput": "出力:",
+    "syntax.bitwiseTitle": "ビット演算・シフト演算",
+    "syntax.bitwiseDesc":
+      "JavaScript のビット演算子は NoShift.js の既存の <code>^</code> シーケンスで記述できます。XOR 演算子（<code>^</code>）は <code>^0</code> を使います（キャレットは NoShift.js のプレフィックスであるため）:",
 
     // Capitalize
     "cap.title": "大文字化修飾子 (^3)",

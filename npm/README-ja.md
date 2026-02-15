@@ -99,6 +99,7 @@ nsc init
 | `^8`    | `(`        | | `^,`    | `<`        |
 | `^9`    | `)`        | | `^.`    | `>`        |
 | `^-`    | `=`        | | `^/`    | `?`        |
+| `^0`    | `^` (XOR)  | | | |
 
 テンプレート式: `^4^[` → `${`
 
@@ -109,7 +110,7 @@ nsc init
 ### Hello World
 
 ```nsjs
-console.log^8^2Hello, World!^2^9;
+console.log^8^2^3hello, ^3world!^2^9;
 ```
 
 ```js
@@ -174,10 +175,10 @@ console.log(result); // 8
 
 ```nsjs
 // ダブルクォート文字列
-const s1 ^- ^2Hello^2;
+const s1 ^- ^2^3hello^2;
 
 // シングルクォート文字列
-const s2 ^- ^7World^7;
+const s2 ^- ^7^3world^7;
 
 // テンプレートリテラル
 const s3 ^- ^@^4^[s1^] ^4^[s2^]^@;
@@ -189,7 +190,7 @@ const s4 ^- ^2quote: \^2^2;
 ```js
 const s1 = "Hello";
 const s2 = 'World';
-const s3 = `Hello World`;
+const s3 = `${s1} ${s2}`;
 const s4 = "quote: ^2";
 ```
 
@@ -228,7 +229,7 @@ class ^3animal ^[
   ^]
 ^]
 
-const dog ^- new ^3animal^8^2Dog^2^9;
+const dog ^- new ^3animal^8^2^3dog^2^9;
 dog.speak^8^9;
 ```
 
