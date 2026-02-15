@@ -1,0 +1,7 @@
+{
+  "github-actions.workflows.pinned.workflows": [
+    ".github/workflows/publish-npm.yml",
+    ".github/workflows/publish-vscode.yml",
+    ".github/workflows/publish-prettier-plugin.yml"
+  ]
+}
