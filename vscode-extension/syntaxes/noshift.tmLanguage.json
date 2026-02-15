@@ -113,11 +113,6 @@
     "ns-operators": {
       "patterns": [
         {
-          "comment": "^3 capitalize modifier - highlights ^3 + next char + rest of identifier",
-          "name": "keyword.operator.capitalize.noshift",
-          "match": "\\^3.[a-zA-Z0-9_$]*"
-        },
-        {
           "comment": "NoShift sequences for shift-required symbols (excludes string/bracket delimiters: ^2 ^7 ^@ ^8 ^9 ^[ ^])",
           "name": "keyword.operator.noshift",
           "match": "\\^(?:1|4|5|6|-|\\^|\\\\|;|:|,|\\.|/)"
@@ -271,14 +266,14 @@
       "patterns": [
         {
           "name": "meta.function-call.noshift",
-          "match": "(?:\\b|(?<=\\^\\d))([a-zA-Z_$][a-zA-Z0-9_$]*)(?=\\s*\\^8)",
+          "match": "(?:\\b|(?<=\\^\\d)|(?=\\^3))((?:\\^3)?[a-zA-Z_$](?:(?:\\^3)?[a-zA-Z0-9_$])*)(?=\\s*\\^8)",
           "captures": {
             "1": { "name": "entity.name.function.noshift" }
           }
         },
         {
-          "comment": "Function/method definition: function name or method name followed by ^8",
-          "match": "(?<=\\bfunction\\s)([a-zA-Z_$][a-zA-Z0-9_$]*)",
+          "comment": "Function/method definition: function name followed by space",
+          "match": "(?<=\\bfunction\\s)((?:\\^3)?[a-zA-Z_$](?:(?:\\^3)?[a-zA-Z0-9_$])*)",
           "captures": {
             "1": { "name": "entity.name.function.definition.noshift" }
           }
@@ -297,12 +292,13 @@
           "match": "(?:\\b|(?<=\\^\\d))[A-Z][A-Z0-9_]{2,}\\b"
         },
         {
+          "comment": "PascalCase: starts with ^3 (= uppercase first letter) or raw [A-Z]",
           "name": "entity.name.type.noshift",
-          "match": "(?:\\b|(?<=\\^\\d))[A-Z][a-zA-Z0-9_$]*\\b"
+          "match": "(?:\\b|(?<=\\^\\d)|(?=\\^3))(?:\\^3[a-zA-Z](?:(?:\\^3)?[a-zA-Z0-9_$])*|[A-Z][a-zA-Z0-9_$]*)"
         },
         {
           "name": "variable.other.noshift",
-          "match": "(?:\\b|(?<=\\^\\d))[a-zA-Z_$][a-zA-Z0-9_$]*\\b"
+          "match": "(?:\\b|(?<=\\^\\d))[a-zA-Z_$](?:(?:\\^3)?[a-zA-Z0-9_$])*"
         }
       ]
     }
