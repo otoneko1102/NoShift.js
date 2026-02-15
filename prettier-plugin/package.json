@@ -32,7 +32,7 @@
   "bugs": {
     "url": "https://github.com/otoneko1102/NoShift.js/issues"
   },
-  "homepage": "https://github.com/otoneko1102/NoShift.js#readme",
+  "homepage": "https://noshift.js.org",
   "peerDependencies": {
     "prettier": "^3.8.1"
   }

@@ -25,7 +25,7 @@
   "bugs": {
     "url": "https://github.com/otoneko1102/NoShift.js/issues"
   },
-  "homepage": "https://otoneko1102.github.io/NoShift.js/",
+  "homepage": "https://noshift.js.org",
   "dependencies": {
     "commander": "^14.0.3"
   },
