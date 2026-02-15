@@ -36,9 +36,7 @@ const PLUGIN_NAME = "prettier-plugin-noshift.js";
  */
 async function addPluginToExistingConfig(filePath) {
   const basename = path.basename(filePath);
-  const isJson =
-    basename === ".prettierrc" ||
-    basename === ".prettierrc.json";
+  const isJson = basename === ".prettierrc" || basename === ".prettierrc.json";
 
   if (!isJson) {
     logger.warn(
@@ -77,7 +75,10 @@ async function createPrettierConfig() {
     trailingComma: "es5",
     plugins: [PLUGIN_NAME],
   };
-  await writeFile(".prettierrc", JSON.stringify(prettierConfig, null, 2) + "\n");
+  await writeFile(
+    ".prettierrc",
+    JSON.stringify(prettierConfig, null, 2) + "\n",
+  );
   logger.success("Created .prettierrc");
 }
 
@@ -109,10 +110,7 @@ export default async function init() {
       logger.success("Overwritten nsjsconfig.json");
     }
   } else {
-    await writeFile(
-      configPath,
-      JSON.stringify(DEFAULT_CONFIG, null, 2) + "\n",
-    );
+    await writeFile(configPath, JSON.stringify(DEFAULT_CONFIG, null, 2) + "\n");
     logger.success("Created nsjsconfig.json");
   }
 

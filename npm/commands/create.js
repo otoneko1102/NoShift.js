@@ -43,8 +43,8 @@ export default async function create(projectNameArg, options = {}) {
   const pkgPath = path.join(projectPath, "package.json");
   const pkg = JSON.parse(await fs.readFile(pkgPath, "utf-8"));
   pkg.scripts = pkg.scripts ?? {};
-  pkg.scripts.compile = "nsc compile";
-  pkg.scripts.dev = "nsc dev";
+  pkg.scripts.compile = "nsc";
+  pkg.scripts.dev = "nsc watch";
   if (usePrettier) {
     pkg.scripts.format = "prettier --write ./src";
   }
@@ -90,7 +90,7 @@ export default async function create(projectNameArg, options = {}) {
 
   // Install noshift.js
   logger.step("Installing noshift.js ...");
-  execSync("npm install noshift.js", { stdio: "ignore" });
+  execSync("npm install --save-dev noshift.js", { stdio: "ignore" });
 
   // Create project files
   logger.step("Creating project files ...");
@@ -111,13 +111,13 @@ A [NoShift.js](https://github.com/otoneko1102/NoShift.js) project.
 ## Compile
 
 \`\`\`bash
-npm run compile
+nsc
 \`\`\`
 
 ## Dev (watch mode)
 
 \`\`\`bash
-npm run dev
+nsc watch
 \`\`\`
 `;
 
@@ -129,6 +129,6 @@ npm run dev
   console.log("");
   logger.info("Next steps:");
   console.log(`  ${logger.highlight(`cd ${projectName}`)}`);
-  console.log(`  ${logger.highlight("npm run compile")}`);
+  console.log(`  ${logger.highlight("nsc")}`);
   console.log("");
 }
