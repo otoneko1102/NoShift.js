@@ -12,7 +12,7 @@ const { lang } = Astro.params as { lang: Lang };
 
 <DocsLayout
   lang={lang}
-  title={t(lang, "gs.title") + " — NoShift.js"}
+  title={t(lang, "gs.title") + "  NoShift.js"}
   currentPath={`/${lang}/getting-started/`}
   prev={{ href: "/", title: t(lang, "nav.home") }}
   next={{ href: `/${lang}/syntax/`, title: t(lang, "nav.syntax") }}
@@ -45,18 +45,18 @@ const { lang } = Astro.params as { lang: Lang };
   />
   <ul>
     <li>
-      <strong>rootdir</strong> — <span set:html={t(lang, "gs.configRootDir")} />
+      <strong>rootdir</strong>  <span set:html={t(lang, "gs.configRootDir")} />
     </li>
     <li>
-      <strong>outdir</strong> — <span set:html={t(lang, "gs.configOutDir")} />
+      <strong>outdir</strong>  <span set:html={t(lang, "gs.configOutDir")} />
     </li>
     <li>
-      <strong>warnuppercase</strong> — <span
+      <strong>warnuppercase</strong>  <span
         set:html={t(lang, "gs.configWarnUppercase")}
       />
     </li>
     <li>
-      <strong>capitalizeinstrings</strong> — <span
+      <strong>capitalizeinstrings</strong>  <span
         set:html={t(lang, "gs.configCapitalizeInStrings")}
       />
     </li>

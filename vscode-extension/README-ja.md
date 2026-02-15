@@ -1,4 +1,4 @@
-# NoShift.js — VS Code 拡張機能
+# NoShift.js - VS Code 拡張機能
 
 > `.nsjs` ファイルの構文ハイライト・補完・アイコン対応 VS Code 拡張機能
 
@@ -47,7 +47,7 @@
 ## 必要環境
 
 - VS Code `1.70.0` 以上
-- （任意）[vscode-icons](https://marketplace.visualstudio.com/items?itemName=vscode-icons-team.vscode-icons) — ファイルアイコンを vscode-icons テーマと統合
+- （任意）[vscode-icons](https://marketplace.visualstudio.com/items?itemName=vscode-icons-team.vscode-icons) - ファイルアイコンを vscode-icons テーマと統合
 
 ---
 
@@ -70,7 +70,7 @@
 
 ## 関連リンク
 
-- [noshift.js (npm)](https://www.npmjs.com/package/noshift.js) — コンパイラ CLI (`nsc`)
+- [noshift.js (npm)](https://www.npmjs.com/package/noshift.js) - コンパイラ CLI (`nsc`)
 - [ウェブサイト](https://noshift.js.org)
 - [リポジトリ](https://github.com/otoneko1102/NoShift.js)
 

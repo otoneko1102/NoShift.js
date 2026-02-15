@@ -113,7 +113,7 @@
     "ns-operators": {
       "patterns": [
         {
-          "comment": "^3 capitalize modifier — highlights ^3 + next char",
+          "comment": "^3 capitalize modifier - highlights ^3 + next char",
           "name": "keyword.operator.capitalize.noshift",
           "match": "\\^3."
         },

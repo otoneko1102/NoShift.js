@@ -22,10 +22,10 @@ export function getAlternateUrl(url: URL, targetLang: Lang): string {
 export const ui = {
   en: {
     // Site
-    "site.title": "NoShift.js — Documentation",
+    "site.title": "NoShift.js - Documentation",
     "site.description":
       "NoShift.js is a joke language that lets you write JavaScript without pressing the Shift key. Compile .nsjs files to plain JS.",
-    "site.ogTitle": "NoShift.js — Write JS Without Shift",
+    "site.ogTitle": "NoShift.js - Write JS Without Shift",
     "site.ogDescription":
       "A joke language that replaces shifted symbols with ^-prefixed sequences. Compiles to plain JavaScript.",
 
@@ -124,7 +124,7 @@ export const ui = {
       "Use <code>^3</code> before each character that should be uppercase:",
     "classes.inheritTitle": "Inheritance",
     "classes.inheritDesc":
-      "Extends works the same way — just capitalize the parent class name:",
+      "Extends works the same way - just capitalize the parent class name:",
     "classes.methodTitle": "Methods & Properties",
     "classes.methodDesc":
       "Method names that contain uppercase letters also use <code>^3</code>:",
@@ -205,17 +205,17 @@ export const ui = {
     "footer.madeBy": "Made by",
 
     // 404
-    "404.title": "404 — Page Not Found",
+    "404.title": "404 - Page Not Found",
     "404.description":
       "The page you are looking for does not exist or has been moved.",
     "404.back": "Back to Home",
   },
   ja: {
     // Site
-    "site.title": "NoShift.js — ドキュメント",
+    "site.title": "NoShift.js - ドキュメント",
     "site.description":
       "NoShift.js は Shift キーを押さずに JavaScript を書ける Joke 言語です。.nsjs ファイルを plain JS にコンパイルします。",
-    "site.ogTitle": "NoShift.js — Shift 不要の JavaScript",
+    "site.ogTitle": "NoShift.js - Shift 不要の JavaScript",
     "site.ogDescription":
       "Shift が必要な記号を ^ プレフィックスの配列に置換する Joke 言語。コンパイルすると JavaScript になります。",
 
@@ -395,7 +395,7 @@ export const ui = {
     "footer.madeBy": "作者",
 
     // 404
-    "404.title": "404 — ページが見つかりません",
+    "404.title": "404 - ページが見つかりません",
     "404.description":
       "お探しのページは存在しないか、移動された可能性があります。",
     "404.back": "ホームに戻る",

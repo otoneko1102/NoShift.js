@@ -1,4 +1,4 @@
-# NoShift.js — VS Code Extension
+# NoShift.js - VS Code Extension
 
 > Syntax highlighting, auto-complete, and file icons for `.nsjs` files
 
@@ -47,7 +47,7 @@ Result: ^[|^]   (| = cursor position)
 ## Requirements
 
 - VS Code `1.70.0` or later
-- (Optional) [vscode-icons](https://marketplace.visualstudio.com/items?itemName=vscode-icons-team.vscode-icons) — integrates file icons with the vscode-icons theme
+- (Optional) [vscode-icons](https://marketplace.visualstudio.com/items?itemName=vscode-icons-team.vscode-icons) - integrates file icons with the vscode-icons theme
 
 ---
 
@@ -70,7 +70,7 @@ Result: ^[|^]   (| = cursor position)
 
 ## Related
 
-- [noshift.js (npm)](https://www.npmjs.com/package/noshift.js) — Compiler CLI (`nsc`)
+- [noshift.js (npm)](https://www.npmjs.com/package/noshift.js) - Compiler CLI (`nsc`)
 - [Website](https://noshift.js.org)
 - [Repository](https://github.com/otoneko1102/NoShift.js)
 

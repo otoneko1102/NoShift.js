@@ -1,4 +1,4 @@
-/** Centralized external links — edit here to update everywhere */
+/** Centralized external links - edit here to update everywhere */
 export const links = {
   github: "https://github.com/otoneko1102/NoShift.js",
   githubAuthor: "https://github.com/otoneko1102",
