@@ -1,6 +1,10 @@
-[![license](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+[![npm](https://img.shields.io/npm/v/@noshift.js/lint)](https://www.npmjs.com/package/@noshift.js/lint) [![license](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
 # @noshift.js/lint
+
+<div align="center">
+  <img src="https://raw.githubusercontent.com/otoneko1102/NoShift.js/refs/heads/main/icon.png" alt="noshift.js" width="128" height="128">
+</div>
 
 <div align="center">
 
