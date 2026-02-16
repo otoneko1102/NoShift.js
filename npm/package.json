@@ -1,6 +1,6 @@
 {
   "name": "noshift.js",
-  "version": "0.10.0",
+  "version": "0.11.0",
   "description": "Joke language.",
   "bin": {
     "nsc": "./bin/cli.js"
