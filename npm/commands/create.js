@@ -16,6 +16,14 @@ export default async function create(projectNameArg, options = {}) {
     projectName = await askInput("Project name", "my-noshift-app");
   }
 
+  // ── Linter ──
+  let useLinter;
+  if (options.linter === false) {
+    useLinter = false;
+  } else {
+    useLinter = await askConfirm("Use @noshift.js/lint?", true);
+  }
+
   // ── Prettier ──
   // --no-prettier で明示的に無効化された場合はスキップ、
   // それ以外はユーザーに尋ねる
@@ -43,6 +51,9 @@ export default async function create(projectNameArg, options = {}) {
   const pkgPath = path.join(projectPath, "package.json");
   const pkg = JSON.parse(await fs.readFile(pkgPath, "utf-8"));
   pkg.scripts = {};
+  if (useLinter) {
+    pkg.scripts.lint = "nslint";
+  }
   if (usePrettier) {
     pkg.scripts.format = "prettier --write ./src";
   }
@@ -66,6 +77,42 @@ export default async function create(projectNameArg, options = {}) {
     JSON.stringify(nsjsconfig, null, 2) + "\n",
   );
   logger.success("Created nsjsconfig.json");
+
+  // Linter
+  if (useLinter) {
+    logger.step("Installing @noshift.js/lint ...");
+    execSync("npm install --save-dev @noshift.js/lint", {
+      stdio: "ignore",
+    });
+
+    // @noshift.js/lint の createDefaultConfig を使って nsjslinter.json を生成
+    let linterConfig;
+    try {
+      const { createDefaultConfig } = await import("@noshift.js/lint");
+      linterConfig = createDefaultConfig();
+    } catch {
+      // フォールバック: 手動でデフォルト設定を作成
+      linterConfig = {
+        rules: {
+          "unclosed-string": "error",
+          "unclosed-comment": "error",
+          "unclosed-template-expr": "error",
+          "unknown-caret-sequence": "error",
+          "lone-caret": "error",
+          "capitalize-eof": "error",
+          "uppercase-in-code": "warning",
+          "trailing-whitespace": "off",
+          "no-consecutive-blank-lines": "off",
+        },
+      };
+    }
+
+    await fs.writeFile(
+      "nsjslinter.json",
+      JSON.stringify(linterConfig, null, 2) + "\n",
+    );
+    logger.success("Created nsjslinter.json");
+  }
 
   // Prettier
   if (usePrettier) {

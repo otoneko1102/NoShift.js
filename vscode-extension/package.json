@@ -12,7 +12,9 @@
     "url": "https://github.com/otoneko1102/NoShift.js"
   },
   "activationEvents": [
-    "onLanguage:noshift"
+    "onLanguage:noshift",
+    "workspaceContains:nsjsconfig.json",
+    "workspaceContains:nsjslinter.json"
   ],
   "main": "extension.js",
   "categories": ["Programming Languages"],
@@ -23,6 +25,14 @@
         "aliases": ["NoShift.js", "noshift"],
         "extensions": [".nsjs"],
         "configuration": "./language-configuration.json",
+        "icon": {
+          "light": "./icons/noshift-file-icon.svg",
+          "dark": "./icons/noshift-file-icon.svg"
+        }
+      },
+      {
+        "id": "json",
+        "filenames": ["nsjsconfig.json", "nsjslinter.json"],
         "icon": {
           "light": "./icons/noshift-file-icon.svg",
           "dark": "./icons/noshift-file-icon.svg"

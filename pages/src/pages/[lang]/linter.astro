@@ -1,0 +1,133 @@
+---
+import DocsLayout from "../../layouts/DocsLayout.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
+import { t, type Lang } from "../../i18n/translations";
+import { links } from "../../config/links";
+
+export function getStaticPaths() {
+  return [{ params: { lang: "en" } }, { params: { lang: "ja" } }];
+}
+
+const { lang } = Astro.params as { lang: Lang };
+---
+
+<DocsLayout
+  lang={lang}
+  title={t(lang, "linter.title") + "  NoShift.js"}
+  currentPath={`/${lang}/linter/`}
+  prev={{ href: `/${lang}/config/`, title: t(lang, "nav.config") }}
+  next={{ href: `/${lang}/prettier/`, title: t(lang, "nav.prettier") }}
+>
+  <h1>{t(lang, "linter.title")}</h1>
+  <p set:html={t(lang, "linter.introDesc")} />
+
+  <h2>{t(lang, "linter.installTitle")}</h2>
+  <p set:html={t(lang, "linter.installDesc")} />
+  <CodeBlock lang="bash" code="npm install --save-dev @noshift.js/lint" />
+
+  <h2>{t(lang, "linter.cliTitle")}</h2>
+  <p set:html={t(lang, "linter.cliDesc")} />
+  <CodeBlock lang="bash" code="nslint" />
+  <p set:html={t(lang, "linter.cliFileDesc")} />
+  <CodeBlock lang="bash" code="nslint src/index.nsjs src/utils.nsjs" />
+
+  <h2>{t(lang, "linter.configTitle")}</h2>
+  <p set:html={t(lang, "linter.configDesc")} />
+  <CodeBlock lang="bash" code="nslint init" />
+
+  <h3>{t(lang, "linter.configStructTitle")}</h3>
+  <p set:html={t(lang, "linter.configStructDesc")} />
+  <CodeBlock
+    lang="json"
+    code={`{
+  "rules": {
+    "unclosed-string": "error",
+    "unclosed-comment": "error",
+    "unclosed-template-expr": "error",
+    "unknown-caret-sequence": "error",
+    "lone-caret": "error",
+    "capitalize-eof": "error",
+    "uppercase-in-code": "warning",
+    "trailing-whitespace": "off",
+    "no-consecutive-blank-lines": "off"
+  }
+}`}
+  />
+
+  <h2>{t(lang, "linter.rulesTitle")}</h2>
+  <p>{t(lang, "linter.rulesDesc")}</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Rule</th>
+        <th>Default</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>unclosed-string</code></td>
+        <td><code>error</code></td>
+        <td set:html={t(lang, "linter.ruleUnclosedString")} />
+      </tr>
+      <tr>
+        <td><code>unclosed-comment</code></td>
+        <td><code>error</code></td>
+        <td set:html={t(lang, "linter.ruleUnclosedComment")} />
+      </tr>
+      <tr>
+        <td><code>unclosed-template-expr</code></td>
+        <td><code>error</code></td>
+        <td set:html={t(lang, "linter.ruleUnclosedTemplateExpr")} />
+      </tr>
+      <tr>
+        <td><code>unknown-caret-sequence</code></td>
+        <td><code>error</code></td>
+        <td set:html={t(lang, "linter.ruleUnknownCaret")} />
+      </tr>
+      <tr>
+        <td><code>lone-caret</code></td>
+        <td><code>error</code></td>
+        <td set:html={t(lang, "linter.ruleLoneCaret")} />
+      </tr>
+      <tr>
+        <td><code>capitalize-eof</code></td>
+        <td><code>error</code></td>
+        <td set:html={t(lang, "linter.ruleCapitalizeEof")} />
+      </tr>
+      <tr>
+        <td><code>uppercase-in-code</code></td>
+        <td><code>warning</code></td>
+        <td set:html={t(lang, "linter.ruleUppercase")} />
+      </tr>
+      <tr>
+        <td><code>trailing-whitespace</code></td>
+        <td><code>off</code></td>
+        <td set:html={t(lang, "linter.ruleTrailingWs")} />
+      </tr>
+      <tr>
+        <td><code>no-consecutive-blank-lines</code></td>
+        <td><code>off</code></td>
+        <td set:html={t(lang, "linter.ruleBlankLines")} />
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>{t(lang, "linter.apiTitle")}</h2>
+  <p set:html={t(lang, "linter.apiDesc")} />
+  <CodeBlock
+    lang="js"
+    code={`import { lint, createDefaultConfig } from "@noshift.js/lint";
+
+const messages = lint(source);
+for (const m of messages) {
+  console.log(\`\${m.line}:\${m.column} [\${m.severity}] \${m.message} (\${m.rule})\`);
+}`}
+  />
+
+  <p>
+    <a href={links.npmLinter} target="_blank" rel="noopener">
+      {t(lang, "linter.npmLink")} →
+    </a>
+  </p>
+</DocsLayout>

@@ -9,6 +9,22 @@ updates:
       - dependency-type: "direct"
 
   - package-ecosystem: "npm"
+    directory: "/linter"
+    schedule:
+      interval: "weekly"
+    versioning-strategy: "increase"
+    allow:
+      - dependency-type: "direct"
+
+  - package-ecosystem: "npm"
+    directory: "/prettier-plugin"
+    schedule:
+      interval: "weekly"
+    versioning-strategy: "increase"
+    allow:
+      - dependency-type: "direct"
+
+  - package-ecosystem: "npm"
     directory: "/pages"
     schedule:
       interval: "weekly"

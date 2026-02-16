@@ -69,7 +69,7 @@ npx nsc init
 | `nsc init` / `npx nsc init` | `nsc --init` | Create `nsjsconfig.json` in the current directory |
 | `nsc clean` / `npx nsc clean` | `nsc --clean` | Delete the output directory (`outdir`) |
 | `nsc run <file>` / `npx nsc run <file>` | `nsc -r <file>` `nsc --run <file>` | Run a `.nsjs` file directly |
-| `nsc create [name]` / `npx nsc create [name]` | `nsc --create [name]` | Scaffold a new project (`--no-prettier` to skip Prettier) |
+| `nsc create [name]` / `npx nsc create [name]` | `nsc --create [name]` | Scaffold a new project (`--no-linter` / `--no-prettier` to skip) |
 | `nsc version` / `npx nsc version` | `nsc -v` `nsc --version` | Show version |
 | `nsc help` / `npx nsc help` | `nsc -h` `nsc --help` | Show help |
 
@@ -362,6 +362,7 @@ src/
 
 ## Links
 
+- [@noshift.js/lint (npm)](https://www.npmjs.com/package/@noshift.js/lint) - Linter CLI (`nslint`)
 - [VS Code Extension](https://marketplace.visualstudio.com/items?itemName=otoneko1102.noshift-vscode)
 - [Website](https://noshift.js.org)
 - [Repository](https://github.com/otoneko1102/NoShift.js)

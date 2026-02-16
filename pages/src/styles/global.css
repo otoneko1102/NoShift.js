@@ -161,8 +161,12 @@ body {
 }
 
 .sidebar-footer {
+  position: sticky;
+  bottom: 0;
   padding: 1rem 1.5rem;
   border-top: 1px solid var(--border);
+  background: var(--bg-sidebar);
+  z-index: 1;
 }
 
 .lang-switcher {

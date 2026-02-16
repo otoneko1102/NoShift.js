@@ -33,7 +33,7 @@ Full syntax highlighting for `.nsjs` files.
 `.nsjs` files display a dedicated file icon (`↓js`).
 
 - Shown in tabs and Explorer for VS Code 1.79+
-- **When [vscode-icons](https://marketplace.visualstudio.com/items?itemName=vscode-icons-team.vscode-icons) is installed**: `.nsjs` and `nsjsconfig.json` icon associations are configured automatically on activation
+- **When [vscode-icons](https://marketplace.visualstudio.com/items?itemName=vscode-icons-team.vscode-icons) is installed**: `.nsjs`, `nsjsconfig.json`, and `nsjslinter.json` icon associations are configured automatically on activation
 
 ### Auto-Complete
 
@@ -89,6 +89,7 @@ Real-time syntax error detection as you type. Errors appear as red squiggly unde
 ## Related
 
 - [noshift.js (npm)](https://www.npmjs.com/package/noshift.js) - Compiler CLI (`nsc`)
+- [@noshift.js/lint (npm)](https://www.npmjs.com/package/@noshift.js/lint) - Linter CLI (`nslint`)
 - [Website](https://noshift.js.org)
 - [Repository](https://github.com/otoneko1102/NoShift.js)
 

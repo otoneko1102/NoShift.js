@@ -103,6 +103,7 @@ console.log(result.outputText);
 | | |
 |---|---|
 | **npm** | [noshift.js](https://www.npmjs.com/package/noshift.js) |
+| **Linter** | [@noshift.js/lint](https://www.npmjs.com/package/@noshift.js/lint) |
 | **VS Code** | [NoShift.js - Marketplace](https://marketplace.visualstudio.com/items?itemName=otoneko1102.noshift-vscode) |
 | **ウェブサイト** | [noshift.js.org](https://noshift.js.org) |
 | **リポジトリ** | [github.com/otoneko1102/NoShift.js](https://github.com/otoneko1102/NoShift.js) |

@@ -113,8 +113,9 @@ function activate(context) {
 /**
  * vscode-icons (vscode-icons-team.vscode-icons) が有効な場合、
  * vsicons.associations.files に以下の関連付けを追加する (初回のみ)。
- *   - .nsjs 拡張子   → javascript アイコン
- *   - nsjsconfig.json → javascript アイコン (同じ見た目に統一)
+ *   - .nsjs 拡張子       → javascript アイコン
+ *   - nsjsconfig.json   → javascript アイコン (同じ見た目に統一)
+ *   - nsjslinter.json   → javascript アイコン
  */
 async function registerVscodeIconsAssociation() {
   const vsiconsExt = vscode.extensions.getExtension("vscode-icons-team.vscode-icons");
@@ -129,8 +130,11 @@ async function registerVscodeIconsAssociation() {
   const hasConfig = files.some(
     (e) => Array.isArray(e.extensions) && e.extensions.includes("nsjsconfig.json") && e.filename
   );
+  const hasLinter = files.some(
+    (e) => Array.isArray(e.extensions) && e.extensions.includes("nsjslinter.json") && e.filename
+  );
 
-  if (hasNsjs && hasConfig) return;
+  if (hasNsjs && hasConfig && hasLinter) return;
 
   const updated = [...files];
   if (!hasNsjs) {
@@ -138,6 +142,9 @@ async function registerVscodeIconsAssociation() {
   }
   if (!hasConfig) {
     updated.push({ icon: "javascript", extensions: ["nsjsconfig.json"], format: "svg", filename: true });
+  }
+  if (!hasLinter) {
+    updated.push({ icon: "javascript", extensions: ["nsjslinter.json"], format: "svg", filename: true });
   }
 
   try {

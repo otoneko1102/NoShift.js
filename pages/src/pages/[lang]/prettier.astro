@@ -15,7 +15,7 @@ const { lang } = Astro.params as { lang: Lang };
   lang={lang}
   title={t(lang, "prettier.title") + "  NoShift.js"}
   currentPath={`/${lang}/prettier/`}
-  prev={{ href: `/${lang}/config/`, title: t(lang, "nav.config") }}
+  prev={{ href: `/${lang}/linter/`, title: t(lang, "nav.linter") }}
   next={{ href: `/${lang}/vscode/`, title: t(lang, "nav.vscode") }}
 >
   <h1>{t(lang, "prettier.title")}</h1>

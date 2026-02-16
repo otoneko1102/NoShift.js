@@ -37,6 +37,7 @@ export const ui = {
     "nav.classes": "Classes",
     "nav.cli": "CLI Reference",
     "nav.config": "Configuration",
+    "nav.linter": "Linter",
     "nav.prettier": "Prettier Plugin",
     "nav.vscode": "VS Code Extension",
     "nav.github": "GitHub",
@@ -294,6 +295,37 @@ export const ui = {
       "Real-time syntax error diagnostics (unclosed strings, unknown <code>^</code> sequences, etc.)",
     "vscode.idTitle": "Extension ID",
 
+    // Linter
+    "linter.title": "Linter",
+    "linter.introDesc":
+      "<code>@noshift.js/lint</code> is an official linter for NoShift.js that checks <code>.nsjs</code> files for syntax errors and style issues.",
+    "linter.installTitle": "Installation",
+    "linter.installDesc": "Install as a dev dependency:",
+    "linter.cliTitle": "CLI Usage",
+    "linter.cliDesc":
+      "The <code>nslint</code> command lints all <code>.nsjs</code> files in your project's <code>rootdir</code> (from <code>nsjsconfig.json</code>).",
+    "linter.cliFileDesc": "You can also lint specific files:",
+    "linter.configTitle": "Configuration",
+    "linter.configDesc":
+      "Create a <code>nsjslinter.json</code> file in the project root. You can generate one with defaults:",
+    "linter.configStructTitle": "Config Structure",
+    "linter.configStructDesc":
+      "Each rule can be set to <code>\"error\"</code>, <code>\"warning\"</code>, or <code>\"off\"</code>:",
+    "linter.rulesTitle": "Rules",
+    "linter.rulesDesc": "Available rules:",
+    "linter.ruleUnclosedString": "Unclosed string literal (<code>^2</code>, <code>^7</code>, <code>^@</code>)",
+    "linter.ruleUnclosedComment": "Unclosed block comment (<code>/^:...^:/</code>)",
+    "linter.ruleUnclosedTemplateExpr": "Unclosed template expression (<code>^4^[...^]</code>)",
+    "linter.ruleUnknownCaret": "Unknown <code>^</code> sequence",
+    "linter.ruleLoneCaret": "Lone <code>^</code> at end of file",
+    "linter.ruleCapitalizeEof": "<code>^3</code> at end of file with no following character",
+    "linter.ruleUppercase": "Uppercase letter in code (suggestion to use <code>^3</code>)",
+    "linter.ruleTrailingWs": "Trailing whitespace",
+    "linter.ruleBlankLines": "Consecutive blank lines",
+    "linter.apiTitle": "Programmatic API",
+    "linter.apiDesc": "Use the linter as a library in your code:",
+    "linter.npmLink": "View on npm",
+
     // Footer
     "footer.license": "MIT License",
     "footer.madeBy": "Made by",
@@ -321,6 +353,7 @@ export const ui = {
     "nav.classes": "Classes",
     "nav.cli": "CLI Reference",
     "nav.config": "Configuration",
+    "nav.linter": "Linter",
     "nav.prettier": "Prettier Plugin",
     "nav.vscode": "VS Code Extension",
     "nav.github": "GitHub",
@@ -577,6 +610,37 @@ export const ui = {
     "vscode.feature5":
       "リアルタイムの構文エラー診断（閉じ忘れ文字列、不明な <code>^</code> シーケンスなど）",
     "vscode.idTitle": "拡張機能 ID",
+
+    // Linter
+    "linter.title": "Linter",
+    "linter.introDesc":
+      "<code>@noshift.js/lint</code> は NoShift.js の公式 linter で、<code>.nsjs</code> ファイルの構文エラーやスタイルの問題をチェックします。",
+    "linter.installTitle": "インストール",
+    "linter.installDesc": "開発依存としてインストール:",
+    "linter.cliTitle": "CLI の使い方",
+    "linter.cliDesc":
+      "<code>nslint</code> コマンドでプロジェクトの <code>rootdir</code>（<code>nsjsconfig.json</code> から）内のすべての <code>.nsjs</code> ファイルを lint します。",
+    "linter.cliFileDesc": "特定のファイルを指定することもできます:",
+    "linter.configTitle": "設定",
+    "linter.configDesc":
+      "プロジェクトルートに <code>nsjslinter.json</code> を作成します。デフォルト設定で生成できます:",
+    "linter.configStructTitle": "設定の構造",
+    "linter.configStructDesc":
+      "各ルールは <code>\"error\"</code>、<code>\"warning\"</code>、<code>\"off\"</code> のいずれかに設定できます:",
+    "linter.rulesTitle": "ルール",
+    "linter.rulesDesc": "利用可能なルール:",
+    "linter.ruleUnclosedString": "閉じられていない文字列リテラル（<code>^2</code>、<code>^7</code>、<code>^@</code>）",
+    "linter.ruleUnclosedComment": "閉じられていないブロックコメント（<code>/^:...^:/</code>）",
+    "linter.ruleUnclosedTemplateExpr": "閉じられていないテンプレート式（<code>^4^[...^]</code>）",
+    "linter.ruleUnknownCaret": "不明な <code>^</code> シーケンス",
+    "linter.ruleLoneCaret": "ファイル末尾の孤立 <code>^</code>",
+    "linter.ruleCapitalizeEof": "ファイル末尾の <code>^3</code>（対象文字なし）",
+    "linter.ruleUppercase": "コード内の大文字（<code>^3</code> の使用を推奨）",
+    "linter.ruleTrailingWs": "末尾の空白",
+    "linter.ruleBlankLines": "連続する空行",
+    "linter.apiTitle": "プログラマティック API",
+    "linter.apiDesc": "コード内からライブラリとして使用:",
+    "linter.npmLink": "npm で見る",
 
     // Footer
     "footer.license": "MIT ライセンス",

@@ -68,7 +68,7 @@ npx nsc init
 | `nsc init` / `npx nsc init` | `nsc --init` | 現在のディレクトリに `nsjsconfig.json` を作成 |
 | `nsc clean` / `npx nsc clean` | `nsc --clean` | 出力ディレクトリ (`outdir`) を削除 |
 | `nsc run <file>` / `npx nsc run <file>` | `nsc -r <file>` `nsc --run <file>` | `.nsjs` ファイルを直接実行 |
-| `nsc create [name]` / `npx nsc create [name]` | `nsc --create [name]` | 新しいプロジェクトを作成（`--no-prettier` で Prettier スキップ） |
+| `nsc create [name]` / `npx nsc create [name]` | `nsc --create [name]` | 新しいプロジェクトを作成（`--no-linter` / `--no-prettier` でスキップ） |
 | `nsc version` / `npx nsc version` | `nsc -v` `nsc --version` | バージョンを表示 |
 | `nsc help` / `npx nsc help` | `nsc -h` `nsc --help` | ヘルプを表示 |
 
@@ -361,6 +361,7 @@ src/
 
 ## リンク
 
+- [@noshift.js/lint (npm)](https://www.npmjs.com/package/@noshift.js/lint) - リンター CLI (`nslint`)
 - [VS Code 拡張機能](https://marketplace.visualstudio.com/items?itemName=otoneko1102.noshift-vscode)
 - [ウェブサイト](https://noshift.js.org)
 - [リポジトリ](https://github.com/otoneko1102/NoShift.js)

@@ -1,0 +1,36 @@
+{
+  "name": "@noshift.js/lint",
+  "version": "0.0.0",
+  "description": "A linter for NoShift.js (.nsjs) files",
+  "bin": {
+    "nslint": "./bin/cli.js"
+  },
+  "main": "./src/index.cjs",
+  "exports": {
+    ".": {
+      "import": "./src/index.js",
+      "require": "./src/index.cjs"
+    }
+  },
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/otoneko1102/NoShift.js.git"
+  },
+  "keywords": [
+    "noshift",
+    "nsjs",
+    "joke",
+    "lint",
+    "linter"
+  ],
+  "author": "otoneko.",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/otoneko1102/NoShift.js/issues"
+  },
+  "homepage": "https://noshift.js.org"
+}

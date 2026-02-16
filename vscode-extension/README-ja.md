@@ -33,7 +33,7 @@
 `.nsjs` ファイルには専用のファイルアイコン (`↓js`) が表示されます。
 
 - VS Code 1.79 以降でタブ・エクスプローラーに表示
-- **[vscode-icons](https://marketplace.visualstudio.com/items?itemName=vscode-icons-team.vscode-icons) インストール時**: 起動時に自動で `.nsjs` および `nsjsconfig.json` のアイコン関連付けを設定
+- **[vscode-icons](https://marketplace.visualstudio.com/items?itemName=vscode-icons-team.vscode-icons) インストール時**: 起動時に自動で `.nsjs`、`nsjsconfig.json`、`nsjslinter.json` のアイコン関連付けを設定
 
 ### 自動補完
 
@@ -87,6 +87,7 @@
 ## 関連リンク
 
 - [noshift.js (npm)](https://www.npmjs.com/package/noshift.js) - コンパイラ CLI (`nsc`)
+- [@noshift.js/lint (npm)](https://www.npmjs.com/package/@noshift.js/lint) - リンター CLI (`nslint`)
 - [ウェブサイト](https://noshift.js.org)
 - [リポジトリ](https://github.com/otoneko1102/NoShift.js)
 
