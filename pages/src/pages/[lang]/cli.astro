@@ -26,15 +26,24 @@ const { lang } = Astro.params as { lang: Lang };
 
   <h2 set:html={t(lang, "cli.watchTitle")} />
   <p set:html={t(lang, "cli.watchDesc")} />
-  <CodeBlock lang="bash" code={`# Global\nnsc watch\n\n# Local\nnpx nsc watch`} />
+  <CodeBlock
+    lang="bash"
+    code={`# Global\nnsc watch\n\n# Local\nnpx nsc watch`}
+  />
 
   <h2 set:html={t(lang, "cli.runTitle")} />
   <p set:html={t(lang, "cli.runDesc")} />
-  <CodeBlock lang="bash" code={`# Global\nnsc run src/index.nsjs\n\n# Local\nnpx nsc run src/index.nsjs`} />
+  <CodeBlock
+    lang="bash"
+    code={`# Global\nnsc run src/index.nsjs\n\n# Local\nnpx nsc run src/index.nsjs`}
+  />
 
   <h2 set:html={t(lang, "cli.createCmdTitle")} />
   <p set:html={t(lang, "cli.createCmdDesc")} />
-  <CodeBlock lang="bash" code={`# Global\nnsc create my-project\n\n# Local\nnpx nsc create my-project`} />
+  <CodeBlock
+    lang="bash"
+    code={`# Global\nnsc create my-project\n\n# Local\nnpx nsc create my-project`}
+  />
 
   <h2 set:html={t(lang, "cli.initTitle")} />
   <p set:html={t(lang, "cli.initDesc")} />
@@ -42,11 +51,17 @@ const { lang } = Astro.params as { lang: Lang };
 
   <h2 set:html={t(lang, "cli.cleanTitle")} />
   <p set:html={t(lang, "cli.cleanDesc")} />
-  <CodeBlock lang="bash" code={`# Global\nnsc clean\n\n# Local\nnpx nsc clean`} />
+  <CodeBlock
+    lang="bash"
+    code={`# Global\nnsc clean\n\n# Local\nnpx nsc clean`}
+  />
 
   <h2 set:html={t(lang, "cli.versionTitle")} />
   <p set:html={t(lang, "cli.versionDesc")} />
-  <CodeBlock lang="bash" code={`# Global\nnsc version\n\n# Local\nnpx nsc version`} />
+  <CodeBlock
+    lang="bash"
+    code={`# Global\nnsc version\n\n# Local\nnpx nsc version`}
+  />
 
   <h2 set:html={t(lang, "cli.helpTitle")} />
   <p set:html={t(lang, "cli.helpDesc")} />

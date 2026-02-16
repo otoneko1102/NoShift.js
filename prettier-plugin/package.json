@@ -8,7 +8,8 @@
     ".": "./src/index.js"
   },
   "scripts": {
-    "test": "node test/test.js"
+    "test": "node test/test.js",
+    "format": "prettier --write ./src"
   },
   "repository": {
     "type": "git",

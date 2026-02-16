@@ -73,9 +73,11 @@ export const ui = {
     "gs.installTitle": "Installation",
     "gs.installDesc": "Install via npm:",
     "gs.installGlobalTitle": "Global Install",
-    "gs.installGlobalDesc": "Install globally to use <code>nsc</code> directly:",
+    "gs.installGlobalDesc":
+      "Install globally to use <code>nsc</code> directly:",
     "gs.installLocalTitle": "Local Install",
-    "gs.installLocalDesc": "Install as a dev dependency and use via <code>npx</code>:",
+    "gs.installLocalDesc":
+      "Install as a dev dependency and use via <code>npx</code>:",
     "gs.createTitle": "Create a Project",
     "gs.createDesc": "Scaffold a new NoShift.js project:",
     "gs.createNote":
@@ -91,7 +93,8 @@ export const ui = {
       "Enable <code>^3</code> capitalize modifier inside string literals (default: <code>true</code>)",
     "gs.compileTitle": "Compile & Run",
     "gs.compileDesc": "Compile all <code>.nsjs</code> files:",
-    "gs.compileLocalNote": "With local install, prefix commands with <code>npx</code>:",
+    "gs.compileLocalNote":
+      "With local install, prefix commands with <code>npx</code>:",
     "gs.runDesc": "Or run a file directly without compiling:",
     "gs.fileExt": "File Extension",
     "gs.fileExtDesc":
@@ -99,13 +102,11 @@ export const ui = {
 
     // Programmatic API
     "gs.apiTitle": "Programmatic API",
-    "gs.apiDesc":
-      "You can also use NoShift.js as a library in your code.",
+    "gs.apiDesc": "You can also use NoShift.js as a library in your code.",
     "gs.apiEsmTitle": "ESM",
     "gs.apiCjsTitle": "CJS",
     "gs.apiOptionsTitle": "Options",
-    "gs.apiOptionsDesc":
-      "Pass options as the second argument:",
+    "gs.apiOptionsDesc": "Pass options as the second argument:",
     "gs.apiDiagnoseTitle": "Syntax Diagnostics",
     "gs.apiDiagnoseDesc":
       "Use <code>diagnose()</code> to check for syntax errors before compiling:",
@@ -269,7 +270,8 @@ export const ui = {
     "prettier.pipelineTitle": "Pipeline",
     "prettier.pipeline1": "<code>.nsjs</code> → JavaScript (convert)",
     "prettier.pipeline2": "JavaScript → formatted JavaScript (Prettier)",
-    "prettier.pipeline3": "formatted JavaScript → <code>.nsjs</code> (reverse convert)",
+    "prettier.pipeline3":
+      "formatted JavaScript → <code>.nsjs</code> (reverse convert)",
     "prettier.exampleTitle": "Example",
     "prettier.exampleBefore": "Before:",
     "prettier.exampleAfter": "After formatting:",
@@ -310,16 +312,21 @@ export const ui = {
       "Create a <code>nsjslinter.json</code> file in the project root. You can generate one with defaults:",
     "linter.configStructTitle": "Config Structure",
     "linter.configStructDesc":
-      "Each rule can be set to <code>\"error\"</code>, <code>\"warning\"</code>, or <code>\"off\"</code>:",
+      'Each rule can be set to <code>"error"</code>, <code>"warning"</code>, or <code>"off"</code>:',
     "linter.rulesTitle": "Rules",
     "linter.rulesDesc": "Available rules:",
-    "linter.ruleUnclosedString": "Unclosed string literal (<code>^2</code>, <code>^7</code>, <code>^@</code>)",
-    "linter.ruleUnclosedComment": "Unclosed block comment (<code>/^:...^:/</code>)",
-    "linter.ruleUnclosedTemplateExpr": "Unclosed template expression (<code>^4^[...^]</code>)",
+    "linter.ruleUnclosedString":
+      "Unclosed string literal (<code>^2</code>, <code>^7</code>, <code>^@</code>)",
+    "linter.ruleUnclosedComment":
+      "Unclosed block comment (<code>/^:...^:/</code>)",
+    "linter.ruleUnclosedTemplateExpr":
+      "Unclosed template expression (<code>^4^[...^]</code>)",
     "linter.ruleUnknownCaret": "Unknown <code>^</code> sequence",
     "linter.ruleLoneCaret": "Lone <code>^</code> at end of file",
-    "linter.ruleCapitalizeEof": "<code>^3</code> at end of file with no following character",
-    "linter.ruleUppercase": "Uppercase letter in code (suggestion to use <code>^3</code>)",
+    "linter.ruleCapitalizeEof":
+      "<code>^3</code> at end of file with no following character",
+    "linter.ruleUppercase":
+      "Uppercase letter in code (suggestion to use <code>^3</code>)",
     "linter.ruleTrailingWs": "Trailing whitespace",
     "linter.ruleBlankLines": "Consecutive blank lines",
     "linter.apiTitle": "Programmatic API",
@@ -389,9 +396,11 @@ export const ui = {
     "gs.installTitle": "インストール",
     "gs.installDesc": "npm でインストール:",
     "gs.installGlobalTitle": "グローバルインストール",
-    "gs.installGlobalDesc": "グローバルにインストールすると <code>nsc</code> を直接使えます:",
+    "gs.installGlobalDesc":
+      "グローバルにインストールすると <code>nsc</code> を直接使えます:",
     "gs.installLocalTitle": "ローカルインストール",
-    "gs.installLocalDesc": "devDependencies としてインストールし、<code>npx</code> 経由で使います:",
+    "gs.installLocalDesc":
+      "devDependencies としてインストールし、<code>npx</code> 経由で使います:",
     "gs.createTitle": "プロジェクト作成",
     "gs.createDesc": "新しい NoShift.js プロジェクトを作成:",
     "gs.createNote":
@@ -408,7 +417,8 @@ export const ui = {
       "文字列リテラル内で <code>^3</code> 大文字化修飾子を有効にする（デフォルト: <code>true</code>）",
     "gs.compileTitle": "コンパイルと実行",
     "gs.compileDesc": "すべての <code>.nsjs</code> ファイルをコンパイル:",
-    "gs.compileLocalNote": "ローカルインストールの場合は <code>npx</code> を付けます:",
+    "gs.compileLocalNote":
+      "ローカルインストールの場合は <code>npx</code> を付けます:",
     "gs.runDesc": "コンパイルせずに直接実行:",
     "gs.fileExt": "ファイル拡張子",
     "gs.fileExtDesc":
@@ -416,13 +426,11 @@ export const ui = {
 
     // Programmatic API
     "gs.apiTitle": "プログラマティック API",
-    "gs.apiDesc":
-      "コード内からライブラリとしても使えます。",
+    "gs.apiDesc": "コード内からライブラリとしても使えます。",
     "gs.apiEsmTitle": "ESM",
     "gs.apiCjsTitle": "CJS",
     "gs.apiOptionsTitle": "オプション",
-    "gs.apiOptionsDesc":
-      "第2引数でオプションを渡します:",
+    "gs.apiOptionsDesc": "第2引数でオプションを渡します:",
     "gs.apiDiagnoseTitle": "構文診断",
     "gs.apiDiagnoseDesc":
       "<code>diagnose()</code> を使ってコンパイル前に構文エラーをチェックできます:",
@@ -584,8 +592,10 @@ export const ui = {
       "プラグインは <code>.nsjs</code> コードを JavaScript に変換し、Prettier の組み込み JavaScript フォーマッターでフォーマットした後、結果を NoShift.js 構文に戻します。標準的な Prettier オプション（<code>semi</code>、<code>singleQuote</code>、<code>tabWidth</code> など）はすべて転送されます。",
     "prettier.pipelineTitle": "パイプライン",
     "prettier.pipeline1": "<code>.nsjs</code> → JavaScript（変換）",
-    "prettier.pipeline2": "JavaScript → フォーマット済み JavaScript（Prettier）",
-    "prettier.pipeline3": "フォーマット済み JavaScript → <code>.nsjs</code>（逆変換）",
+    "prettier.pipeline2":
+      "JavaScript → フォーマット済み JavaScript（Prettier）",
+    "prettier.pipeline3":
+      "フォーマット済み JavaScript → <code>.nsjs</code>（逆変換）",
     "prettier.exampleTitle": "例",
     "prettier.exampleBefore": "フォーマット前:",
     "prettier.exampleAfter": "フォーマット後:",
@@ -626,15 +636,19 @@ export const ui = {
       "プロジェクトルートに <code>nsjslinter.json</code> を作成します。デフォルト設定で生成できます:",
     "linter.configStructTitle": "設定の構造",
     "linter.configStructDesc":
-      "各ルールは <code>\"error\"</code>、<code>\"warning\"</code>、<code>\"off\"</code> のいずれかに設定できます:",
+      '各ルールは <code>"error"</code>、<code>"warning"</code>、<code>"off"</code> のいずれかに設定できます:',
     "linter.rulesTitle": "ルール",
     "linter.rulesDesc": "利用可能なルール:",
-    "linter.ruleUnclosedString": "閉じられていない文字列リテラル（<code>^2</code>、<code>^7</code>、<code>^@</code>）",
-    "linter.ruleUnclosedComment": "閉じられていないブロックコメント（<code>/^:...^:/</code>）",
-    "linter.ruleUnclosedTemplateExpr": "閉じられていないテンプレート式（<code>^4^[...^]</code>）",
+    "linter.ruleUnclosedString":
+      "閉じられていない文字列リテラル（<code>^2</code>、<code>^7</code>、<code>^@</code>）",
+    "linter.ruleUnclosedComment":
+      "閉じられていないブロックコメント（<code>/^:...^:/</code>）",
+    "linter.ruleUnclosedTemplateExpr":
+      "閉じられていないテンプレート式（<code>^4^[...^]</code>）",
     "linter.ruleUnknownCaret": "不明な <code>^</code> シーケンス",
     "linter.ruleLoneCaret": "ファイル末尾の孤立 <code>^</code>",
-    "linter.ruleCapitalizeEof": "ファイル末尾の <code>^3</code>（対象文字なし）",
+    "linter.ruleCapitalizeEof":
+      "ファイル末尾の <code>^3</code>（対象文字なし）",
     "linter.ruleUppercase": "コード内の大文字（<code>^3</code> の使用を推奨）",
     "linter.ruleTrailingWs": "末尾の空白",
     "linter.ruleBlankLines": "連続する空行",

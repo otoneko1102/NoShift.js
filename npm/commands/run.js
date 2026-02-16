@@ -45,7 +45,10 @@ export default async function run(file) {
   if (syntaxErrors.length > 0) {
     const relative = path.relative(cwd, filePath).replace(/\\/g, "/");
     for (const e of syntaxErrors) {
-      logger.errorCode("NS1", `${relative}:${e.line}:${e.column} - ${e.message}`);
+      logger.errorCode(
+        "NS1",
+        `${relative}:${e.line}:${e.column} - ${e.message}`,
+      );
     }
     logger.error(`Found ${syntaxErrors.length} syntax error(s).`);
     process.exit(1);

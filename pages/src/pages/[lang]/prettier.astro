@@ -23,7 +23,10 @@ const { lang } = Astro.params as { lang: Lang };
 
   <h2>{t(lang, "prettier.installTitle")}</h2>
   <p set:html={t(lang, "prettier.installDesc")} />
-  <CodeBlock lang="bash" code="npm install --save-dev prettier prettier-plugin-noshift.js" />
+  <CodeBlock
+    lang="bash"
+    code="npm install --save-dev prettier prettier-plugin-noshift.js"
+  />
 
   <h2>{t(lang, "prettier.configTitle")}</h2>
   <p set:html={t(lang, "prettier.configDesc")} />
@@ -83,12 +86,24 @@ function greet^8name^9 ^[
       <tr>
         <td><code>semi</code></td>
         <td><code>true</code></td>
-        <td>{lang === "ja" ? "文末にセミコロンを付ける" : "Add semicolons at the end of statements"}</td>
+        <td
+          >{
+            lang === "ja"
+              ? "文末にセミコロンを付ける"
+              : "Add semicolons at the end of statements"
+          }</td
+        >
       </tr>
       <tr>
         <td><code>singleQuote</code></td>
         <td><code>false</code></td>
-        <td>{lang === "ja" ? "シングルクォートを使う" : "Use single quotes instead of double quotes"}</td>
+        <td
+          >{
+            lang === "ja"
+              ? "シングルクォートを使う"
+              : "Use single quotes instead of double quotes"
+          }</td
+        >
       </tr>
       <tr>
         <td><code>tabWidth</code></td>
@@ -108,7 +123,13 @@ function greet^8name^9 ^[
       <tr>
         <td><code>bracketSpacing</code></td>
         <td><code>true</code></td>
-        <td>{lang === "ja" ? "オブジェクト括弧内のスペース" : "Spaces inside object braces"}</td>
+        <td
+          >{
+            lang === "ja"
+              ? "オブジェクト括弧内のスペース"
+              : "Spaces inside object braces"
+          }</td
+        >
       </tr>
     </tbody>
   </table>

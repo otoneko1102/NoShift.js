@@ -4,8 +4,8 @@ import { promises as fs } from "fs";
 import path from "path";
 import * as logger from "../src/logger.js";
 
-const { lint, createDefaultConfig, loadConfigSync } = await import("../src/rules.cjs")
-  .then((m) => m.default || m);
+const { lint, createDefaultConfig, loadConfigSync } =
+  await import("../src/rules.cjs").then((m) => m.default || m);
 
 const args = process.argv.slice(2);
 const command = args[0];
@@ -149,9 +149,8 @@ async function runLint(fileArgs) {
     console.log(`  \x1b[4m${relative}\x1b[0m`);
 
     for (const msg of messages) {
-      const icon = msg.severity === "error"
-        ? "\x1b[31m✗\x1b[0m"
-        : "\x1b[33m⚠\x1b[0m";
+      const icon =
+        msg.severity === "error" ? "\x1b[31m✗\x1b[0m" : "\x1b[33m⚠\x1b[0m";
       const loc = `\x1b[90m${msg.line}:${msg.column}\x1b[0m`;
       const ruleDim = `\x1b[90m${msg.rule}\x1b[0m`;
       console.log(`    ${icon} ${loc}  ${msg.message}  ${ruleDim}`);

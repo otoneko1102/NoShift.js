@@ -630,9 +630,7 @@ module.exports.diagnose = diagnose;
 // ======
 // 有効な ^X シーケンスの一覧（^3 は別扱い）
 // ======
-const validCaretKeys = new Set(
-  Object.keys(noShiftMap).map((k) => k[1]),
-);
+const validCaretKeys = new Set(Object.keys(noShiftMap).map((k) => k[1]));
 // ^3 (capitalize) も有効
 validCaretKeys.add("3");
 
@@ -720,12 +718,20 @@ function diagnose(nsjsCode) {
         if (ch === "^" && next === "4" && (next2 === "^" || next2 === "[")) {
           if (next2 === "^" && col + 3 < line.length && line[col + 3] === "[") {
             stateStack.push(state);
-            openPositions.push({ line: lineNum + 1, column: col + 1, type: "TEMPLATE_EXPR" });
+            openPositions.push({
+              line: lineNum + 1,
+              column: col + 1,
+              type: "TEMPLATE_EXPR",
+            });
             state = "TEMPLATE_EXPR";
             col += 3;
           } else if (next2 === "[") {
             stateStack.push(state);
-            openPositions.push({ line: lineNum + 1, column: col + 1, type: "TEMPLATE_EXPR" });
+            openPositions.push({
+              line: lineNum + 1,
+              column: col + 1,
+              type: "TEMPLATE_EXPR",
+            });
             state = "TEMPLATE_EXPR";
             col += 2;
           }
@@ -762,7 +768,11 @@ function diagnose(nsjsCode) {
       // ブロックコメント開始 (/^:)
       if (ch === "/" && next === "^" && next2 === ":") {
         stateStack.push(state);
-        openPositions.push({ line: lineNum + 1, column: col + 1, type: "BLOCK_COMMENT" });
+        openPositions.push({
+          line: lineNum + 1,
+          column: col + 1,
+          type: "BLOCK_COMMENT",
+        });
         state = "BLOCK_COMMENT";
         col += 2;
         continue;
@@ -801,7 +811,8 @@ function diagnose(nsjsCode) {
           errors.push({
             line: lineNum + 1,
             column: col + 1,
-            message: "^3 at end of file with no following character to capitalize.",
+            message:
+              "^3 at end of file with no following character to capitalize.",
           });
         }
         col += 2; // ^3 + 次の1文字をスキップ

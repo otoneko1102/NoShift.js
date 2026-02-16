@@ -6,8 +6,27 @@
 
 // 有効な ^X シーケンス
 const validCaretKeys = new Set([
-  "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
-  "-", "^", "\\", "@", "[", "]", ";", ":", ",", ".", "/",
+  "0",
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "-",
+  "^",
+  "\\",
+  "@",
+  "[",
+  "]",
+  ";",
+  ":",
+  ",",
+  ".",
+  "/",
 ]);
 
 // ── 組み込みルール一覧 ──
@@ -98,16 +117,28 @@ function lint(source, config = {}) {
     // ── trailing-whitespace ──
     if (rules["trailing-whitespace"] !== "off") {
       if (line.length > 0 && line !== line.trimEnd()) {
-        report("trailing-whitespace", lineNo, line.trimEnd().length + 1,
-          "Trailing whitespace.");
+        report(
+          "trailing-whitespace",
+          lineNo,
+          line.trimEnd().length + 1,
+          "Trailing whitespace.",
+        );
       }
     }
 
     // ── no-consecutive-blank-lines ──
     if (rules["no-consecutive-blank-lines"] !== "off") {
-      if (lineNum > 0 && line.trim() === "" && lines[lineNum - 1].trim() === "") {
-        report("no-consecutive-blank-lines", lineNo, 1,
-          "Consecutive blank lines.");
+      if (
+        lineNum > 0 &&
+        line.trim() === "" &&
+        lines[lineNum - 1].trim() === ""
+      ) {
+        report(
+          "no-consecutive-blank-lines",
+          lineNo,
+          1,
+          "Consecutive blank lines.",
+        );
       }
     }
 
@@ -163,12 +194,20 @@ function lint(source, config = {}) {
         if (ch === "^" && next === "4" && (next2 === "^" || next2 === "[")) {
           if (next2 === "^" && col + 3 < line.length && line[col + 3] === "[") {
             stateStack.push(state);
-            openPositions.push({ line: lineNo, column: colNo, type: "TEMPLATE_EXPR" });
+            openPositions.push({
+              line: lineNo,
+              column: colNo,
+              type: "TEMPLATE_EXPR",
+            });
             state = "TEMPLATE_EXPR";
             col += 3;
           } else if (next2 === "[") {
             stateStack.push(state);
-            openPositions.push({ line: lineNo, column: colNo, type: "TEMPLATE_EXPR" });
+            openPositions.push({
+              line: lineNo,
+              column: colNo,
+              type: "TEMPLATE_EXPR",
+            });
             state = "TEMPLATE_EXPR";
             col += 2;
           }
@@ -204,7 +243,11 @@ function lint(source, config = {}) {
       // ブロックコメント
       if (ch === "/" && next === "^" && next2 === ":") {
         stateStack.push(state);
-        openPositions.push({ line: lineNo, column: colNo, type: "BLOCK_COMMENT" });
+        openPositions.push({
+          line: lineNo,
+          column: colNo,
+          type: "BLOCK_COMMENT",
+        });
         state = "BLOCK_COMMENT";
         col += 2;
         continue;
@@ -240,8 +283,12 @@ function lint(source, config = {}) {
       // ^3 大文字化
       if (ch === "^" && next === "3") {
         if (col + 2 >= line.length && lineNum === lines.length - 1) {
-          report("capitalize-eof", lineNo, colNo,
-            "^3 at end of file with no following character to capitalize.");
+          report(
+            "capitalize-eof",
+            lineNo,
+            colNo,
+            "^3 at end of file with no following character to capitalize.",
+          );
         }
         col += 2;
         continue;
@@ -250,16 +297,24 @@ function lint(source, config = {}) {
       // uppercase-in-code: コード内の大文字をチェック
       if (rules["uppercase-in-code"] !== "off") {
         if (/[A-Z]/.test(ch)) {
-          report("uppercase-in-code", lineNo, colNo,
-            `Uppercase letter '${ch}' in code. Use ^3 to capitalize.`);
+          report(
+            "uppercase-in-code",
+            lineNo,
+            colNo,
+            `Uppercase letter '${ch}' in code. Use ^3 to capitalize.`,
+          );
         }
       }
 
       // 不明な ^X シーケンス
       if (ch === "^" && next !== undefined) {
         if (!validCaretKeys.has(next)) {
-          report("unknown-caret-sequence", lineNo, colNo,
-            `Unknown sequence '^${next}'.`);
+          report(
+            "unknown-caret-sequence",
+            lineNo,
+            colNo,
+            `Unknown sequence '^${next}'.`,
+          );
         }
         col += 1;
         continue;
@@ -292,8 +347,12 @@ function lint(source, config = {}) {
   while (openPositions.length > 0) {
     const pos = openPositions.pop();
     const ruleName = unclosedRules[pos.type] || "unclosed-string";
-    report(ruleName, pos.line, pos.column,
-      `Unclosed ${labels[pos.type] || pos.type}.`);
+    report(
+      ruleName,
+      pos.line,
+      pos.column,
+      `Unclosed ${labels[pos.type] || pos.type}.`,
+    );
   }
 
   // 行番号 → 列番号でソート

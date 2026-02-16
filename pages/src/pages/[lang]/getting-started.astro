@@ -32,7 +32,10 @@ const { lang } = Astro.params as { lang: Lang };
 
   <h2>{t(lang, "gs.createTitle")}</h2>
   <p set:html={t(lang, "gs.createDesc")} />
-  <CodeBlock lang="bash" code={`# Global\nnsc create my-project\n\n# Local\nnpx nsc create my-project`} />
+  <CodeBlock
+    lang="bash"
+    code={`# Global\nnsc create my-project\n\n# Local\nnpx nsc create my-project`}
+  />
   <div class="callout">
     <p set:html={t(lang, "gs.createNote")} />
   </div>
@@ -52,20 +55,20 @@ const { lang } = Astro.params as { lang: Lang };
   />
   <ul>
     <li>
-      <strong>rootdir</strong>  <span set:html={t(lang, "gs.configRootDir")} />
+      <strong>rootdir</strong>
+      <span set:html={t(lang, "gs.configRootDir")} />
     </li>
     <li>
-      <strong>outdir</strong>  <span set:html={t(lang, "gs.configOutDir")} />
+      <strong>outdir</strong>
+      <span set:html={t(lang, "gs.configOutDir")} />
     </li>
     <li>
-      <strong>warnuppercase</strong>  <span
-        set:html={t(lang, "gs.configWarnUppercase")}
-      />
+      <strong>warnuppercase</strong>
+      <span set:html={t(lang, "gs.configWarnUppercase")} />
     </li>
     <li>
-      <strong>capitalizeinstrings</strong>  <span
-        set:html={t(lang, "gs.configCapitalizeInStrings")}
-      />
+      <strong>capitalizeinstrings</strong>
+      <span set:html={t(lang, "gs.configCapitalizeInStrings")} />
     </li>
   </ul>
 
@@ -75,7 +78,10 @@ const { lang } = Astro.params as { lang: Lang };
   <p set:html={t(lang, "gs.compileLocalNote")} />
   <CodeBlock lang="bash" code="npx nsc" />
   <p set:html={t(lang, "gs.runDesc")} />
-  <CodeBlock lang="bash" code={`# Global\nnsc run src/index.nsjs\n\n# Local\nnpx nsc run src/index.nsjs`} />
+  <CodeBlock
+    lang="bash"
+    code={`# Global\nnsc run src/index.nsjs\n\n# Local\nnpx nsc run src/index.nsjs`}
+  />
 
   <h2>{t(lang, "gs.fileExt")}</h2>
   <p set:html={t(lang, "gs.fileExtDesc")} />
@@ -84,16 +90,28 @@ const { lang } = Astro.params as { lang: Lang };
   <p set:html={t(lang, "gs.apiDesc")} />
 
   <h3>{t(lang, "gs.apiEsmTitle")}</h3>
-  <CodeBlock lang="js" code={`import { compile } from "noshift.js";\n\nconst result = compile('console.log^8^2^3hello^2^9;');\nconsole.log(result.outputText);\n// => console.log("Hello");`} />
+  <CodeBlock
+    lang="js"
+    code={`import { compile } from "noshift.js";\n\nconst result = compile('console.log^8^2^3hello^2^9;');\nconsole.log(result.outputText);\n// => console.log("Hello");`}
+  />
 
   <h3>{t(lang, "gs.apiCjsTitle")}</h3>
-  <CodeBlock lang="js" code={`const { compile } = require("noshift.js");\n\nconst result = compile('console.log^8^2^3hello^2^9;');\nconsole.log(result.outputText);\n// => console.log("Hello");`} />
+  <CodeBlock
+    lang="js"
+    code={`const { compile } = require("noshift.js");\n\nconst result = compile('console.log^8^2^3hello^2^9;');\nconsole.log(result.outputText);\n// => console.log("Hello");`}
+  />
 
   <h3>{t(lang, "gs.apiOptionsTitle")}</h3>
   <p set:html={t(lang, "gs.apiOptionsDesc")} />
-  <CodeBlock lang="js" code={`const result = compile(source, {\n  capitalizeInStrings: false, // Disable ^3 inside strings\n});`} />
+  <CodeBlock
+    lang="js"
+    code={`const result = compile(source, {\n  capitalizeInStrings: false, // Disable ^3 inside strings\n});`}
+  />
 
   <h3>{t(lang, "gs.apiDiagnoseTitle")}</h3>
   <p set:html={t(lang, "gs.apiDiagnoseDesc")} />
-  <CodeBlock lang="js" code={`import { diagnose } from "noshift.js";\n\nconst errors = diagnose(source);\nif (errors.length > 0) {\n  for (const e of errors) {\n    console.error(\`Line \${e.line}:\${e.column} - \${e.message}\`);\n  }\n}`} />
+  <CodeBlock
+    lang="js"
+    code={`import { diagnose } from "noshift.js";\n\nconst errors = diagnose(source);\nif (errors.length > 0) {\n  for (const e of errors) {\n    console.error(\`Line \${e.line}:\${e.column} - \${e.message}\`);\n  }\n}`}
+  />
 </DocsLayout>

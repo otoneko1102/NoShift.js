@@ -110,10 +110,7 @@ const { lang } = Astro.params as { lang: Lang };
 
   <h2>{t(lang, "cap.stringWarnTitle")}</h2>
   <p set:html={t(lang, "cap.stringWarnDesc")} />
-  <CodeBlock
-    lang="nsjs"
-    code={`console.log^8^2Hello World^2^9;`}
-  />
+  <CodeBlock lang="nsjs" code={`console.log^8^2Hello World^2^9;`} />
   <p>
     {
       lang === "ja"
@@ -126,16 +123,9 @@ const { lang } = Astro.params as { lang: Lang };
     code={`⚠ src/main.nsjs:1:18 - Uppercase letter 'H' found in string. Use ^3h instead.\n⚠ src/main.nsjs:1:24 - Uppercase letter 'W' found in string. Use ^3w instead.`}
   />
   <p>
-    {
-      lang === "ja"
-        ? "^3 を使って書き直すと:"
-        : "Rewrite using ^3:"
-    }
+    {lang === "ja" ? "^3 を使って書き直すと:" : "Rewrite using ^3:"}
   </p>
-  <CodeBlock
-    lang="nsjs"
-    code={`console.log^8^2^3hello ^3world^2^9;`}
-  />
+  <CodeBlock lang="nsjs" code={`console.log^8^2^3hello ^3world^2^9;`} />
 
   <h2>{t(lang, "cap.commentTitle")}</h2>
   <p set:html={t(lang, "cap.commentDesc")} />

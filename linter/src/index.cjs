@@ -12,6 +12,18 @@
 
 "use strict";
 
-const { lint, createDefaultConfig, getDefaultRules, getRuleNames, loadConfigSync } = require("./rules.cjs");
+const {
+  lint,
+  createDefaultConfig,
+  getDefaultRules,
+  getRuleNames,
+  loadConfigSync,
+} = require("./rules.cjs");
 
-module.exports = { lint, createDefaultConfig, getDefaultRules, getRuleNames, loadConfigSync };
+module.exports = {
+  lint,
+  createDefaultConfig,
+  getDefaultRules,
+  getRuleNames,
+  loadConfigSync,
+};
