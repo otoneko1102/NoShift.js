@@ -1,4 +1,4 @@
-name: Publish Prettier Plugin to npm
+name: Publish Linter to npm
 
 on:
   workflow_dispatch:
