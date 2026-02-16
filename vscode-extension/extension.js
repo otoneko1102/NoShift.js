@@ -106,51 +106,49 @@ function activate(context) {
 
   context.subscriptions.push(bracketDisposable);
 
-  // vscode-icons がインストールされている場合、.nsjs のファイルアイコン関連付けを設定する
-  registerVscodeIconsAssociation();
+  // 以前のバージョンで汚染された vscode-icons 設定をクリーンアップ
+  cleanupVscodeIconsSettings();
 }
 
 /**
- * vscode-icons (vscode-icons-team.vscode-icons) が有効な場合、
- * vsicons.associations.files に以下の関連付けを追加する (初回のみ)。
- *   - .nsjs 拡張子       → javascript アイコン
- *   - nsjsconfig.json   → javascript アイコン (同じ見た目に統一)
- *   - nsjslinter.json   → javascript アイコン
+ * 以前のバージョンの拡張機能が vsicons.associations.files と
+ * vsicons.customIconFolderPath に書き込んだ設定をクリーンアップする。
+ * これらの設定はバージョン変更時にパスが無効になり、アイコン表示が壊れる原因だった。
+ * contributes.languages[].icon のフォールバック機能で十分対応できるため削除する。
  */
-async function registerVscodeIconsAssociation() {
-  const vsiconsExt = vscode.extensions.getExtension("vscode-icons-team.vscode-icons");
-  if (!vsiconsExt) return;
-
-  const config = vscode.workspace.getConfiguration("vsicons.associations");
-  const files = config.get("files") ?? [];
-
-  const hasNsjs = files.some(
-    (e) => Array.isArray(e.extensions) && e.extensions.includes("nsjs") && !e.filename
-  );
-  const hasConfig = files.some(
-    (e) => Array.isArray(e.extensions) && e.extensions.includes("nsjsconfig.json") && e.filename
-  );
-  const hasLinter = files.some(
-    (e) => Array.isArray(e.extensions) && e.extensions.includes("nsjslinter.json") && e.filename
-  );
-
-  if (hasNsjs && hasConfig && hasLinter) return;
-
-  const updated = [...files];
-  if (!hasNsjs) {
-    updated.push({ icon: "javascript", extensions: ["nsjs"], format: "svg" });
-  }
-  if (!hasConfig) {
-    updated.push({ icon: "javascript", extensions: ["nsjsconfig.json"], format: "svg", filename: true });
-  }
-  if (!hasLinter) {
-    updated.push({ icon: "javascript", extensions: ["nsjslinter.json"], format: "svg", filename: true });
-  }
-
+async function cleanupVscodeIconsSettings() {
   try {
-    await config.update("files", updated, vscode.ConfigurationTarget.Global);
+    const assocConfig = vscode.workspace.getConfiguration("vsicons.associations");
+    const files = assocConfig.get("files") ?? [];
+
+    // noshift / javascript 関連の nsjs エントリを除去
+    const cleaned = files.filter((e) => {
+      if (!Array.isArray(e.extensions)) return true;
+      if ((e.icon === "noshift" || e.icon === "javascript") &&
+          (e.extensions.includes("nsjs") ||
+           e.extensions.includes("nsjsconfig.json") ||
+           e.extensions.includes("nsjslinter.json"))) {
+        return false;
+      }
+      return true;
+    });
+
+    if (cleaned.length !== files.length) {
+      if (cleaned.length === 0) {
+        await assocConfig.update("files", undefined, vscode.ConfigurationTarget.Global);
+      } else {
+        await assocConfig.update("files", cleaned, vscode.ConfigurationTarget.Global);
+      }
+    }
+
+    // customIconFolderPath が noshift-vscode のパスを指している場合はリセット
+    const vsiconsConfig = vscode.workspace.getConfiguration("vsicons");
+    const customPath = vsiconsConfig.get("customIconFolderPath") ?? "";
+    if (customPath.includes("noshift-vscode") || customPath.includes("noshift.js")) {
+      await vsiconsConfig.update("customIconFolderPath", undefined, vscode.ConfigurationTarget.Global);
+    }
   } catch {
-    // 設定の更新に失敗した場合は無視する
+    // 設定の更新に失敗した場合は無視する (vscode-icons 未インストール時など)
   }
 }
 
