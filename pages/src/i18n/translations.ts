@@ -42,6 +42,7 @@ export const ui = {
     "nav.vscode": "VS Code Extension",
     "nav.github": "GitHub",
     "nav.npm": "npm",
+    "nav.playground": "Playground",
 
     // Home
     "home.title": "NoShift.js",
@@ -337,6 +338,15 @@ export const ui = {
     "footer.license": "MIT License",
     "footer.madeBy": "Made by",
 
+    // Playground
+    "playground.title": "Playground",
+    "playground.description": "Try NoShift.js in your browser.",
+    "playground.writeCode": "Write your NoShift.js code here...",
+    "playground.compile": "Compile",
+    "playground.run": "Run",
+    "playground.compiledCode": "Compiled JavaScript",
+    "playground.executionResult": "Execution Result",
+
     // 404
     "404.title": "404 - Page Not Found",
     "404.description":
@@ -365,6 +375,7 @@ export const ui = {
     "nav.vscode": "VS Code Extension",
     "nav.github": "GitHub",
     "nav.npm": "npm",
+    "nav.playground": "プレイグラウンド",
 
     // Home
     "home.title": "NoShift.js",
@@ -659,6 +670,15 @@ export const ui = {
     // Footer
     "footer.license": "MIT ライセンス",
     "footer.madeBy": "作者",
+
+    // Playground
+    "playground.title": "プレイグラウンド",
+    "playground.description": "ブラウザ上で NoShift.js を試すことができます。",
+    "playground.writeCode": "ここに NoShift.js のコードを書いてください...",
+    "playground.compile": "コンパイル",
+    "playground.run": "実行",
+    "playground.compiledCode": "コンパイル結果 (JavaScript)",
+    "playground.executionResult": "実行結果",
 
     // 404
     "404.title": "404 - ページが見つかりません",

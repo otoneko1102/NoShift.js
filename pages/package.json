@@ -13,7 +13,8 @@
     "@iconify-json/material-symbols": "^1.2.55",
     "@iconify-json/simple-icons": "^1.2.70",
     "astro": "^5.17.1",
-    "astro-icon": "^1.1.5"
+    "astro-icon": "^1.1.5",
+    "noshift.js": "file:../npm"
   },
   "devDependencies": {
     "prettier": "^3.8.1",

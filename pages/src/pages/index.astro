@@ -49,12 +49,11 @@ const lang: Lang = "en";
               {t("en", "home.getStarted")} →
             </a>
             <a
-              href={links.github}
-              target="_blank"
-              rel="noopener"
+              href="/en/playground/"
               class="btn btn-outline"
+              id="btn-playground"
             >
-              {t("en", "home.viewOnGithub")}
+              {t("en", "nav.playground")}
             </a>
           </div>
         </div>
@@ -261,6 +260,8 @@ console.log("Hello from " + name + "!");`}
         "link-prettier-title": "Prettier Plugin",
         "link-vscode-title": "VS Code Extension",
         gsHref: "/en/getting-started/",
+        "btn-playground": "Playground",
+        playHref: "/en/playground/",
       },
       ja: {
         tagline: "Shift キーを押さずに JavaScript を書こう。",
@@ -285,6 +286,8 @@ console.log("Hello from " + name + "!");`}
         "link-prettier-title": "Prettier プラグイン",
         "link-vscode-title": "VS Code 拡張機能",
         gsHref: "/ja/getting-started/",
+        "btn-playground": "プレイグラウンド",
+        playHref: "/ja/playground/",
       },
     };
 
@@ -309,6 +312,11 @@ console.log("Hello from " + name + "!");`}
         "btn-get-started",
       ) as HTMLAnchorElement | null;
       if (gsBtn && texts.gsHref) gsBtn.href = texts.gsHref;
+
+      const playBtn = document.getElementById(
+        "btn-playground",
+      ) as HTMLAnchorElement | null;
+      if (playBtn && texts.playHref) playBtn.href = texts.playHref;
 
       // Update last published date format
       const pubVal = document.getElementById("stat-pub-value");
