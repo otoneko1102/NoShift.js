@@ -1,9 +1,9 @@
 {
   "name": "noshift.js",
-  "version": "0.12.0",
+  "version": "0.12.1",
   "description": "Joke language.",
   "bin": {
-    "nsc": "./dist/cli.js"
+    "nsc": "./dist/cli.cjs"
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
