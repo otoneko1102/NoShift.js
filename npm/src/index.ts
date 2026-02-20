@@ -16,6 +16,7 @@
  */
 
 import convertNsjsToJs, { diagnose as _diagnose } from "./convert.js";
+import { addHeader } from "./header.js";
 import type { DiagnosticError } from "./convert.js";
 
 export type { DiagnosticError } from "./convert.js";
@@ -23,6 +24,7 @@ export type { UppercaseWarning } from "./convert.js";
 
 export interface CompileOptions {
   capitalizeInStrings?: boolean;
+  noHeader?: boolean;
 }
 
 export interface CompileResult {
@@ -40,9 +42,12 @@ export function compile(
   source: string,
   options: CompileOptions = {},
 ): CompileResult {
-  const outputText = convertNsjsToJs(source, {
+  let outputText = convertNsjsToJs(source, {
     capitalizeInStrings: options.capitalizeInStrings !== false,
   });
+  if (!options.noHeader && outputText.length > 0) {
+    outputText = addHeader(outputText);
+  }
   return { outputText };
 }
 

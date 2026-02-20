@@ -2,8 +2,13 @@ import { promises as fs, watch } from "fs";
 import path from "path";
 import convert, { diagnose } from "../convert.js";
 import { loadConfig } from "../config.js";
+import { addHeader } from "../header.js";
 import { handleSigint } from "../signal-handler.js";
 import * as logger from "../logger.js";
+
+interface DevCliOptions {
+  noHeader?: boolean;
+}
 
 function timestamp(): string {
   return new Date().toLocaleTimeString("en-GB"); // HH:MM:SS
@@ -35,6 +40,7 @@ async function compileFile(
   outDir: string,
   cwd: string,
   convertOptions: { capitalizeInStrings?: boolean } = {},
+  noHeader: boolean = false,
 ): Promise<void> {
   const relative = path.relative(rootDir, file).replace(/\\/g, "/");
   const destPath = path
@@ -52,7 +58,10 @@ async function compileFile(
     throw new Error(`${syntaxErrors.length} syntax error(s)`);
   }
 
-  const js = convert(code, convertOptions);
+  let js = convert(code, convertOptions);
+  if (!noHeader) {
+    js = addHeader(js);
+  }
   await fs.mkdir(path.dirname(destPath), { recursive: true });
   await fs.writeFile(destPath, js, "utf-8");
   logger.dim(
@@ -60,7 +69,7 @@ async function compileFile(
   );
 }
 
-export default async function dev(): Promise<void> {
+export default async function dev(cliOptions: DevCliOptions = {}): Promise<void> {
   const cwd = process.cwd();
 
   let config;
@@ -91,9 +100,11 @@ export default async function dev(): Promise<void> {
 
   await fs.mkdir(outDir, { recursive: true });
 
+  const noHeader = cliOptions.noHeader || config.compileroptions.noheader;
+
   for (const file of files) {
     try {
-      await compileFile(file, rootDir, outDir, cwd, convertOptions);
+      await compileFile(file, rootDir, outDir, cwd, convertOptions, noHeader);
     } catch (e) {
       const rel = path.relative(rootDir, file).replace(/\\/g, "/");
       logger.errorCode("NS1", `${rel}: ${(e as Error).message}`);
@@ -129,7 +140,7 @@ export default async function dev(): Promise<void> {
         debounceMap.delete(filename);
         const absPath = path.join(rootDir, filename);
         try {
-          await compileFile(absPath, rootDir, outDir, cwd, convertOptions);
+          await compileFile(absPath, rootDir, outDir, cwd, convertOptions, noHeader);
         } catch (e) {
           if ((e as NodeJS.ErrnoException).code === "ENOENT") {
             // ファイルが削除された場合はスキップ

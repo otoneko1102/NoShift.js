@@ -4,35 +4,35 @@ import type { CompileResult, CompileOptions, DiagnosticError } from "../index.js
 
 describe("Public API: compile()", () => {
   it("returns CompileResult with outputText", () => {
-    const result: CompileResult = compile("const x ^- 1;");
+    const result: CompileResult = compile("const x ^- 1;", { noHeader: true });
     expect(result).toHaveProperty("outputText");
     expect(result.outputText).toBe("const x = 1;");
   });
 
   it("compiles Hello World example", () => {
-    const result = compile("console.log^8^2^3hello^2^9;");
+    const result = compile("console.log^8^2^3hello^2^9;", { noHeader: true });
     expect(result.outputText).toBe('console.log("Hello");');
   });
 
   it("accepts capitalizeInStrings option", () => {
-    const opts: CompileOptions = { capitalizeInStrings: false };
+    const opts: CompileOptions = { capitalizeInStrings: false, noHeader: true };
     const result = compile("^2^3hello^2", opts);
     expect(result.outputText).toBe('"^3hello"');
   });
 
   it("defaults capitalizeInStrings to true", () => {
-    const result = compile("^2^3hello^2");
+    const result = compile("^2^3hello^2", { noHeader: true });
     expect(result.outputText).toBe('"Hello"');
   });
 
   it("compiles empty string", () => {
-    const result = compile("");
+    const result = compile("", { noHeader: true });
     expect(result.outputText).toBe("");
   });
 
   it("compiles complex code", () => {
     const nsjs = "const add ^- ^8a, b^9 ^-^. a ^; b;";
-    const result = compile(nsjs);
+    const result = compile(nsjs, { noHeader: true });
     expect(result.outputText).toBe("const add = (a, b) => a + b;");
   });
 });

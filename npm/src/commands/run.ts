@@ -3,11 +3,16 @@ import path from "path";
 import { spawn } from "child_process";
 import convert, { diagnose } from "../convert.js";
 import { loadConfig, type NsjsConfig } from "../config.js";
+import { addHeader } from "../header.js";
 import { handleSigint } from "../signal-handler.js";
 import * as logger from "../logger.js";
 import { askInput } from "../prompt.js";
 
-export default async function run(file?: string): Promise<void> {
+interface RunCliOptions {
+  noHeader?: boolean;
+}
+
+export default async function run(file?: string, cliOptions: RunCliOptions = {}): Promise<void> {
   handleSigint();
 
   if (!file) {
@@ -29,6 +34,7 @@ export default async function run(file?: string): Promise<void> {
         outdir: "dist",
         warnuppercase: true,
         capitalizeinstrings: true,
+        noheader: false,
       },
     };
   }
@@ -61,7 +67,11 @@ export default async function run(file?: string): Promise<void> {
     process.exit(1);
   }
 
-  const js = convert(code, convertOptions);
+  const noHeader = cliOptions.noHeader || config.compileroptions.noheader;
+  let js = convert(code, convertOptions);
+  if (!noHeader) {
+    js = addHeader(js);
+  }
 
   // ソースファイルと同じディレクトリに一時ファイルを作成する。
   const dir = path.dirname(filePath);

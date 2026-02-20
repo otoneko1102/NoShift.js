@@ -30,20 +30,22 @@ program
   .option("--clean", "Delete the output directory (outdir)")
   .option("-r, --run <file>", "Run a .nsjs file directly")
   .option("--create [name]", "Scaffold a new NoShift.js project")
+  .option("--no-header", "Suppress the generated header comment in output")
   .addHelpText("after", `\nDocumentation: ${DOCS_URL}`)
   .action(async (options) => {
+    const noHeader = options.header === false;
     if (options.watch) {
-      await dev();
+      await dev({ noHeader });
     } else if (options.init) {
       await init();
     } else if (options.clean) {
       await clean();
     } else if (options.run) {
-      await run(options.run as string);
+      await run(options.run as string, { noHeader });
     } else if (options.create !== undefined) {
       await create((options.create as string) || undefined);
     } else {
-      await compile();
+      await compile({ noHeader });
     }
   });
 

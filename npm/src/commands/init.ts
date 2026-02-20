@@ -10,6 +10,7 @@ const DEFAULT_CONFIG = {
     outdir: "dist",
     warnuppercase: true,
     capitalizeinstrings: true,
+    noheader: false,
   },
 };
 

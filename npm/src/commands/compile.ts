@@ -2,8 +2,13 @@ import { promises as fs } from "fs";
 import path from "path";
 import convert, { checkUppercaseWarnings, diagnose } from "../convert.js";
 import { loadConfig } from "../config.js";
+import { addHeader } from "../header.js";
 import { handleSigint } from "../signal-handler.js";
 import * as logger from "../logger.js";
+
+interface CompileCliOptions {
+  noHeader?: boolean;
+}
 
 async function findNsjsFiles(dir: string): Promise<string[] | null> {
   let entries;
@@ -26,7 +31,7 @@ async function findNsjsFiles(dir: string): Promise<string[] | null> {
   return files;
 }
 
-export default async function compile(): Promise<void> {
+export default async function compile(cliOptions: CompileCliOptions = {}): Promise<void> {
   handleSigint();
 
   const cwd = process.cwd();
@@ -98,7 +103,13 @@ export default async function compile(): Promise<void> {
         }
       }
 
-      const js = convert(code, convertOptions);
+      let js = convert(code, convertOptions);
+
+      // ヘッダー挿入（noheader が明示的に true でない場合）
+      const noHeader = cliOptions.noHeader || config.compileroptions.noheader;
+      if (!noHeader) {
+        js = addHeader(js);
+      }
 
       await fs.mkdir(path.dirname(destPath), { recursive: true });
       await fs.writeFile(destPath, js, "utf-8");

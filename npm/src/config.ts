@@ -6,6 +6,7 @@ export interface CompilerOptions {
   outdir: string;
   warnuppercase: boolean;
   capitalizeinstrings: boolean;
+  noheader: boolean;
 }
 
 export interface NsjsConfig {
@@ -18,6 +19,7 @@ const DEFAULT_CONFIG: NsjsConfig = {
     outdir: "dist",
     warnuppercase: true,
     capitalizeinstrings: true,
+    noheader: false,
   },
 };
 

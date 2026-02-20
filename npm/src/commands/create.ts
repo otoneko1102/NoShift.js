@@ -76,6 +76,7 @@ export default async function create(
       outdir: "dist",
       warnuppercase: true,
       capitalizeinstrings: true,
+      noheader: false,
     },
   };
   await fs.writeFile(
