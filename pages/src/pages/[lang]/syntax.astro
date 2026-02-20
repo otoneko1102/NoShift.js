@@ -92,6 +92,12 @@ const templateExprLabel =
   <p>{lang === "ja" ? "コンパイル後:" : "Compiles to:"}</p>
   <CodeBlock lang="javascript" code={`\`^5\${"Hello World!"}\``} />
 
+  <h2>{t(lang, "syntax.shebangTitle")}</h2>
+  <p set:html={t(lang, "syntax.shebangDesc")} />
+  <CodeBlock lang="nsjs" code={`#^1/usr/bin/env node\nconsole.log^8^2^3hello^2^9;`} />
+  <p>{lang === "ja" ? "コンパイル後:" : "Compiles to:"}</p>
+  <CodeBlock lang="javascript" code={`#!/usr/bin/env node\nconsole.log("Hello");`} />
+
   <h2>{t(lang, "syntax.bitwiseTitle")}</h2>
   <p set:html={t(lang, "syntax.bitwiseDesc")} />
   <CodeBlock

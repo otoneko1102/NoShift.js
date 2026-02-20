@@ -69,4 +69,19 @@ describe("checkUppercaseWarnings", () => {
     expect(warnings[0]).toHaveProperty("char");
     expect(warnings[0]).toHaveProperty("message");
   });
+
+  it("does not warn about # on shebang line (#^1)", () => {
+    const warnings = checkUppercaseWarnings("#^1/usr/bin/env node\nconst x ^- 1;");
+    expect(warnings.filter((w) => w.char === "#")).toHaveLength(0);
+  });
+
+  it("warns when raw shebang #! is used", () => {
+    const warnings = checkUppercaseWarnings("#!/usr/bin/env node\nconst x ^- 1;");
+    expect(warnings.some((w) => w.message.includes("#^1"))).toBe(true);
+  });
+
+  it("still warns about # on non-first lines", () => {
+    const warnings = checkUppercaseWarnings("const x ^- 1;\n#field");
+    expect(warnings.some((w) => w.char === "#")).toBe(true);
+  });
 });

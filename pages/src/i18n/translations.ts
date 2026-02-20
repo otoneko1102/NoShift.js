@@ -129,6 +129,9 @@ export const ui = {
     "syntax.templateTitle": "Template Literals",
     "syntax.templateDesc":
       "Template literals use <code>^@</code> (backtick) and template expressions use <code>^4^[</code> (<code>${</code>) to start and <code>^]</code> (<code>}</code>) to end:",
+    "syntax.shebangTitle": "Shebang",
+    "syntax.shebangDesc":
+      "Use <code>#^1</code> instead of <code>#!</code> for shebangs on the first line. The <code>^1</code> maps to <code>!</code> as usual:",
     "syntax.capitalizeTitle": "Capitalize Modifier",
     "syntax.capitalizeDesc":
       "<code>^3</code> capitalizes the next character. Useful for class names, constants, etc.:",
@@ -458,6 +461,9 @@ export const ui = {
     "syntax.templateTitle": "テンプレートリテラル",
     "syntax.templateDesc":
       "テンプレートリテラルは <code>^@</code>（バッククォート）を使い、テンプレート式は <code>^4^[</code>（<code>${</code>）で開始し、<code>^]</code>（<code>}</code>）で終了します:",
+    "syntax.shebangTitle": "Shebang",
+    "syntax.shebangDesc":
+      "先頭行の shebang には <code>#!</code> の代わりに <code>#^1</code> を使います。<code>^1</code> は通常通り <code>!</code> に変換されます:",
     "syntax.capitalizeTitle": "大文字化修飾子",
     "syntax.capitalizeDesc":
       "<code>^3</code> は次の文字を大文字にします。クラス名や定数に便利です:",

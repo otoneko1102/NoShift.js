@@ -130,6 +130,18 @@ Generated automatically by `nsc init` or `nsc create`.
 
 Template expression: `^4^[` → `${`
 
+Shebang: `#^1` → `#!` (first line only)
+
+```nsjs
+#^1/usr/bin/env node
+console.log^8^2^3hello^2^9;
+```
+
+```js
+#!/usr/bin/env node
+console.log("Hello");
+```
+
 ---
 
 ## Syntax Examples

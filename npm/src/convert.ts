@@ -511,9 +511,29 @@ export function checkUppercaseWarnings(
   let inLineComment = false;
   let inBlockComment = false;
 
+  // 先頭行の shebang 検出
+  const firstLine = lines[0] ?? "";
+  const hasNoShiftShebang = firstLine.startsWith("#^1"); // #^1 → valid NoShift shebang
+  const hasRawShebang = firstLine.startsWith("#!"); // #! → raw shebang（警告対象）
+
+  // #! を使っている場合は警告
+  if (hasRawShebang) {
+    warnings.push({
+      line: 1,
+      column: 1,
+      char: "#",
+      message: "Shebang '#!' found. Use '#^1' instead.",
+    });
+  }
+
   for (let lineNum = 0; lineNum < lines.length; lineNum++) {
     const line = lines[lineNum];
     inLineComment = false; // 行コメントは行ごとにリセット
+
+    // 先頭行の shebang 行はスキップ（#^1 / #! どちらも行全体をスキップ）
+    if (lineNum === 0 && (hasNoShiftShebang || hasRawShebang)) {
+      continue;
+    }
 
     for (let col = 0; col < line.length; col++) {
       const ch = line[col];

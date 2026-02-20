@@ -129,6 +129,18 @@ npx nsc init
 
 テンプレート式: `^4^[` → `${`
 
+Shebang: `#^1` → `#!`（先頭行のみ）
+
+```nsjs
+#^1/usr/bin/env node
+console.log^8^2^3hello^2^9;
+```
+
+```js
+#!/usr/bin/env node
+console.log("Hello");
+```
+
 ---
 
 ## 構文サンプル
