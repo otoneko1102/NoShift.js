@@ -1,19 +1,19 @@
 import { promises as fs } from "fs";
 import path from "path";
-import convert, { checkUppercaseWarnings, diagnose } from "../src/convert.js";
-import { loadConfig } from "../src/config.js";
-import { handleSigint } from "../src/signal-handler.js";
-import * as logger from "../src/logger.js";
+import convert, { checkUppercaseWarnings, diagnose } from "../convert.js";
+import { loadConfig } from "../config.js";
+import { handleSigint } from "../signal-handler.js";
+import * as logger from "../logger.js";
 
-async function findNsjsFiles(dir) {
+async function findNsjsFiles(dir: string): Promise<string[] | null> {
   let entries;
   try {
     entries = await fs.readdir(dir, { withFileTypes: true });
   } catch {
-    return null; // ディレクトリが存在しない
+    return null;
   }
 
-  const files = [];
+  const files: string[] = [];
   for (const entry of entries) {
     const fullPath = path.join(dir, entry.name);
     if (entry.isDirectory()) {
@@ -26,7 +26,7 @@ async function findNsjsFiles(dir) {
   return files;
 }
 
-export default async function compile() {
+export default async function compile(): Promise<void> {
   handleSigint();
 
   const cwd = process.cwd();
@@ -35,7 +35,7 @@ export default async function compile() {
   try {
     config = await loadConfig(cwd);
   } catch (e) {
-    logger.errorCode("NS0", e.message);
+    logger.errorCode("NS0", (e as Error).message);
     process.exit(1);
   }
 
@@ -108,7 +108,10 @@ export default async function compile() {
       );
       compiled++;
     } catch (e) {
-      logger.errorCode("NS1", `${relative.replace(/\\/g, "/")}: ${e.message}`);
+      logger.errorCode(
+        "NS1",
+        `${relative.replace(/\\/g, "/")}: ${(e as Error).message}`,
+      );
       errors++;
     }
   }

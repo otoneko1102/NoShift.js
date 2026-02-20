@@ -1,7 +1,7 @@
 // ======
 // NoShift.js → JavaScript 置換用マップ
 // ======
-const noShiftMap = {
+const noShiftMap: Record<string, string> = {
   // "^@^@^@": "```", // マルチバックチック
   "^4^[": "${", // テンプレート式展開開始
   "^0": "^",
@@ -27,13 +27,21 @@ const noShiftMap = {
 };
 
 // 逆引きマップ: JavaScript 記号 → NoShift 表記（単一記号のみ）
-const symbolToNoshift = Object.fromEntries(
+const symbolToNoshift: Record<string, string> = Object.fromEntries(
   Object.entries(noShiftMap)
     .filter(([key, value]) => key.length === 2 && value.length === 1)
     .map(([key, value]) => [value, key]),
 );
 
-function convertNsjsToJs(nsjsCode, options = {}) {
+interface ConvertOptions {
+  capitalizeInStrings?: boolean;
+  _silent?: boolean;
+}
+
+export default function convertNsjsToJs(
+  nsjsCode: string,
+  options: ConvertOptions = {},
+): string {
   const capitalizeInStrings = options.capitalizeInStrings !== false;
   let jsCode = "";
   let i = 0;
@@ -53,10 +61,12 @@ function convertNsjsToJs(nsjsCode, options = {}) {
     RAW_SQ_IN_EXPR: "RAW_SQ_IN_EXPR", // テンプレート式内の ' … ' の中 （NoShift 変換なし）
     IN_LINE_COMMENT: "IN_LINE_COMMENT", // // … の中
     IN_BLOCK_COMMENT: "IN_BLOCK_COMMENT", // /^: … ^:/ の中
-  };
+  } as const;
 
-  let currentState = STATE.NORMAL;
-  const stateStack = [];
+  type StateType = (typeof STATE)[keyof typeof STATE];
+
+  let currentState: StateType = STATE.NORMAL;
+  const stateStack: StateType[] = [];
 
   // マッピングキーは長いものからマッチさせる
   const sortedNsKeys = Object.keys(noShiftMap).sort(
@@ -76,7 +86,7 @@ function convertNsjsToJs(nsjsCode, options = {}) {
    *  5) RAW_DQ_IN_EXPR/RAW_SQ_IN_EXPR 内の終端 (^2 / ^7 → 戻る)
    *  6) 通常の NoShift 置換 (NORMAL または IN_TEMPLATE_EXPRESSION のとき)
    */
-  function tryConsumeNsjsSequence() {
+  function tryConsumeNsjsSequence(): boolean {
     let allowGeneral = false;
     if (
       currentState === STATE.NORMAL ||
@@ -109,7 +119,7 @@ function convertNsjsToJs(nsjsCode, options = {}) {
       if (nsKey === "^]" && currentState === STATE.IN_TEMPLATE_EXPRESSION) {
         jsCode += "}";
         i += nsKey.length;
-        currentState = stateStack.pop();
+        currentState = stateStack.pop()!;
         return true;
       }
 
@@ -128,7 +138,7 @@ function convertNsjsToJs(nsjsCode, options = {}) {
       if (nsKey === "^2" && currentState === STATE.IN_DQ_STRING) {
         jsCode += '"';
         i += nsKey.length;
-        currentState = stateStack.pop();
+        currentState = stateStack.pop()!;
         return true;
       }
 
@@ -143,7 +153,7 @@ function convertNsjsToJs(nsjsCode, options = {}) {
       if (nsKey === "^7" && currentState === STATE.IN_SQ_STRING) {
         jsCode += "'";
         i += nsKey.length;
-        currentState = stateStack.pop();
+        currentState = stateStack.pop()!;
         return true;
       }
 
@@ -164,7 +174,7 @@ function convertNsjsToJs(nsjsCode, options = {}) {
       if (nsKey === "^@^@^@" && currentState === STATE.IN_BT_MULTI_STRING) {
         jsCode += "```";
         i += nsKey.length;
-        currentState = stateStack.pop();
+        currentState = stateStack.pop()!;
         return true;
       }
       */
@@ -184,7 +194,7 @@ function convertNsjsToJs(nsjsCode, options = {}) {
       if (nsKey === "^@" && currentState === STATE.IN_BT_SINGLE_STRING) {
         jsCode += "`";
         i += nsKey.length;
-        currentState = stateStack.pop();
+        currentState = stateStack.pop()!;
         return true;
       }
 
@@ -212,13 +222,13 @@ function convertNsjsToJs(nsjsCode, options = {}) {
       if (nsKey === "^2" && currentState === STATE.RAW_DQ_IN_EXPR) {
         jsCode += '"';
         i += nsKey.length;
-        currentState = stateStack.pop();
+        currentState = stateStack.pop()!;
         return true;
       }
       if (nsKey === "^7" && currentState === STATE.RAW_SQ_IN_EXPR) {
         jsCode += "'";
         i += nsKey.length;
-        currentState = stateStack.pop();
+        currentState = stateStack.pop()!;
         return true;
       }
 
@@ -294,7 +304,7 @@ function convertNsjsToJs(nsjsCode, options = {}) {
       } else if (nsjsCode.startsWith("^2", i)) {
         jsCode += '"'; // 終端
         i += 2;
-        currentState = stateStack.pop();
+        currentState = stateStack.pop()!;
         consumed = true;
       }
       if (consumed) {
@@ -322,7 +332,7 @@ function convertNsjsToJs(nsjsCode, options = {}) {
       } else if (nsjsCode.startsWith("^7", i)) {
         jsCode += "'";
         i += 2;
-        currentState = stateStack.pop();
+        currentState = stateStack.pop()!;
         consumed = true;
       }
       if (consumed) {
@@ -367,11 +377,10 @@ function convertNsjsToJs(nsjsCode, options = {}) {
     // ステップ2: ^3 大文字化モディファイア (RAW 状態とコメント以外で動作)
     //   - コード上 (NORMAL, IN_TEMPLATE_EXPRESSION) では常に有効
     //   - 文字列内は capitalizeInStrings オプションに従う
+    //   - RAW_DQ_IN_EXPR / RAW_SQ_IN_EXPR は else-if の continue で既に除外済み
     // ======
     if (
       !consumed &&
-      currentState !== STATE.RAW_DQ_IN_EXPR &&
-      currentState !== STATE.RAW_SQ_IN_EXPR &&
       currentState !== STATE.IN_LINE_COMMENT &&
       currentState !== STATE.IN_BLOCK_COMMENT
     ) {
@@ -409,7 +418,7 @@ function convertNsjsToJs(nsjsCode, options = {}) {
         if (nsjsCode[i] === "\n") {
           jsCode += "\n";
           i += 1;
-          currentState = stateStack.pop();
+          currentState = stateStack.pop()!;
         } else {
           jsCode += nsjsCode[i];
           i += 1;
@@ -417,7 +426,10 @@ function convertNsjsToJs(nsjsCode, options = {}) {
         consumed = true;
       }
       // ブロックコメント開始 (/^:)
-      else if (currentState === STATE.NORMAL && nsjsCode.startsWith("/^:", i)) {
+      else if (
+        currentState === STATE.NORMAL &&
+        nsjsCode.startsWith("/^:", i)
+      ) {
         jsCode += "/*";
         i += 3;
         stateStack.push(currentState);
@@ -431,7 +443,7 @@ function convertNsjsToJs(nsjsCode, options = {}) {
       ) {
         jsCode += "*/";
         i += 3;
-        currentState = stateStack.pop();
+        currentState = stateStack.pop()!;
         consumed = true;
       }
       // ブロックコメント内の文字 (そのまま出力)
@@ -472,17 +484,24 @@ function convertNsjsToJs(nsjsCode, options = {}) {
   return jsCode;
 }
 
+export interface UppercaseWarning {
+  line: number;
+  column: number;
+  char: string;
+  message: string;
+}
+
 /**
  * ソースコード内の大文字、_, $, # の使用を警告する。
  * コメント内は無視する。
  * capitalizeInStrings が true の場合、文字列内の大文字も警告する。
- * @param {string} nsjsCode
- * @param {{ capitalizeInStrings?: boolean }} [options={}]
- * @returns {{ line: number, column: number, char: string, message: string }[]}
  */
-function checkUppercaseWarnings(nsjsCode, options = {}) {
+export function checkUppercaseWarnings(
+  nsjsCode: string,
+  options: { capitalizeInStrings?: boolean } = {},
+): UppercaseWarning[] {
   const capitalizeInStrings = options.capitalizeInStrings !== false;
-  const warnings = [];
+  const warnings: UppercaseWarning[] = [];
   const lines = nsjsCode.split("\n");
 
   // シンプルな状態追跡（文字列・コメント内を除外）
@@ -623,16 +642,18 @@ function checkUppercaseWarnings(nsjsCode, options = {}) {
   return warnings;
 }
 
-module.exports = convertNsjsToJs;
-module.exports.checkUppercaseWarnings = checkUppercaseWarnings;
-module.exports.diagnose = diagnose;
-
 // ======
 // 有効な ^X シーケンスの一覧（^3 は別扱い）
 // ======
 const validCaretKeys = new Set(Object.keys(noShiftMap).map((k) => k[1]));
 // ^3 (capitalize) も有効
 validCaretKeys.add("3");
+
+export interface DiagnosticError {
+  line: number;
+  column: number;
+  message: string;
+}
 
 /**
  * NoShift.js ソースコードの構文エラーを検出する。
@@ -643,19 +664,30 @@ validCaretKeys.add("3");
  *   - 閉じられていないテンプレート式 (^4^[)
  *   - ファイル末尾の ^3 (大文字化対象の文字がない)
  *   - 不明な ^ シーケンス
- *
- * @param {string} nsjsCode
- * @returns {{ line: number, column: number, message: string }[]}
  */
-function diagnose(nsjsCode) {
-  const errors = [];
+export function diagnose(nsjsCode: string): DiagnosticError[] {
+  const errors: DiagnosticError[] = [];
   const lines = nsjsCode.split("\n");
 
   // 状態: "NORMAL" | "DQ" | "SQ" | "BT" | "BLOCK_COMMENT" | "LINE_COMMENT" | "TEMPLATE_EXPR"
-  let state = "NORMAL";
-  const stateStack = [];
+  type DiagnoseState =
+    | "NORMAL"
+    | "DQ"
+    | "SQ"
+    | "BT"
+    | "BLOCK_COMMENT"
+    | "LINE_COMMENT"
+    | "TEMPLATE_EXPR";
+
+  let state: DiagnoseState = "NORMAL";
+  const stateStack: DiagnoseState[] = [];
   // 開始位置のスタック (エラー報告用)
-  const openPositions = [];
+  interface OpenPosition {
+    line: number;
+    column: number;
+    type: string;
+  }
+  const openPositions: OpenPosition[] = [];
 
   for (let lineNum = 0; lineNum < lines.length; lineNum++) {
     const line = lines[lineNum];
@@ -716,7 +748,11 @@ function diagnose(nsjsCode) {
       if (state === "BT") {
         // テンプレート式展開開始
         if (ch === "^" && next === "4" && (next2 === "^" || next2 === "[")) {
-          if (next2 === "^" && col + 3 < line.length && line[col + 3] === "[") {
+          if (
+            next2 === "^" &&
+            col + 3 < line.length &&
+            line[col + 3] === "["
+          ) {
             stateStack.push(state);
             openPositions.push({
               line: lineNum + 1,
@@ -845,8 +881,8 @@ function diagnose(nsjsCode) {
 
   // ── 閉じられていない構造を報告 ──
   while (openPositions.length > 0) {
-    const pos = openPositions.pop();
-    const labels = {
+    const pos = openPositions.pop()!;
+    const labels: Record<string, string> = {
       DQ: "string literal (^2...^2)",
       SQ: "string literal (^7...^7)",
       BT: "template literal (^@...^@)",

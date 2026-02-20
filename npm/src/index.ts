@@ -16,16 +16,30 @@
  */
 
 import convertNsjsToJs, { diagnose as _diagnose } from "./convert.js";
+import type { DiagnosticError } from "./convert.js";
+
+export type { DiagnosticError } from "./convert.js";
+export type { UppercaseWarning } from "./convert.js";
+
+export interface CompileOptions {
+  capitalizeInStrings?: boolean;
+}
+
+export interface CompileResult {
+  outputText: string;
+}
 
 /**
  * Compile NoShift.js source code to JavaScript.
  *
- * @param {string} source - NoShift.js source code
- * @param {object} [options={}] - Compiler options
- * @param {boolean} [options.capitalizeInStrings=true] - Enable ^3 capitalize modifier inside string literals
- * @returns {{ outputText: string }} Compilation result
+ * @param source - NoShift.js source code
+ * @param options - Compiler options
+ * @returns Compilation result
  */
-export function compile(source, options = {}) {
+export function compile(
+  source: string,
+  options: CompileOptions = {},
+): CompileResult {
   const outputText = convertNsjsToJs(source, {
     capitalizeInStrings: options.capitalizeInStrings !== false,
   });
@@ -35,10 +49,10 @@ export function compile(source, options = {}) {
 /**
  * Diagnose NoShift.js source code for syntax errors.
  *
- * @param {string} source - NoShift.js source code
- * @returns {{ line: number, column: number, message: string }[]} Array of diagnostic errors
+ * @param source - NoShift.js source code
+ * @returns Array of diagnostic errors
  */
-export function diagnose(source) {
+export function diagnose(source: string): DiagnosticError[] {
   return _diagnose(source);
 }
 

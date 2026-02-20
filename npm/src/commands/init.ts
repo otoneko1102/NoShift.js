@@ -1,8 +1,8 @@
 import { writeFile, readFile, access } from "fs/promises";
 import path from "path";
-import { handleSigint } from "../src/signal-handler.js";
-import * as logger from "../src/logger.js";
-import { askConfirm } from "../src/prompt.js";
+import { handleSigint } from "../signal-handler.js";
+import * as logger from "../logger.js";
+import { askConfirm } from "../prompt.js";
 
 const DEFAULT_CONFIG = {
   compileroptions: {
@@ -32,9 +32,8 @@ const PLUGIN_NAME = "prettier-plugin-noshift.js";
 /**
  * 既存の .prettierrc / .prettierrc.json を読み込み plugins に追加する。
  * JSON 形式のみ自動編集可能。それ以外は手動追加を案内する。
- * @param {string} filePath
  */
-async function addPluginToExistingConfig(filePath) {
+async function addPluginToExistingConfig(filePath: string): Promise<void> {
   const basename = path.basename(filePath);
   const isJson = basename === ".prettierrc" || basename === ".prettierrc.json";
 
@@ -47,8 +46,10 @@ async function addPluginToExistingConfig(filePath) {
 
   try {
     const raw = await readFile(filePath, "utf-8");
-    const config = JSON.parse(raw);
-    const plugins = Array.isArray(config.plugins) ? config.plugins : [];
+    const config = JSON.parse(raw) as Record<string, unknown>;
+    const plugins = Array.isArray(config.plugins)
+      ? (config.plugins as string[])
+      : [];
 
     if (plugins.includes(PLUGIN_NAME)) {
       logger.info(`${basename} already contains "${PLUGIN_NAME}".`);
@@ -60,7 +61,7 @@ async function addPluginToExistingConfig(filePath) {
     await writeFile(filePath, JSON.stringify(config, null, 2) + "\n");
     logger.success(`Added "${PLUGIN_NAME}" to ${basename}`);
   } catch (err) {
-    logger.error(`Failed to update ${basename}: ${err.message}`);
+    logger.error(`Failed to update ${basename}: ${(err as Error).message}`);
     logger.warn(`Please add "${PLUGIN_NAME}" to the plugins array manually.`);
   }
 }
@@ -68,7 +69,7 @@ async function addPluginToExistingConfig(filePath) {
 /**
  * 新しい .prettierrc を作成する
  */
-async function createPrettierConfig() {
+async function createPrettierConfig(): Promise<void> {
   const prettierConfig = {
     semi: true,
     singleQuote: false,
@@ -82,7 +83,7 @@ async function createPrettierConfig() {
   logger.success("Created .prettierrc");
 }
 
-export default async function init() {
+export default async function init(): Promise<void> {
   handleSigint();
 
   const cwd = process.cwd();
@@ -126,7 +127,7 @@ export default async function init() {
 
   if (usePrettier) {
     // 既存の prettierrc 系ファイルを探す
-    let existingFile = null;
+    let existingFile: string | null = null;
     for (const name of PRETTIERRC_FILES) {
       try {
         await access(path.join(cwd, name));

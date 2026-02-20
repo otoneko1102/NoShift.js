@@ -1,14 +1,21 @@
-#!/usr/bin/env node
-
 import { Command } from "commander";
 import { readFileSync } from "fs";
-import { fileURLToPath } from "url";
 import path from "path";
+import dev from "./commands/dev.js";
+import init from "./commands/init.js";
+import clean from "./commands/clean.js";
+import run from "./commands/run.js";
+import create from "./commands/create.js";
+import compile from "./commands/compile.js";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const pkg = JSON.parse(
-  readFileSync(path.join(__dirname, "../package.json"), "utf-8"),
-);
+function loadPackageVersion(): string {
+  const pkg = JSON.parse(
+    readFileSync(path.join(__dirname, "../package.json"), "utf-8"),
+  ) as { version: string };
+  return pkg.version;
+}
+
+const version = loadPackageVersion();
 
 const DOCS_URL = "https://noshift.js.org/";
 
@@ -17,7 +24,7 @@ const program = new Command();
 program
   .name("nsc")
   .description("NoShift.js compiler")
-  .version(pkg.version, "-v, --version", "output the version number")
+  .version(version, "-v, --version", "output the version number")
   .option("-w, --watch", "Watch for file changes and recompile")
   .option("--init", "Create a nsjsconfig.json in the current directory")
   .option("--clean", "Delete the output directory (outdir)")
@@ -26,22 +33,16 @@ program
   .addHelpText("after", `\nDocumentation: ${DOCS_URL}`)
   .action(async (options) => {
     if (options.watch) {
-      const { default: dev } = await import("../commands/dev.js");
       await dev();
     } else if (options.init) {
-      const { default: init } = await import("../commands/init.js");
       await init();
     } else if (options.clean) {
-      const { default: clean } = await import("../commands/clean.js");
       await clean();
     } else if (options.run) {
-      const { default: run } = await import("../commands/run.js");
-      await run(options.run);
+      await run(options.run as string);
     } else if (options.create !== undefined) {
-      const { default: create } = await import("../commands/create.js");
-      await create(options.create || undefined);
+      await create((options.create as string) || undefined);
     } else {
-      const { default: compile } = await import("../commands/compile.js");
       await compile();
     }
   });
@@ -52,7 +53,6 @@ program
   .alias("w")
   .description("Watch for file changes and recompile")
   .action(async () => {
-    const { default: dev } = await import("../commands/dev.js");
     await dev();
   });
 
@@ -60,8 +60,7 @@ program
 program
   .command("run <file>")
   .description("Run a .nsjs file directly")
-  .action(async (file) => {
-    const { default: run } = await import("../commands/run.js");
+  .action(async (file: string) => {
     await run(file);
   });
 
@@ -71,8 +70,7 @@ program
   .description("Scaffold a new NoShift.js project")
   .option("--prettier", "Include Prettier (default)")
   .option("--no-prettier", "Skip Prettier setup")
-  .action(async (name, options) => {
-    const { default: create } = await import("../commands/create.js");
+  .action(async (name: string | undefined, options: Record<string, unknown>) => {
     await create(name, options);
   });
 
@@ -81,7 +79,6 @@ program
   .command("init")
   .description("Create a nsjsconfig.json in the current directory")
   .action(async () => {
-    const { default: init } = await import("../commands/init.js");
     await init();
   });
 
@@ -90,7 +87,6 @@ program
   .command("clean")
   .description("Delete the output directory (outdir)")
   .action(async () => {
-    const { default: clean } = await import("../commands/clean.js");
     await clean();
   });
 
@@ -99,7 +95,7 @@ program
   .command("version")
   .description("Display the current version")
   .action(() => {
-    console.log(pkg.version);
+    console.log(version);
   });
 
 // nsc help
