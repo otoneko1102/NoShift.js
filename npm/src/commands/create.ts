@@ -1,11 +1,19 @@
 import { execSync } from "child_process";
 import fs from "fs/promises";
 import path from "path";
-import { handleSigint } from "../src/signal-handler.js";
-import * as logger from "../src/logger.js";
-import { askInput, askConfirm } from "../src/prompt.js";
+import { handleSigint } from "../signal-handler.js";
+import * as logger from "../logger.js";
+import { askInput, askConfirm } from "../prompt.js";
 
-export default async function create(projectNameArg, options = {}) {
+interface CreateOptions {
+  linter?: boolean;
+  prettier?: boolean;
+}
+
+export default async function create(
+  projectNameArg?: string,
+  options: CreateOptions = {},
+): Promise<void> {
   handleSigint();
 
   const cwd = process.cwd();
@@ -17,7 +25,7 @@ export default async function create(projectNameArg, options = {}) {
   }
 
   // ── Linter ──
-  let useLinter;
+  let useLinter: boolean;
   if (options.linter === false) {
     useLinter = false;
   } else {
@@ -25,9 +33,7 @@ export default async function create(projectNameArg, options = {}) {
   }
 
   // ── Prettier ──
-  // --no-prettier で明示的に無効化された場合はスキップ、
-  // それ以外はユーザーに尋ねる
-  let usePrettier;
+  let usePrettier: boolean;
   if (options.prettier === false) {
     usePrettier = false;
   } else {
@@ -50,7 +56,7 @@ export default async function create(projectNameArg, options = {}) {
   // Add scripts to package.json
   const pkgPath = path.join(projectPath, "package.json");
   const pkg = JSON.parse(await fs.readFile(pkgPath, "utf-8"));
-  pkg.scripts = {};
+  pkg.scripts = {} as Record<string, string>;
   if (useLinter) {
     pkg.scripts.lint = "nslint";
   }
@@ -70,6 +76,7 @@ export default async function create(projectNameArg, options = {}) {
       outdir: "dist",
       warnuppercase: true,
       capitalizeinstrings: true,
+      noheader: false,
     },
   };
   await fs.writeFile(
@@ -85,13 +92,12 @@ export default async function create(projectNameArg, options = {}) {
       stdio: "ignore",
     });
 
-    // @noshift.js/lint の createDefaultConfig を使って nsjslinter.json を生成
-    let linterConfig;
+    let linterConfig: Record<string, unknown>;
     try {
-      const { createDefaultConfig } = await import("@noshift.js/lint");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { createDefaultConfig } = (await import("@noshift.js/lint" as any)) as { createDefaultConfig: () => Record<string, unknown> };
       linterConfig = createDefaultConfig();
     } catch {
-      // フォールバック: 手動でデフォルト設定を作成
       linterConfig = {
         rules: {
           "unclosed-string": "error",

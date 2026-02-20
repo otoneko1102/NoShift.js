@@ -23,6 +23,12 @@ jobs:
 
       - run: npm install
 
+      - run: npm run build
+
+      - run: npm run typecheck
+
+      - run: npm test
+
       - run: npm publish --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

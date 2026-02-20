@@ -1,22 +1,27 @@
 import { promises as fs, watch } from "fs";
 import path from "path";
-import convert, { diagnose } from "../src/convert.js";
-import { loadConfig } from "../src/config.js";
-import { handleSigint } from "../src/signal-handler.js";
-import * as logger from "../src/logger.js";
+import convert, { diagnose } from "../convert.js";
+import { loadConfig } from "../config.js";
+import { addHeader } from "../header.js";
+import { handleSigint } from "../signal-handler.js";
+import * as logger from "../logger.js";
 
-function timestamp() {
+interface DevCliOptions {
+  noHeader?: boolean;
+}
+
+function timestamp(): string {
   return new Date().toLocaleTimeString("en-GB"); // HH:MM:SS
 }
 
-async function findNsjsFiles(dir) {
+async function findNsjsFiles(dir: string): Promise<string[] | null> {
   let entries;
   try {
     entries = await fs.readdir(dir, { withFileTypes: true });
   } catch {
     return null;
   }
-  const files = [];
+  const files: string[] = [];
   for (const entry of entries) {
     const fullPath = path.join(dir, entry.name);
     if (entry.isDirectory()) {
@@ -29,7 +34,14 @@ async function findNsjsFiles(dir) {
   return files;
 }
 
-async function compileFile(file, rootDir, outDir, cwd, convertOptions = {}) {
+async function compileFile(
+  file: string,
+  rootDir: string,
+  outDir: string,
+  cwd: string,
+  convertOptions: { capitalizeInStrings?: boolean } = {},
+  noHeader: boolean = false,
+): Promise<void> {
   const relative = path.relative(rootDir, file).replace(/\\/g, "/");
   const destPath = path
     .join(outDir, path.relative(rootDir, file))
@@ -46,7 +58,10 @@ async function compileFile(file, rootDir, outDir, cwd, convertOptions = {}) {
     throw new Error(`${syntaxErrors.length} syntax error(s)`);
   }
 
-  const js = convert(code, convertOptions);
+  let js = convert(code, convertOptions);
+  if (!noHeader) {
+    js = addHeader(js);
+  }
   await fs.mkdir(path.dirname(destPath), { recursive: true });
   await fs.writeFile(destPath, js, "utf-8");
   logger.dim(
@@ -54,14 +69,14 @@ async function compileFile(file, rootDir, outDir, cwd, convertOptions = {}) {
   );
 }
 
-export default async function dev() {
+export default async function dev(cliOptions: DevCliOptions = {}): Promise<void> {
   const cwd = process.cwd();
 
   let config;
   try {
     config = await loadConfig(cwd);
   } catch (e) {
-    logger.errorCode("NS0", e.message);
+    logger.errorCode("NS0", (e as Error).message);
     process.exit(1);
   }
 
@@ -85,12 +100,14 @@ export default async function dev() {
 
   await fs.mkdir(outDir, { recursive: true });
 
+  const noHeader = cliOptions.noHeader || config.compileroptions.noheader;
+
   for (const file of files) {
     try {
-      await compileFile(file, rootDir, outDir, cwd, convertOptions);
+      await compileFile(file, rootDir, outDir, cwd, convertOptions, noHeader);
     } catch (e) {
       const rel = path.relative(rootDir, file).replace(/\\/g, "/");
-      logger.errorCode("NS1", `${rel}: ${e.message}`);
+      logger.errorCode("NS1", `${rel}: ${(e as Error).message}`);
     }
   }
 
@@ -105,7 +122,7 @@ export default async function dev() {
   });
 
   // デバウンス用マップ (ファイルパス → タイマーID)
-  const debounceMap = new Map();
+  const debounceMap = new Map<string, ReturnType<typeof setTimeout>>();
   const DEBOUNCE_MS = 100;
 
   watch(rootDir, { recursive: true }, (_eventType, filename) => {
@@ -115,7 +132,7 @@ export default async function dev() {
 
     // 重複イベントをデバウンス
     if (debounceMap.has(filename)) {
-      clearTimeout(debounceMap.get(filename));
+      clearTimeout(debounceMap.get(filename)!);
     }
     debounceMap.set(
       filename,
@@ -123,14 +140,14 @@ export default async function dev() {
         debounceMap.delete(filename);
         const absPath = path.join(rootDir, filename);
         try {
-          await compileFile(absPath, rootDir, outDir, cwd, convertOptions);
+          await compileFile(absPath, rootDir, outDir, cwd, convertOptions, noHeader);
         } catch (e) {
-          if (e.code === "ENOENT") {
+          if ((e as NodeJS.ErrnoException).code === "ENOENT") {
             // ファイルが削除された場合はスキップ
           } else {
             logger.errorCode(
               "NS1",
-              `${filename.replace(/\\/g, "/")}: ${e.message}`,
+              `${filename.replace(/\\/g, "/")}: ${(e as Error).message}`,
             );
           }
         }

@@ -13,38 +13,38 @@ const colors = {
   gray: "\x1b[90m",
 };
 
-export function success(message) {
+export function success(message: string): void {
   console.log(`${colors.green}✓${colors.reset} ${message}`);
 }
 
-export function error(message) {
+export function error(message: string): void {
   console.error(`${colors.red}✗${colors.reset} ${message}`);
 }
 
-export function info(message) {
+export function info(message: string): void {
   console.log(`${colors.blue}ℹ${colors.reset} ${message}`);
 }
 
-export function warn(message) {
+export function warn(message: string): void {
   console.log(`${colors.yellow}⚠${colors.reset} ${message}`);
 }
 
-export function step(message) {
+export function step(message: string): void {
   console.log(`${colors.cyan}→${colors.reset} ${message}`);
 }
 
-export function dim(message) {
+export function dim(message: string): void {
   console.log(`${colors.dim}${message}${colors.reset}`);
 }
 
-export function bold(text) {
+export function bold(text: string): string {
   return `${colors.bright}${text}${colors.reset}`;
 }
 
-export function highlight(text) {
+export function highlight(text: string): string {
   return `${colors.cyan}${text}${colors.reset}`;
 }
 
-export function errorCode(code, message) {
+export function errorCode(code: string, message: string): void {
   console.error(`${colors.red}error ${code}:${colors.reset} ${message}`);
 }

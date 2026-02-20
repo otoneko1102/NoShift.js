@@ -49,7 +49,8 @@ const { lang } = Astro.params as { lang: Lang };
     "rootdir": "src",
     "outdir": "dist",
     "warnuppercase": true,
-    "capitalizeinstrings": true
+    "capitalizeinstrings": true,
+    "noheader": false
   }
 }`}
   />
@@ -69,6 +70,10 @@ const { lang } = Astro.params as { lang: Lang };
     <li>
       <strong>capitalizeinstrings</strong>
       <span set:html={t(lang, "gs.configCapitalizeInStrings")} />
+    </li>
+    <li>
+      <strong>noheader</strong>
+      <span set:html={t(lang, "gs.configNoHeader")} />
     </li>
   </ul>
 

@@ -1,13 +1,18 @@
 import { promises as fs } from "fs";
 import path from "path";
 import { spawn } from "child_process";
-import convert, { diagnose } from "../src/convert.js";
-import { loadConfig } from "../src/config.js";
-import { handleSigint } from "../src/signal-handler.js";
-import * as logger from "../src/logger.js";
-import { askInput } from "../src/prompt.js";
+import convert, { diagnose } from "../convert.js";
+import { loadConfig, type NsjsConfig } from "../config.js";
+import { addHeader } from "../header.js";
+import { handleSigint } from "../signal-handler.js";
+import * as logger from "../logger.js";
+import { askInput } from "../prompt.js";
 
-export default async function run(file) {
+interface RunCliOptions {
+  noHeader?: boolean;
+}
+
+export default async function run(file?: string, cliOptions: RunCliOptions = {}): Promise<void> {
   handleSigint();
 
   if (!file) {
@@ -19,11 +24,19 @@ export default async function run(file) {
   }
 
   const cwd = process.cwd();
-  let config;
+  let config: NsjsConfig;
   try {
     config = await loadConfig(cwd);
   } catch {
-    config = { compileroptions: {} };
+    config = {
+      compileroptions: {
+        rootdir: "src",
+        outdir: "dist",
+        warnuppercase: true,
+        capitalizeinstrings: true,
+        noheader: false,
+      },
+    };
   }
 
   const convertOptions = {
@@ -32,7 +45,7 @@ export default async function run(file) {
 
   const filePath = path.resolve(cwd, file);
 
-  let code;
+  let code: string;
   try {
     code = await fs.readFile(filePath, "utf-8");
   } catch {
@@ -54,10 +67,13 @@ export default async function run(file) {
     process.exit(1);
   }
 
-  const js = convert(code, convertOptions);
+  const noHeader = cliOptions.noHeader || config.compileroptions.noheader;
+  let js = convert(code, convertOptions);
+  if (!noHeader) {
+    js = addHeader(js);
+  }
 
   // ソースファイルと同じディレクトリに一時ファイルを作成する。
-  // これにより、コンパイル後コード内の相対 import が正しく解決される。
   const dir = path.dirname(filePath);
   const base = path.basename(filePath, ".nsjs");
   const tempFile = path.join(dir, `${base}.__nsc_tmp__.mjs`);
@@ -65,26 +81,26 @@ export default async function run(file) {
   try {
     await fs.writeFile(tempFile, js, "utf-8");
 
-    await new Promise((resolve, reject) => {
+    await new Promise<void>((resolve, reject) => {
       const child = spawn(process.execPath, [tempFile], {
         stdio: "inherit",
         env: process.env,
       });
-      child.on("close", (code) => {
-        if (code === 0) resolve();
+      child.on("close", (exitCode) => {
+        if (exitCode === 0) resolve();
         else
           reject(
-            Object.assign(new Error(`Process exited with code ${code}`), {
-              code,
+            Object.assign(new Error(`Process exited with code ${exitCode}`), {
+              code: exitCode,
             }),
           );
       });
       child.on("error", reject);
     });
   } catch (e) {
-    if (e.code !== 0) {
-      // 子プロセスのエラーメッセージは stdio: "inherit" で既に表示済み
-      process.exit(typeof e.code === "number" ? e.code : 1);
+    if ((e as { code?: number }).code !== 0) {
+      const exitCode = (e as { code?: number }).code;
+      process.exit(typeof exitCode === "number" ? exitCode : 1);
     }
   } finally {
     await fs.unlink(tempFile).catch(() => {});
