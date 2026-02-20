@@ -1,0 +1,12 @@
+# Source files (TypeScript)
+src/
+tsconfig.json
+tsup.config.ts
+vitest.config.ts
+
+# Test files
+src/__tests__/
+
+# Config & tooling
+.prettierrc.json
+.gitignore

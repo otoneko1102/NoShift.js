@@ -5,11 +5,11 @@ import readline from "readline/promises";
 
 /**
  * ユーザーにテキスト入力を求める
- * @param {string} question
- * @param {string} [defaultValue]
- * @returns {Promise<string>}
  */
-export async function askInput(question, defaultValue) {
+export async function askInput(
+  question: string,
+  defaultValue?: string,
+): Promise<string> {
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
@@ -25,11 +25,11 @@ export async function askInput(question, defaultValue) {
 
 /**
  * ユーザーに Yes/No を尋ねる
- * @param {string} question
- * @param {boolean} [defaultYes=true]
- * @returns {Promise<boolean>}
  */
-export async function askConfirm(question, defaultYes = true) {
+export async function askConfirm(
+  question: string,
+  defaultYes: boolean = true,
+): Promise<boolean> {
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,

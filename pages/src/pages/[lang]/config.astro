@@ -33,7 +33,8 @@ const { lang } = Astro.params as { lang: Lang };
     "rootdir": "src",
     "outdir": "dist",
     "warnuppercase": true,
-    "capitalizeinstrings": true
+    "capitalizeinstrings": true,
+    "noheader": false
   }
 }`}
   />
@@ -67,6 +68,11 @@ const { lang } = Astro.params as { lang: Lang };
         <td><code>{t(lang, "config.capitalizeinstringsLabel")}</code></td>
         <td><code>true</code></td>
         <td set:html={t(lang, "config.capitalizeinstringsDesc")} />
+      </tr>
+      <tr>
+        <td><code>{t(lang, "config.noheaderLabel")}</code></td>
+        <td><code>false</code></td>
+        <td set:html={t(lang, "config.noheaderDesc")} />
       </tr>
     </tbody>
   </table>

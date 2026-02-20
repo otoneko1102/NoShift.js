@@ -1,10 +1,10 @@
 import { rm, access } from "fs/promises";
 import path from "path";
-import { loadConfig } from "../src/config.js";
-import { handleSigint } from "../src/signal-handler.js";
-import * as logger from "../src/logger.js";
+import { loadConfig } from "../config.js";
+import { handleSigint } from "../signal-handler.js";
+import * as logger from "../logger.js";
 
-export default async function clean() {
+export default async function clean(): Promise<void> {
   handleSigint();
 
   const cwd = process.cwd();
@@ -13,7 +13,7 @@ export default async function clean() {
   try {
     config = await loadConfig(cwd);
   } catch (e) {
-    logger.errorCode("NS0", e.message);
+    logger.errorCode("NS0", (e as Error).message);
     process.exit(1);
   }
 

@@ -1,13 +1,13 @@
 // シグナルハンドリングユーティリティ
 
 let isHandlerRegistered = false;
-let cleanupCallbacks = [];
+let cleanupCallbacks: (() => void | Promise<void>)[] = [];
 
 /**
  * Ctrl+C (SIGINT) を適切にハンドリングする
- * @param {Function} cleanup - クリーンアップ時に実行する関数（オプション）
+ * @param cleanup - クリーンアップ時に実行する関数（オプション）
  */
-export function handleSigint(cleanup) {
+export function handleSigint(cleanup?: () => void | Promise<void>): void {
   if (cleanup) {
     cleanupCallbacks.push(cleanup);
   }
@@ -22,7 +22,7 @@ export function handleSigint(cleanup) {
       for (const cb of cleanupCallbacks) {
         try {
           await cb();
-        } catch (e) {
+        } catch {
           // エラーは無視
         }
       }
@@ -34,13 +34,13 @@ export function handleSigint(cleanup) {
 
 /**
  * inquirer のキャンセルエラーをチェック
- * @param {Error} error
- * @returns {boolean}
  */
-export function isUserCancelled(error) {
+export function isUserCancelled(error: unknown): boolean {
   return (
-    error &&
-    (error.name === "ExitPromptError" ||
-      error.message === "User force closed the prompt")
+    error != null &&
+    typeof error === "object" &&
+    (("name" in error && (error as Error).name === "ExitPromptError") ||
+      ("message" in error &&
+        (error as Error).message === "User force closed the prompt"))
   );
 }
