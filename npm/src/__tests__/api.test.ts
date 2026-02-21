@@ -1,6 +1,10 @@
 import { describe, it, expect } from "vitest";
 import { compile, diagnose } from "../index.js";
-import type { CompileResult, CompileOptions, DiagnosticError } from "../index.js";
+import type {
+  CompileResult,
+  CompileOptions,
+  DiagnosticError,
+} from "../index.js";
 
 describe("Public API: compile()", () => {
   it("returns CompileResult with outputText", () => {

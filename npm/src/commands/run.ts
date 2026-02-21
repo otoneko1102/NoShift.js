@@ -12,7 +12,10 @@ interface RunCliOptions {
   noHeader?: boolean;
 }
 
-export default async function run(file?: string, cliOptions: RunCliOptions = {}): Promise<void> {
+export default async function run(
+  file?: string,
+  cliOptions: RunCliOptions = {},
+): Promise<void> {
   handleSigint();
 
   if (!file) {

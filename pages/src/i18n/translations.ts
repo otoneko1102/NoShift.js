@@ -68,9 +68,11 @@ export const ui = {
     "home.install": "Install",
     "home.links": "Links",
     "home.copied": "Copied!",
-    "home.readyToStart": "Ready to write without Shift?",
-    "home.readyDesc":
-      "Check out the <a href='/en/getting-started/'>Getting Started</a> guide to install NoShift.js.",
+    "home.next": "Next →",
+    "home.support": "Support the Developer",
+    "home.githubSponsors": "GitHub Sponsors",
+    "home.kofi": "Ko-fi",
+    "home.bmac": "Buy Me a Coffee",
 
     // Getting Started
     "gs.title": "Getting Started",
@@ -354,7 +356,7 @@ export const ui = {
     "playground.description": "Try NoShift.js in your browser.",
     "playground.writeCode": "Write your NoShift.js code here...",
     "playground.compile": "Compile",
-    "playground.run": "Run Code",
+    "playground.run": "Run",
     "playground.compiledCode": "Compiled JavaScript",
     "playground.executionResult": "Execution Result",
 
@@ -386,7 +388,7 @@ export const ui = {
     "nav.vscode": "VS Code Extension",
     "nav.github": "GitHub",
     "nav.npm": "npm",
-    "nav.playground": "プレイグラウンド",
+    "nav.playground": "Playground",
 
     // Home
     "home.title": "NoShift.js",
@@ -412,9 +414,11 @@ export const ui = {
     "home.install": "インストール",
     "home.links": "リンク",
     "home.copied": "コピーしました！",
-    "home.readyToStart": "Shift なしで書く準備はできましたか？",
-    "home.readyDesc":
-      "<a href='/ja/getting-started/'>はじめに</a> ガイドを読んで、NoShift.js をインストールしましょう。",
+    "home.next": "Next →",
+    "home.support": "開発者をサポートする",
+    "home.githubSponsors": "GitHub Sponsors",
+    "home.kofi": "Ko-fi",
+    "home.bmac": "Buy Me a Coffee",
 
     // Getting Started
     "gs.title": "はじめに",
@@ -698,7 +702,7 @@ export const ui = {
     "playground.description": "Try NoShift.js in your browser.",
     "playground.writeCode": "Write your NoShift.js code here...",
     "playground.compile": "Compile",
-    "playground.run": "Run Code",
+    "playground.run": "Run",
     "playground.compiledCode": "Compiled JavaScript",
     "playground.executionResult": "Execution Result",
 

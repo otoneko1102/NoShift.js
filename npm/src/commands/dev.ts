@@ -69,7 +69,9 @@ async function compileFile(
   );
 }
 
-export default async function dev(cliOptions: DevCliOptions = {}): Promise<void> {
+export default async function dev(
+  cliOptions: DevCliOptions = {},
+): Promise<void> {
   const cwd = process.cwd();
 
   let config;
@@ -140,7 +142,14 @@ export default async function dev(cliOptions: DevCliOptions = {}): Promise<void>
         debounceMap.delete(filename);
         const absPath = path.join(rootDir, filename);
         try {
-          await compileFile(absPath, rootDir, outDir, cwd, convertOptions, noHeader);
+          await compileFile(
+            absPath,
+            rootDir,
+            outDir,
+            cwd,
+            convertOptions,
+            noHeader,
+          );
         } catch (e) {
           if ((e as NodeJS.ErrnoException).code === "ENOENT") {
             // ファイルが削除された場合はスキップ

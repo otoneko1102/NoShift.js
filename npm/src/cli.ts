@@ -72,9 +72,11 @@ program
   .description("Scaffold a new NoShift.js project")
   .option("--prettier", "Include Prettier (default)")
   .option("--no-prettier", "Skip Prettier setup")
-  .action(async (name: string | undefined, options: Record<string, unknown>) => {
-    await create(name, options);
-  });
+  .action(
+    async (name: string | undefined, options: Record<string, unknown>) => {
+      await create(name, options);
+    },
+  );
 
 // nsc init
 program

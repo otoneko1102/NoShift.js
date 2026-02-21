@@ -31,7 +31,9 @@ async function findNsjsFiles(dir: string): Promise<string[] | null> {
   return files;
 }
 
-export default async function compile(cliOptions: CompileCliOptions = {}): Promise<void> {
+export default async function compile(
+  cliOptions: CompileCliOptions = {},
+): Promise<void> {
   handleSigint();
 
   const cwd = process.cwd();

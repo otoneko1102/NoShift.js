@@ -27,7 +27,9 @@ const DEFAULT_CONFIG: NsjsConfig = {
  * プロジェクトルートの nsjsconfig.json を読み込む。
  * ファイルが存在しない場合はデフォルト設定を返す。
  */
-export async function loadConfig(cwd: string = process.cwd()): Promise<NsjsConfig> {
+export async function loadConfig(
+  cwd: string = process.cwd(),
+): Promise<NsjsConfig> {
   const configPath = path.join(cwd, "nsjsconfig.json");
 
   try {
@@ -44,8 +46,6 @@ export async function loadConfig(cwd: string = process.cwd()): Promise<NsjsConfi
     if ((e as NodeJS.ErrnoException).code === "ENOENT") {
       return DEFAULT_CONFIG;
     }
-    throw new Error(
-      `Failed to parse nsjsconfig.json: ${(e as Error).message}`,
-    );
+    throw new Error(`Failed to parse nsjsconfig.json: ${(e as Error).message}`);
   }
 }

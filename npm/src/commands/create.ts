@@ -95,7 +95,9 @@ export default async function create(
     let linterConfig: Record<string, unknown>;
     try {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const { createDefaultConfig } = (await import("@noshift.js/lint" as any)) as { createDefaultConfig: () => Record<string, unknown> };
+      const { createDefaultConfig } = (await import(
+        "@noshift.js/lint" as any
+      )) as { createDefaultConfig: () => Record<string, unknown> };
       linterConfig = createDefaultConfig();
     } catch {
       linterConfig = {

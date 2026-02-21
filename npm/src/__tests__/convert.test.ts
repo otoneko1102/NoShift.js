@@ -231,8 +231,7 @@ describe("convert: README Examples", () => {
   it("Objects & Arrays", () => {
     const input =
       "const obj ^- ^[\n  name: ^2^3no^3shift^2,\n  version: 1\n^];";
-    const expected =
-      'const obj = {\n  name: "NoShift",\n  version: 1\n};';
+    const expected = 'const obj = {\n  name: "NoShift",\n  version: 1\n};';
     expect(convert(input)).toBe(expected);
   });
 
@@ -245,7 +244,8 @@ describe("convert: README Examples", () => {
   });
 
   it("For loop", () => {
-    const input = "for ^8let i ^- 0; i ^, 3; i^;^;^9 ^[\n  console.log^8i^9;\n^]";
+    const input =
+      "for ^8let i ^- 0; i ^, 3; i^;^;^9 ^[\n  console.log^8i^9;\n^]";
     const expected = "for (let i = 0; i < 3; i++) {\n  console.log(i);\n}";
     expect(convert(input)).toBe(expected);
   });
@@ -302,7 +302,7 @@ describe("convert: Edge Cases", () => {
   });
 
   it("mixed code with comments and strings", () => {
-    const input = 'const x ^- ^2text^2; // comment\nconst y ^- 1;';
+    const input = "const x ^- ^2text^2; // comment\nconst y ^- 1;";
     const expected = 'const x = "text"; // comment\nconst y = 1;';
     expect(convert(input)).toBe(expected);
   });

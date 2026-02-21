@@ -40,20 +40,31 @@ const lang: Lang = "en";
             set:html={t("en", "home.description")}
           />
 
-          <div class="hero-buttons">
+          <div class="hero-buttons" style="margin-bottom: 1rem;">
             <a
               href="/en/getting-started/"
               class="btn btn-primary"
               id="btn-get-started"
+              style="display: inline-flex; align-items: center; gap: 0.4rem;"
             >
-              {t("en", "home.getStarted")} →
+              <span id="text-get-started">{t("en", "home.getStarted")}</span>
+              <Icon name="material-symbols:arrow-forward" />
             </a>
-            <a
-              href="/en/playground/"
-              class="btn btn-outline"
-              id="btn-playground"
-            >
+            <a href="/playground/" class="btn btn-outline" id="btn-playground">
               {t("en", "nav.playground")}
+            </a>
+          </div>
+          <div class="hero-buttons secondary" style="margin-bottom: 3rem;">
+            <a
+              href={links.github}
+              target="_blank"
+              rel="noopener"
+              class="btn btn-outline"
+              id="btn-github"
+              style="display: inline-flex; align-items: center; gap: 0.4rem;"
+            >
+              <Icon name="simple-icons:github" />
+              <span id="text-github">{t("en", "home.viewOnGithub")}</span>
             </a>
           </div>
         </div>
@@ -202,12 +213,85 @@ console.log^8^2^3hello from ^2 ^; name ^; ^2!^2^9;`}
 console.log("Hello from " + name + "!");`}
         />
 
+        <div style="margin-top: 4rem;">
+          <h2 id="support-title" style="margin-bottom: 1.5rem;">
+            {t("en", "home.support")}
+          </h2>
+          <div class="link-cards">
+            <a
+              href="https://github.com/sponsors/otoneko1102"
+              target="_blank"
+              rel="noopener"
+              class="link-card"
+            >
+              <Icon
+                name="simple-icons:githubsponsors"
+                class="link-card-icon"
+                style="color: #EA4AAA;"
+              />
+              <div class="link-card-body">
+                <span class="link-card-title" id="link-sponsors-title"
+                  >{t("en", "home.githubSponsors")}</span
+                >
+                <span class="link-card-url"
+                  >github.com/sponsors/otoneko1102</span
+                >
+              </div>
+            </a>
+            <a
+              href="https://ko-fi.com/devuloper"
+              target="_blank"
+              rel="noopener"
+              class="link-card"
+            >
+              <Icon
+                name="simple-icons:kofi"
+                class="link-card-icon"
+                style="color: #FF5E5B;"
+              />
+              <div class="link-card-body">
+                <span class="link-card-title" id="link-kofi-title"
+                  >{t("en", "home.kofi")}</span
+                >
+                <span class="link-card-url">ko-fi.com/devuloper</span>
+              </div>
+            </a>
+            <a
+              href="https://buymeacoffee.com/devuloper"
+              target="_blank"
+              rel="noopener"
+              class="link-card"
+            >
+              <Icon
+                name="simple-icons:buymeacoffee"
+                class="link-card-icon"
+                style="color: #FFDD00;"
+              />
+              <div class="link-card-body">
+                <span class="link-card-title" id="link-bmac-title"
+                  >{t("en", "home.bmac")}</span
+                >
+                <span class="link-card-url">buymeacoffee.com/devuloper</span>
+              </div>
+            </a>
+          </div>
+        </div>
+
         <div class="bottom-cta">
-          <h2 id="bottom-ready">{t("en", "home.readyToStart")}</h2>
-          <p id="bottom-desc" set:html={t("en", "home.readyDesc")} />
-          <a href="/en/getting-started/" class="btn btn-primary" id="btn-bottom-gs">
-            {t("en", "home.getStarted")} →
-          </a>
+          <nav
+            class="page-nav"
+            style="margin-top: 3rem; border-top: none; padding-top: 0;"
+          >
+            <span></span>
+            <a href="/en/getting-started/" class="next" id="btn-bottom-gs">
+              <span class="label" id="text-bottom-gs-label"
+                >{t("en", "home.next")}</span
+              >
+              <span class="title" id="text-bottom-gs-title"
+                >{t("en", "nav.gettingStarted")}</span
+              >
+            </a>
+          </nav>
         </div>
       </div>
       <footer class="footer">
@@ -249,7 +333,8 @@ console.log("Hello from " + name + "!");`}
         tagline: "Write JavaScript without pressing the Shift key.",
         description:
           "A joke language that replaces every shift-required symbol with a <code>^</code>-prefixed sequence. <code>.nsjs</code> files compile directly to plain JavaScript via the <code>nsc</code> CLI.",
-        "btn-get-started": "Get Started →",
+        "text-get-started": "Get Started",
+        "text-github": "View on GitHub",
         "feat1-title": "No Shift Required",
         "feat1-desc":
           "All shifted symbols are replaced by simple <code>^</code> + key sequences based on a JIS keyboard layout.",
@@ -267,18 +352,21 @@ console.log("Hello from " + name + "!");`}
         "stat-pub-label": "Last Published",
         "link-prettier-title": "Prettier Plugin",
         "link-vscode-title": "VS Code Extension",
+        "support-title": "Support the Developer",
+        "link-sponsors-title": "GitHub Sponsors",
+        "link-kofi-title": "Ko-fi",
+        "link-bmac-title": "Buy Me a Coffee",
         gsHref: "/en/getting-started/",
-        "btn-playground": "Playground",
-        playHref: "/en/playground/",
-        "bottom-ready": "Ready to write without Shift?",
-        "bottom-desc": "Check out the <a href='/en/getting-started/'>Getting Started</a> guide to install NoShift.js.",
-        "btn-bottom-gs": "Read the Guide →",
+        playHref: "/playground/",
+        "text-bottom-gs-label": "Next →",
+        "text-bottom-gs-title": "Getting Started",
       },
       ja: {
         tagline: "Shift キーを押さずに JavaScript を書こう。",
         description:
           "Shift が必要な記号を <code>^</code> プレフィックスのシーケンスに置き換える Joke 言語です。<code>.nsjs</code> ファイルは <code>nsc</code> CLI で JavaScript にコンパイルされます。",
-        "btn-get-started": "はじめる →",
+        "text-get-started": "はじめる",
+        "text-github": "GitHub で見る",
         "feat1-title": "Shift 不要",
         "feat1-desc":
           "すべての Shift 記号は JIS 配列に基づく <code>^</code> + キーのシーケンスに置き換わります。",
@@ -296,12 +384,14 @@ console.log("Hello from " + name + "!");`}
         "stat-pub-label": "最終公開日",
         "link-prettier-title": "Prettier プラグイン",
         "link-vscode-title": "VS Code 拡張機能",
+        "support-title": "開発者をサポートする",
+        "link-sponsors-title": "GitHub Sponsors",
+        "link-kofi-title": "Ko-fi",
+        "link-bmac-title": "Buy Me a Coffee",
         gsHref: "/ja/getting-started/",
-        "btn-playground": "プレイグラウンド",
-        playHref: "/en/playground/",
-        "bottom-ready": "Shift なしで書く準備はできましたか？",
-        "bottom-desc": "<a href='/ja/getting-started/'>はじめに</a> ガイドを読んで、NoShift.js をインストールしましょう。",
-        "btn-bottom-gs": "ガイドを読む →",
+        playHref: "/playground/",
+        "text-bottom-gs-label": "Next →",
+        "text-bottom-gs-title": "Getting Started",
       },
     };
 

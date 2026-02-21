@@ -426,10 +426,7 @@ export default function convertNsjsToJs(
         consumed = true;
       }
       // ブロックコメント開始 (/^:)
-      else if (
-        currentState === STATE.NORMAL &&
-        nsjsCode.startsWith("/^:", i)
-      ) {
+      else if (currentState === STATE.NORMAL && nsjsCode.startsWith("/^:", i)) {
         jsCode += "/*";
         i += 3;
         stateStack.push(currentState);
@@ -768,11 +765,7 @@ export function diagnose(nsjsCode: string): DiagnosticError[] {
       if (state === "BT") {
         // テンプレート式展開開始
         if (ch === "^" && next === "4" && (next2 === "^" || next2 === "[")) {
-          if (
-            next2 === "^" &&
-            col + 3 < line.length &&
-            line[col + 3] === "["
-          ) {
+          if (next2 === "^" && col + 3 < line.length && line[col + 3] === "[") {
             stateStack.push(state);
             openPositions.push({
               line: lineNum + 1,

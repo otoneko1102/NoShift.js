@@ -24,7 +24,9 @@ describe("checkUppercaseWarnings", () => {
 
   it("does not warn inside line comments", () => {
     const warnings = checkUppercaseWarnings("// Hello World");
-    expect(warnings.filter((w) => w.char === "H" || w.char === "W")).toHaveLength(0);
+    expect(
+      warnings.filter((w) => w.char === "H" || w.char === "W"),
+    ).toHaveLength(0);
   });
 
   it("does not warn inside block comments", () => {
@@ -71,12 +73,16 @@ describe("checkUppercaseWarnings", () => {
   });
 
   it("does not warn about # on shebang line (#^1)", () => {
-    const warnings = checkUppercaseWarnings("#^1/usr/bin/env node\nconst x ^- 1;");
+    const warnings = checkUppercaseWarnings(
+      "#^1/usr/bin/env node\nconst x ^- 1;",
+    );
     expect(warnings.filter((w) => w.char === "#")).toHaveLength(0);
   });
 
   it("warns when raw shebang #! is used", () => {
-    const warnings = checkUppercaseWarnings("#!/usr/bin/env node\nconst x ^- 1;");
+    const warnings = checkUppercaseWarnings(
+      "#!/usr/bin/env node\nconst x ^- 1;",
+    );
     expect(warnings.some((w) => w.message.includes("#^1"))).toBe(true);
   });
 
