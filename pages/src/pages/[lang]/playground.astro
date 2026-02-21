@@ -136,15 +136,19 @@ textarea::placeholder {
 </style>
 
 <script>
-  import { compile } from "noshift.js";
-
   const srcCode = document.getElementById("src-code") as HTMLTextAreaElement;
   const outCode = document.getElementById("out-code") as HTMLTextAreaElement;
   const btnCompile = document.getElementById("btn-compile") as HTMLButtonElement;
   const btnRun = document.getElementById("btn-run") as HTMLButtonElement;
   const execResult = document.getElementById("exec-result") as HTMLDivElement;
 
+  let compile: any = null;
+
   function doCompile() {
+    if (!compile) {
+      outCode.value = "Compiler is loading...";
+      return;
+    }
     try {
       const result = compile(srcCode.value, { noHeader: true });
       outCode.value = result.outputText;
@@ -258,5 +262,16 @@ textarea::placeholder {
 
   // initial template
   srcCode.value = "console.log^2Hello World!^2;";
-  doCompile();
+  outCode.value = "Loading compiler module...";
+
+  // Dynamically load the module
+  // @ts-ignore
+  import("https://cdn.jsdelivr.net/npm/noshift.js@latest/dist/index.mjs")
+    .then((mod) => {
+      compile = mod.compile;
+      doCompile();
+    })
+    .catch((err) => {
+      outCode.value = "Failed to load compiler:\n" + err.message;
+    });
 </script>
