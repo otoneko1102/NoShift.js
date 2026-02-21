@@ -11,15 +11,17 @@ interface Props {
   lang: Lang;
   title?: string;
   description?: string;
+  ogTitle?: string;
+  ogDescription?: string;
   currentPath: string;
   prev?: { href: string; title: string };
   next?: { href: string; title: string };
 }
 
-const { lang, title, description, currentPath, prev, next } = Astro.props;
+const { lang, title, description, ogTitle, ogDescription, currentPath, prev, next } = Astro.props;
 ---
 
-<BaseLayout lang={lang} title={title} description={description}>
+<BaseLayout lang={lang} title={title} description={description} ogTitle={ogTitle} ogDescription={ogDescription}>
   <div class="layout">
     <Sidebar lang={lang} currentPath={currentPath} />
     <div class="sidebar-overlay" id="sidebar-overlay"></div>

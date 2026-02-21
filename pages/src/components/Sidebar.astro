@@ -48,12 +48,12 @@ const navItems = [
     icon: "material-symbols:settings-outline",
   },
   {
-    key: "nav.linter" as const,
+    key: "nav.useLinter" as const,
     path: `/${lang}/linter/`,
     icon: "material-symbols:search-check",
   },
   {
-    key: "nav.prettier" as const,
+    key: "nav.usePrettier" as const,
     path: `/${lang}/prettier/`,
     icon: "material-symbols:format-align-left",
   },
@@ -112,6 +112,18 @@ const navItems = [
           </a>
         </li>
         <li>
+          <a href={links.npmLinter} target="_blank" rel="noopener">
+            <Icon name="material-symbols:search-check" class="nav-icon" />
+            Linter
+          </a>
+        </li>
+        <li>
+          <a href={links.npmPrettier} target="_blank" rel="noopener">
+            <Icon name="simple-icons:prettier" class="nav-icon" />
+            Prettier Plugin
+          </a>
+        </li>
+        <li>
           <a href={links.vscodeExtension} target="_blank" rel="noopener">
             <Icon name="simple-icons:visualstudiocode" class="nav-icon" />
             VS Code Extension
@@ -124,7 +136,7 @@ const navItems = [
   <div class="sidebar-footer">
     <div class="lang-switcher">
       {
-        currentPath === "/" ? (
+        currentPath === "/" || currentPath === "/playground/" ? (
           <>
             <span class="lang-btn active">EN</span>
             <span class="lang-btn">JA</span>

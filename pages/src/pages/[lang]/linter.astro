@@ -13,12 +13,12 @@ const { lang } = Astro.params as { lang: Lang };
 
 <DocsLayout
   lang={lang}
-  title={t(lang, "linter.title") + "  NoShift.js"}
+  title={t(lang, "nav.linter") + " | NoShift.js"}
   currentPath={`/${lang}/linter/`}
   prev={{ href: `/${lang}/config/`, title: t(lang, "nav.config") }}
   next={{ href: `/${lang}/prettier/`, title: t(lang, "nav.prettier") }}
 >
-  <h1>{t(lang, "linter.title")}</h1>
+  <h1>{t(lang, "nav.linter")}</h1>
   <p set:html={t(lang, "linter.introDesc")} />
 
   <h2>{t(lang, "linter.installTitle")}</h2>

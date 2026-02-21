@@ -37,6 +37,8 @@ export const ui = {
     "nav.classes": "Classes",
     "nav.cli": "CLI Reference",
     "nav.config": "Configuration",
+    "nav.useLinter": "Use Linter",
+    "nav.usePrettier": "Use Prettier Plugin",
     "nav.linter": "Linter",
     "nav.prettier": "Prettier Plugin",
     "nav.vscode": "VS Code Extension",
@@ -312,7 +314,7 @@ export const ui = {
     "vscode.idTitle": "Extension ID",
 
     // Linter
-    "linter.title": "Linter",
+    "linter.title": "Use Linter",
     "linter.introDesc":
       "<code>@noshift.js/lint</code> is an official linter for NoShift.js that checks <code>.nsjs</code> files for syntax errors and style issues.",
     "linter.installTitle": "Installation",
@@ -383,6 +385,8 @@ export const ui = {
     "nav.classes": "Classes",
     "nav.cli": "CLI Reference",
     "nav.config": "Configuration",
+    "nav.useLinter": "Use Linter",
+    "nav.usePrettier": "Use Prettier Plugin",
     "nav.linter": "Linter",
     "nav.prettier": "Prettier Plugin",
     "nav.vscode": "VS Code Extension",

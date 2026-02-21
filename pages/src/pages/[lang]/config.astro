@@ -12,12 +12,12 @@ const { lang } = Astro.params as { lang: Lang };
 
 <DocsLayout
   lang={lang}
-  title={t(lang, "config.title") + "  NoShift.js"}
+  title={t(lang, "nav.config") + " | NoShift.js"}
   currentPath={`/${lang}/config/`}
   prev={{ href: `/${lang}/cli/`, title: t(lang, "nav.cli") }}
   next={{ href: `/${lang}/linter/`, title: t(lang, "nav.linter") }}
 >
-  <h1>{t(lang, "config.title")}</h1>
+  <h1>{t(lang, "nav.config")}</h1>
   <p set:html={t(lang, "config.introDesc")} />
 
   <h2>{t(lang, "config.fileTitle")}</h2>

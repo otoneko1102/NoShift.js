@@ -20,7 +20,7 @@ const templateExprLabel =
 
 <DocsLayout
   lang={lang}
-  title={t(lang, "syntax.title") + "  NoShift.js"}
+  title={t(lang, "nav.syntax") + " | NoShift.js"}
   currentPath={`/${lang}/syntax/`}
   prev={{
     href: `/${lang}/getting-started/`,
@@ -28,7 +28,7 @@ const templateExprLabel =
   }}
   next={{ href: `/${lang}/capitalize/`, title: t(lang, "nav.capitalize") }}
 >
-  <h1>{t(lang, "syntax.title")}</h1>
+  <h1>{t(lang, "nav.syntax")}</h1>
 
   <h2>{t(lang, "syntax.introTitle")}</h2>
   <p set:html={t(lang, "syntax.introDesc")} />

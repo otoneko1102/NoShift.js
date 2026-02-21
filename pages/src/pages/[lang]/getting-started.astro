@@ -12,12 +12,12 @@ const { lang } = Astro.params as { lang: Lang };
 
 <DocsLayout
   lang={lang}
-  title={t(lang, "gs.title") + "  NoShift.js"}
+  title={t(lang, "nav.gettingStarted") + " | NoShift.js"}
   currentPath={`/${lang}/getting-started/`}
   prev={{ href: "/", title: t(lang, "nav.home") }}
   next={{ href: `/${lang}/syntax/`, title: t(lang, "nav.syntax") }}
 >
-  <h1>{t(lang, "gs.title")}</h1>
+  <h1>{t(lang, "nav.gettingStarted")}</h1>
 
   <h2>{t(lang, "gs.installTitle")}</h2>
   <p set:html={t(lang, "gs.installDesc")} />

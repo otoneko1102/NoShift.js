@@ -1,0 +1,85 @@
+---
+export function getStaticPaths() {
+  const slugs = [
+    "getting-started",
+    "syntax",
+    "capitalize",
+    "classes",
+    "cli",
+    "config",
+    "linter",
+    "prettier",
+    "vscode",
+  ];
+  return slugs.map((slug) => ({
+    params: { slug },
+  }));
+}
+
+const { slug } = Astro.params;
+---
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Redirecting...</title>
+    <!-- Fallback redirect if JS is disabled -->
+    <meta http-equiv="refresh" content={`0;url=/en/${slug}/`} />
+    <script define:vars={{ slug }}>
+      (function () {
+        const lang = navigator.language.startsWith("ja") ? "ja" : "en";
+        window.location.replace(`/${lang}/${slug}/`);
+      })();
+    </script>
+    <style>
+      body {
+        background-color: #1a1b26; /* Tokyo Night bg */
+        color: #a9b1d6; /* Tokyo Night text */
+        font-family:
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          "Helvetica Neue",
+          Arial,
+          sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+      }
+      a {
+        color: #7aa2f7; /* Tokyo Night blue */
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      .loader {
+        border: 3px solid #24283b;
+        border-top: 3px solid #7aa2f7;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        animation: spin 1s linear infinite;
+        margin-bottom: 1rem;
+      }
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="loader"></div>
+    <p>Redirecting to localized documentation...</p>
+    <p>
+      <a href={`/en/${slug}/`}>Click here if you are not redirected</a>
+    </p>
+  </body>
+</html>

@@ -120,6 +120,16 @@ const lang: Lang = "en";
 
         {/* Links */}
         <div class="link-cards">
+          <a href="/playground/" class="link-card">
+            <Icon
+              name="material-symbols:play-arrow-outline"
+              class="link-card-icon"
+            />
+            <div class="link-card-body">
+              <span class="link-card-title">{t("en", "nav.playground")}</span>
+              <span class="link-card-url">/playground/</span>
+            </div>
+          </a>
           <a
             href={links.github}
             target="_blank"
@@ -147,7 +157,9 @@ const lang: Lang = "en";
           >
             <Icon name="material-symbols:search-check" class="link-card-icon" />
             <div class="link-card-body">
-              <span class="link-card-title" id="link-linter-title">Linter</span>
+              <span class="link-card-title" id="link-linter-title"
+                >{t("en", "nav.linter")}</span
+              >
               <span class="link-card-url">@noshift.js/lint</span>
             </div>
           </a>
@@ -160,7 +172,7 @@ const lang: Lang = "en";
             <Icon name="simple-icons:prettier" class="link-card-icon" />
             <div class="link-card-body">
               <span class="link-card-title" id="link-prettier-title"
-                >Prettier Plugin</span
+                >{t("en", "nav.prettier")}</span
               >
               <span class="link-card-url">prettier-plugin-noshift.js</span>
             </div>
@@ -174,7 +186,7 @@ const lang: Lang = "en";
             <Icon name="simple-icons:visualstudiocode" class="link-card-icon" />
             <div class="link-card-body">
               <span class="link-card-title" id="link-vscode-title"
-                >VS Code Extension</span
+                >{t("en", "nav.vscode")}</span
               >
               <span class="link-card-url">otoneko1102.noshift-vscode</span>
             </div>

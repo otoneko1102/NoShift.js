@@ -9,12 +9,12 @@ const currentPath = `/playground/`;
 
 <DocsLayout
   lang="en"
-  title={t("en", "playground.title")}
+  title={t("en", "nav.playground") + " | NoShift.js"}
   description={t("en", "playground.description")}
   currentPath="/playground/"
 >
-  <h1>{t("en", "playground.title")}</h1>
-  <p>{t("en", "playground.description")}</p>
+  <h1 id="playground-title">{t("en", "nav.playground")}</h1>
+  <p id="playground-description">{t("en", "playground.description")}</p>
 
   <div class="playground-container">
     <div class="playground-pane">
@@ -23,11 +23,11 @@ const currentPath = `/playground/`;
         <div class="pane-actions">
           <button id="btn-compile" class="btn btn-primary">
             <Icon name="material-symbols:build" />
-            {t("en", "playground.compile")}
+            <span id="playground-compile">{t("en", "playground.compile")}</span>
           </button>
           <button id="btn-run" class="btn btn-outline">
             <Icon name="material-symbols:play-arrow" />
-            {t("en", "playground.run")}
+            <span id="playground-run">{t("en", "playground.run")}</span>
           </button>
         </div>
       </div>
@@ -39,7 +39,7 @@ const currentPath = `/playground/`;
 
     <div class="playground-pane">
       <div class="pane-header">
-        <span>{t("en", "playground.compiledCode")}</span>
+        <span id="playground-compiledCode">{t("en", "playground.compiledCode")}</span>
         <button
           id="btn-copy"
           class="btn btn-outline btn-icon"
@@ -55,7 +55,7 @@ const currentPath = `/playground/`;
 
   <div class="playground-results">
     <div class="pane-header">
-      <span>{t("en", "playground.executionResult")}</span>
+      <span id="playground-executionResult">{t("en", "playground.executionResult")}</span>
       <button
         id="btn-scroll-top"
         class="btn btn-outline btn-icon"
@@ -357,4 +357,59 @@ const currentPath = `/playground/`;
       }
     });
   });
+
+  // Client-side i18n for Playground
+  const playgroundI18n: Record<string, Record<string, string>> = {
+    en: {
+      "playground-title": "Playground",
+      "playground-description": "Try NoShift.js right in your browser.",
+      "playground-compile": "Compile",
+      "playground-run": "Run",
+      "src-code-placeholder": "Write your NoShift.js code here...",
+      "playground-compiledCode": "Compiled Code",
+      "playground-executionResult": "Execution Result",
+    },
+    ja: {
+      "playground-description": "ブラウザで NoShift.js を試してみましょう。",
+      "playground-compile": "変換",
+      "playground-run": "実行",
+      "src-code-placeholder": "ここに NoShift.js のコードを書きます...",
+      "playground-compiledCode": "コンパイルされたコード",
+      "playground-executionResult": "実行結果",
+    },
+  };
+
+  function applyLang(lang: string) {
+    const texts = playgroundI18n[lang];
+    if (!texts) return;
+
+    for (const [id, text] of Object.entries(texts)) {
+      if (id === "src-code-placeholder") {
+        srcCode.placeholder = text;
+        continue;
+      }
+      const el = document.getElementById(id);
+      if (el) el.textContent = text;
+    }
+
+    // Update language switcher active states
+    document.querySelectorAll(".lang-btn").forEach((btn) => {
+      btn.classList.toggle("active", btn.textContent?.trim() === lang.toUpperCase());
+    });
+
+    document.documentElement.lang = lang;
+  }
+
+  // Hook into sidebar language switchers
+  document.querySelectorAll(".sidebar-footer .lang-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const lang = btn.textContent?.trim().toLowerCase();
+      if (lang === "en" || lang === "ja") applyLang(lang);
+    });
+  });
+
+  // Default to Japanese if navigator matches
+  if (navigator.language.startsWith("ja")) {
+    applyLang("ja");
+  }
 </script>
