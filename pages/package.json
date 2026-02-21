@@ -10,7 +10,7 @@
     "format": "prettier --write ./src/"
   },
   "dependencies": {
-    "@iconify-json/material-symbols": "^1.2.55",
+    "@iconify-json/material-symbols": "^1.2.56",
     "@iconify-json/simple-icons": "^1.2.71",
     "astro": "^5.17.1",
     "astro-icon": "^1.1.5"
