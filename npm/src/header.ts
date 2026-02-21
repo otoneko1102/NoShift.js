@@ -1,21 +1,8 @@
-import { readFileSync } from "fs";
-import path from "path";
-
-let cachedVersion: string | undefined;
+import pkg from "../package.json";
 
 function getVersion(): string {
-  if (cachedVersion) return cachedVersion;
-  try {
-    const pkg = JSON.parse(
-      readFileSync(path.join(__dirname, "../package.json"), "utf-8"),
-    ) as { version: string };
-    cachedVersion = pkg.version;
-  } catch {
-    cachedVersion = "unknown";
-  }
-  return cachedVersion;
+  return pkg.version;
 }
-
 /**
  * コンパイル済み JS にヘッダーコメントを挿入する。
  * shebang (#!) がある場合はその行の直後に挿入。

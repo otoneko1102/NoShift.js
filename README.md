@@ -99,15 +99,14 @@ console.log(result.outputText);
 
 ---
 
-## Links
+## Ecosystem / Links
 
-| | |
-|---|---|
-| **npm** | [noshift.js](https://www.npmjs.com/package/noshift.js) |
-| **Linter** | [@noshift.js/lint](https://www.npmjs.com/package/@noshift.js/lint) |
-| **VS Code** | [NoShift.js - Marketplace](https://marketplace.visualstudio.com/items?itemName=otoneko1102.noshift-vscode) |
-| **Website** | [noshift.js.org](https://noshift.js.org) |
-| **Repository** | [github.com/otoneko1102/NoShift.js](https://github.com/otoneko1102/NoShift.js) |
+- [noshift.js (npm)](https://www.npmjs.com/package/noshift.js) — The Core Compiler CLI
+- [@noshift.js/lint (npm)](https://www.npmjs.com/package/@noshift.js/lint) — The Official Linter
+- [prettier-plugin-noshift.js (npm)](https://www.npmjs.com/package/prettier-plugin-noshift.js) — The Official Prettier Plugin
+- [VS Code Extension](https://marketplace.visualstudio.com/items?itemName=otoneko1102.noshift-vscode) — Editor Support (Syntax Highlighting, Snippets)
+- [Website & Playground](https://noshift.js.org)
+- [Repository](https://github.com/otoneko1102/NoShift.js)
 
 ---
 

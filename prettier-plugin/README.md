@@ -101,11 +101,14 @@ All standard Prettier options are supported. Common ones:
 
 ---
 
-## Related
+## Ecosystem / Links
 
-- [noshift.js](https://www.npmjs.com/package/noshift.js) — The NoShift.js compiler CLI
-- [NoShift.js VS Code Extension](https://marketplace.visualstudio.com/items?itemName=otoneko1102.noshift-vscode) — Syntax highlighting & snippets
-- [Documentation](https://noshift.js.org/)
+- [noshift.js (npm)](https://www.npmjs.com/package/noshift.js) — The Core Compiler CLI
+- [@noshift.js/lint (npm)](https://www.npmjs.com/package/@noshift.js/lint) — The Official Linter
+- [prettier-plugin-noshift.js (npm)](https://www.npmjs.com/package/prettier-plugin-noshift.js) — The Official Prettier Plugin
+- [VS Code Extension](https://marketplace.visualstudio.com/items?itemName=otoneko1102.noshift-vscode) — Editor Support (Syntax Highlighting, Snippets)
+- [Website & Playground](https://noshift.js.org)
+- [Repository](https://github.com/otoneko1102/NoShift.js)
 
 ---
 

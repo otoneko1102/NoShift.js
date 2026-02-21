@@ -12,27 +12,29 @@ const currentPath = `/${lang}/playground/`;
 ---
 
 <DocsLayout
-  lang={lang}
-  title={t(lang, "playground.title")}
-  description={t(lang, "playground.description")}
-  currentPath={currentPath}
+  lang="en"
+  title={t("en", "playground.title")}
+  description={t("en", "playground.description")}
+  currentPath="/en/playground/"
 >
-  <h1>{t(lang, "playground.title")}</h1>
-  <p>{t(lang, "playground.description")}</p>
+  <h1>{t("en", "playground.title")}</h1>
+  <p>{t("en", "playground.description")}</p>
 
   <div class="playground-container">
     <div class="playground-pane">
       <div class="pane-header">
-        <span>NoShift.js</span>
-        <button id="btn-compile" class="btn btn-primary">{t(lang, "playground.compile")}</button>
+        <span>NoShift.js ({t("en", "playground.writeCode")})</span>
+        <div class="pane-actions">
+          <button id="btn-compile" class="btn btn-primary">{t("en", "playground.compile")}</button>
+          <button id="btn-run" class="btn btn-outline">{t("en", "playground.run")}</button>
+        </div>
       </div>
-      <textarea id="src-code" placeholder={t(lang, "playground.writeCode")} spellcheck="false"></textarea>
+      <textarea id="src-code" placeholder={t("en", "playground.writeCode")} spellcheck="false"></textarea>
     </div>
 
     <div class="playground-pane">
       <div class="pane-header">
-        <span>{t(lang, "playground.compiledCode")}</span>
-        <button id="btn-run" class="btn btn-outline">{t(lang, "playground.run")}</button>
+        <span>{t("en", "playground.compiledCode")}</span>
       </div>
       <textarea id="out-code" readonly spellcheck="false"></textarea>
     </div>
@@ -40,7 +42,7 @@ const currentPath = `/${lang}/playground/`;
 
   <div class="playground-results">
     <div class="pane-header">
-      <span>{t(lang, "playground.executionResult")}</span>
+      <span>{t("en", "playground.executionResult")}</span>
     </div>
     <div id="exec-result" class="result-area"></div>
   </div>
@@ -57,7 +59,7 @@ const currentPath = `/${lang}/playground/`;
 @media (min-width: 800px) {
   .playground-container {
     flex-direction: row;
-    height: 450px;
+    height: 600px;
   }
 }
 
@@ -87,6 +89,11 @@ const currentPath = `/${lang}/playground/`;
   padding: 0.35rem 1rem;
   font-size: 0.85rem;
   border-radius: var(--radius-sm);
+}
+
+.pane-actions {
+  display: flex;
+  gap: 0.5rem;
 }
 
 textarea {
@@ -266,7 +273,7 @@ textarea::placeholder {
 
   // Dynamically load the module
   // @ts-ignore
-  import("https://cdn.jsdelivr.net/npm/noshift.js@latest/dist/index.mjs")
+  import("https://unpkg.com/noshift.js@latest/dist/index.mjs")
     .then((mod) => {
       compile = mod.compile;
       doCompile();

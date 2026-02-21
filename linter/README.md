@@ -129,11 +129,13 @@ for (const m of messages) {
 
 ---
 
-## Links
+## Ecosystem / Links
 
-- [noshift.js (npm)](https://www.npmjs.com/package/noshift.js) — Compiler CLI
-- [VS Code Extension](https://marketplace.visualstudio.com/items?itemName=otoneko1102.noshift-vscode)
-- [Website](https://noshift.js.org)
+- [noshift.js (npm)](https://www.npmjs.com/package/noshift.js) — The Core Compiler CLI
+- [@noshift.js/lint (npm)](https://www.npmjs.com/package/@noshift.js/lint) — The Official Linter
+- [prettier-plugin-noshift.js (npm)](https://www.npmjs.com/package/prettier-plugin-noshift.js) — The Official Prettier Plugin
+- [VS Code Extension](https://marketplace.visualstudio.com/items?itemName=otoneko1102.noshift-vscode) — Editor Support (Syntax Highlighting, Snippets)
+- [Website & Playground](https://noshift.js.org)
 - [Repository](https://github.com/otoneko1102/NoShift.js)
 
 ---

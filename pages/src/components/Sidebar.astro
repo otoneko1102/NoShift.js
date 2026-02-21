@@ -62,11 +62,6 @@ const navItems = [
     path: `/${lang}/vscode/`,
     icon: "material-symbols:extension-outline",
   },
-  {
-    key: "nav.playground" as const,
-    path: `/${lang}/playground/`,
-    icon: "material-symbols:play-arrow-outline",
-  },
 ];
 ---
 
@@ -95,6 +90,15 @@ const navItems = [
 
     <div class="sidebar-external">
       <ul>
+        <li>
+          <a
+            href={`/${lang}/playground/`}
+            class:list={[{ active: currentPath === `/${lang}/playground/` }]}
+          >
+            <Icon name="material-symbols:play-arrow-outline" class="nav-icon" />
+            {t(lang, "nav.playground")}
+          </a>
+        </li>
         <li>
           <a href={links.github} target="_blank" rel="noopener">
             <Icon name="simple-icons:github" class="nav-icon" />

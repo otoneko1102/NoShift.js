@@ -68,6 +68,9 @@ export const ui = {
     "home.install": "Install",
     "home.links": "Links",
     "home.copied": "Copied!",
+    "home.readyToStart": "Ready to write without Shift?",
+    "home.readyDesc":
+      "Check out the <a href='/en/getting-started/'>Getting Started</a> guide to install NoShift.js.",
 
     // Getting Started
     "gs.title": "Getting Started",
@@ -351,7 +354,7 @@ export const ui = {
     "playground.description": "Try NoShift.js in your browser.",
     "playground.writeCode": "Write your NoShift.js code here...",
     "playground.compile": "Compile",
-    "playground.run": "Run",
+    "playground.run": "Run Code",
     "playground.compiledCode": "Compiled JavaScript",
     "playground.executionResult": "Execution Result",
 
@@ -409,6 +412,9 @@ export const ui = {
     "home.install": "インストール",
     "home.links": "リンク",
     "home.copied": "コピーしました！",
+    "home.readyToStart": "Shift なしで書く準備はできましたか？",
+    "home.readyDesc":
+      "<a href='/ja/getting-started/'>はじめに</a> ガイドを読んで、NoShift.js をインストールしましょう。",
 
     // Getting Started
     "gs.title": "はじめに",
@@ -688,13 +694,13 @@ export const ui = {
     "footer.madeBy": "作者",
 
     // Playground
-    "playground.title": "プレイグラウンド",
-    "playground.description": "ブラウザ上で NoShift.js を試すことができます。",
-    "playground.writeCode": "ここに NoShift.js のコードを書いてください...",
-    "playground.compile": "コンパイル",
-    "playground.run": "実行",
-    "playground.compiledCode": "コンパイル結果 (JavaScript)",
-    "playground.executionResult": "実行結果",
+    "playground.title": "Playground",
+    "playground.description": "Try NoShift.js in your browser.",
+    "playground.writeCode": "Write your NoShift.js code here...",
+    "playground.compile": "Compile",
+    "playground.run": "Run Code",
+    "playground.compiledCode": "Compiled JavaScript",
+    "playground.executionResult": "Execution Result",
 
     // 404
     "404.title": "404 - ページが見つかりません",

@@ -201,6 +201,14 @@ console.log^8^2^3hello from ^2 ^; name ^; ^2!^2^9;`}
           code={`const name = "NoShift.js";
 console.log("Hello from " + name + "!");`}
         />
+
+        <div class="bottom-cta">
+          <h2 id="bottom-ready">{t("en", "home.readyToStart")}</h2>
+          <p id="bottom-desc" set:html={t("en", "home.readyDesc")} />
+          <a href="/en/getting-started/" class="btn btn-primary" id="btn-bottom-gs">
+            {t("en", "home.getStarted")} →
+          </a>
+        </div>
       </div>
       <footer class="footer">
         <p>
@@ -262,6 +270,9 @@ console.log("Hello from " + name + "!");`}
         gsHref: "/en/getting-started/",
         "btn-playground": "Playground",
         playHref: "/en/playground/",
+        "bottom-ready": "Ready to write without Shift?",
+        "bottom-desc": "Check out the <a href='/en/getting-started/'>Getting Started</a> guide to install NoShift.js.",
+        "btn-bottom-gs": "Read the Guide →",
       },
       ja: {
         tagline: "Shift キーを押さずに JavaScript を書こう。",
@@ -287,7 +298,10 @@ console.log("Hello from " + name + "!");`}
         "link-vscode-title": "VS Code 拡張機能",
         gsHref: "/ja/getting-started/",
         "btn-playground": "プレイグラウンド",
-        playHref: "/ja/playground/",
+        playHref: "/en/playground/",
+        "bottom-ready": "Shift なしで書く準備はできましたか？",
+        "bottom-desc": "<a href='/ja/getting-started/'>はじめに</a> ガイドを読んで、NoShift.js をインストールしましょう。",
+        "btn-bottom-gs": "ガイドを読む →",
       },
     };
 
@@ -317,6 +331,11 @@ console.log("Hello from " + name + "!");`}
         "btn-playground",
       ) as HTMLAnchorElement | null;
       if (playBtn && texts.playHref) playBtn.href = texts.playHref;
+
+      const btnBottomGs = document.getElementById(
+        "btn-bottom-gs",
+      ) as HTMLAnchorElement | null;
+      if (btnBottomGs && texts.gsHref) btnBottomGs.href = texts.gsHref;
 
       // Update last published date format
       const pubVal = document.getElementById("stat-pub-value");
