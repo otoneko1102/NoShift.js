@@ -39,6 +39,7 @@ export const ui = {
     "nav.config": "Configuration",
     "nav.useLinter": "Use Linter",
     "nav.usePrettier": "Use Prettier Plugin",
+    "nav.useVscode": "Use VS Code Extension",
     "nav.linter": "Linter",
     "nav.prettier": "Prettier Plugin",
     "nav.vscode": "VS Code Extension",
@@ -269,7 +270,8 @@ export const ui = {
       "To treat <code>^3</code> as a literal caret + 3 inside strings:",
 
     // Prettier
-    "prettier.title": "Prettier Plugin",
+    "prettier.title": "Use Prettier Plugin",
+    "prettier.ogTitle": "Use Prettier Plugin - Format your NoShift.js code",
     "prettier.introDesc":
       "<strong>prettier-plugin-noshift.js</strong> is an official Prettier plugin that formats <code>.nsjs</code> files.",
     "prettier.installTitle": "Installation",
@@ -315,6 +317,7 @@ export const ui = {
 
     // Linter
     "linter.title": "Use Linter",
+    "linter.ogTitle": "Use Linter - NoShift.js official linter",
     "linter.introDesc":
       "<code>@noshift.js/lint</code> is an official linter for NoShift.js that checks <code>.nsjs</code> files for syntax errors and style issues.",
     "linter.installTitle": "Installation",
@@ -387,6 +390,7 @@ export const ui = {
     "nav.config": "Configuration",
     "nav.useLinter": "Use Linter",
     "nav.usePrettier": "Use Prettier Plugin",
+    "nav.useVscode": "Use VS Code Extension",
     "nav.linter": "Linter",
     "nav.prettier": "Prettier Plugin",
     "nav.vscode": "VS Code Extension",
@@ -617,7 +621,8 @@ export const ui = {
       "文字列内で <code>^3</code> をリテラルの <code>^</code> + <code>3</code> として扱う場合:",
 
     // Prettier
-    "prettier.title": "Prettier プラグイン",
+    "prettier.title": "Use Prettier Plugin",
+    "prettier.ogTitle": "Use Prettier Plugin - Format your NoShift.js code",
     "prettier.introDesc":
       "<strong>prettier-plugin-noshift.js</strong> は <code>.nsjs</code> ファイルをフォーマットする公式 Prettier プラグインです。",
     "prettier.installTitle": "インストール",
@@ -663,7 +668,8 @@ export const ui = {
     "vscode.idTitle": "拡張機能 ID",
 
     // Linter
-    "linter.title": "Linter",
+    "linter.title": "Use Linter",
+    "linter.ogTitle": "Use Linter - NoShift.js official linter",
     "linter.introDesc":
       "<code>@noshift.js/lint</code> は NoShift.js の公式 linter で、<code>.nsjs</code> ファイルの構文エラーやスタイルの問題をチェックします。",
     "linter.installTitle": "インストール",
