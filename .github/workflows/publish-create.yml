@@ -1,4 +1,4 @@
-name: Publish Linter to npm
+name: Publish Create to npm
 
 on:
   workflow_dispatch:
