@@ -1,0 +1,13 @@
+{
+  "rules": {
+    "unclosed-string": "error",
+    "unclosed-comment": "error",
+    "unclosed-template-expr": "error",
+    "unknown-caret-sequence": "error",
+    "lone-caret": "error",
+    "capitalize-eof": "error",
+    "uppercase-in-code": "warning",
+    "trailing-whitespace": "off",
+    "no-consecutive-blank-lines": "off"
+  }
+}

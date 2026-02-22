@@ -1,0 +1,23 @@
+{
+  "name": "my-noshift-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "lint": "nslint",
+    "format": "prettier --write ./src",
+    "compile": "nsc",
+    "dev": "nsc watch",
+    "clean": "nsc clean",
+    "script": "nsc run"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@noshift.js/lint": "^0.0.1",
+    "noshift.js": "^0.14.0",
+    "prettier": "^3.8.1",
+    "prettier-plugin-noshift.js": "^0.0.2"
+  }
+}

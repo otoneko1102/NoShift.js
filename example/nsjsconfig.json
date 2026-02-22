@@ -1,0 +1,9 @@
+{
+  "compileroptions": {
+    "rootdir": "src",
+    "outdir": "dist",
+    "warnuppercase": true,
+    "capitalizeinstrings": true,
+    "noheader": false
+  }
+}
