@@ -33,5 +33,8 @@
   "homepage": "https://noshift.js.org",
   "peerDependencies": {
     "prettier": "^3.8.1"
+  },
+  "engines": {
+    "node": ">=22.12.0"
   }
 }

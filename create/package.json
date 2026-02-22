@@ -34,5 +34,8 @@
   "bugs": {
     "url": "https://github.com/otoneko1102/NoShift.js/issues"
   },
-  "homepage": "https://noshift.js.org"
+  "homepage": "https://noshift.js.org",
+  "engines": {
+    "node": ">=22.12.0"
+  }
 }
