@@ -4,7 +4,10 @@
   "description": "Create your NoShift.js project.",
   "type": "module",
   "bin": {
-    "create-noshift.js": "./index.js"
+    "create-noshift": "./index.js"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "files": [
     "index.js",
