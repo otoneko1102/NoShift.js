@@ -33,8 +33,7 @@ Full syntax highlighting for `.nsjs` files.
 `.nsjs` files display a dedicated file icon (`↓js`).
 
 - Shown in tabs and Explorer for VS Code 1.79+
-- **File icons**: the extension now treats `nsjsconfig.json` and `nsjslinter.json` as a dedicated language so they show the same icon as `.nsjs` files while still using the built-in JSON syntax highlighter.
-- **When [vscode-icons](https://marketplace.visualstudio.com/items?itemName=vscode-icons-team.vscode-icons) is installed**: additional icon associations (if any) are configured automatically on activation
+- **When [vscode-icons](https://marketplace.visualstudio.com/items?itemName=vscode-icons-team.vscode-icons) is installed**: `.nsjs`, `nsjsconfig.json`, and `nsjslinter.json` icon associations are configured automatically on activation
 
 ### Auto-Complete
 

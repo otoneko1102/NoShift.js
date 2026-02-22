@@ -1,7 +1,0 @@
-{
-  "name": "NoShift.js Config (JSON)",
-  "scopeName": "source.noshift-config",
-  "patterns": [
-    { "include": "source.json" }
-  ]
-}

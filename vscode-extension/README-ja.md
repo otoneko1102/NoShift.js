@@ -33,8 +33,7 @@
 `.nsjs` ファイルには専用のファイルアイコン (`↓js`) が表示されます。
 
 - VS Code 1.79 以降でタブ・エクスプローラーに表示
-- **ファイルアイコン**: 拡張機能は `nsjsconfig.json` と `nsjslinter.json` を専用言語として扱うようになり、`.nsjs` ファイルと同じアイコンが表示され、シンタックスハイライトは組み込みの JSON を使用します。
-- **[vscode-icons](https://marketplace.visualstudio.com/items?itemName=vscode-icons-team.vscode-icons) インストール時**: 起動時に追加のアイコン関連付け（ある場合）が自動設定されます
+- **[vscode-icons](https://marketplace.visualstudio.com/items?itemName=vscode-icons-team.vscode-icons) インストール時**: 起動時に自動で `.nsjs`、`nsjsconfig.json`、`nsjslinter.json` のアイコン関連付けを設定
 
 ### 自動補完
 
