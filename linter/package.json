@@ -1,6 +1,6 @@
 {
   "name": "@noshift.js/lint",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A linter for NoShift.js (.nsjs) files",
   "bin": {
     "nslint": "./bin/cli.js"
