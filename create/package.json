@@ -1,0 +1,35 @@
+{
+  "name": "create-noshift.js",
+  "version": "0.1.0",
+  "description": "Create your NoShift.js project.",
+  "type": "module",
+  "bin": {
+    "create-noshift.js": "./index.js"
+  },
+  "files": [
+    "index.js",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/otoneko1102/NoShift.js.git"
+  },
+  "keywords": [
+    "noshift",
+    "nsjs",
+    "create",
+    "scaffold",
+    "joke",
+    "language",
+    "lang"
+  ],
+  "author": "otoneko.",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/otoneko1102/NoShift.js/issues"
+  },
+  "homepage": "https://noshift.js.org"
+}
