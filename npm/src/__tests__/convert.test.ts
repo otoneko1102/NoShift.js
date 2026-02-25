@@ -215,11 +215,11 @@ describe("convert: Comments", () => {
   });
 
   it("no NoShift conversion inside comments", () => {
-    expect(convert("// ^1 ^2 ^3x")).toBe("// ^1 ^2 ^3x");
+    expect(convert("// ^1 ^2 ^6x")).toBe("// ^1 ^2 ^6x");
   });
 
   it("no conversion inside block comments", () => {
-    expect(convert("/^: ^1 ^2 ^3x ^:/")).toBe("/* ^1 ^2 ^3x */");
+    expect(convert("/^: ^1 ^2 ^6x ^:/")).toBe("/* ^1 ^2 ^6x */");
   });
 });
 

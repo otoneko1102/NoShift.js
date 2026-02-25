@@ -6,7 +6,7 @@
  * @example
  * import { compile } from "noshift.js";
  *
- * const result = compile('console.log^8^2^3hello^2^9;');
+ * const result = compile('console.log^8^2^6hello^2^9;');
  * console.log(result.outputText);
  * // => console.log("Hello");
  *

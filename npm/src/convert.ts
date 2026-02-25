@@ -739,7 +739,7 @@ export interface DiagnosticError {
  *   - 閉じられていない文字列リテラル (^2, ^7, ^@)
  *   - 閉じられていないブロックコメント (/^:)
  *   - 閉じられていないテンプレート式 (^4^[)
- *   - ファイル末尾の ^3 (大文字化対象の文字がない)
+ *   - ファイル末尾の ^6 (大文字化対象の文字がない)
  *   - 不明な ^ シーケンス
  */
 export function diagnose(nsjsCode: string): DiagnosticError[] {
