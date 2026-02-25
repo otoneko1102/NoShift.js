@@ -1,6 +1,6 @@
 {
-  "name": "my-noshift-app",
-  "version": "1.1.0",
+  "name": "example",
+  "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "lint": "nslint",
@@ -15,9 +15,9 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@noshift.js/lint": "^0.0.1",
-    "noshift.js": "^0.14.0",
+    "@noshift.js/lint": "^0.1.0",
+    "noshift.js": "^0.15.0",
     "prettier": "^3.8.1",
-    "prettier-plugin-noshift.js": "^0.0.2"
+    "prettier-plugin-noshift.js": "^0.1.0"
   }
 }
