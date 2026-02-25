@@ -57,11 +57,11 @@ async function main() {
     'const s ^- ^2hello^2;',
   );
 
-  // Test 4: ^3 capitalize
+  // Test 4: ^6 capitalize
   await runTest(
-    "Capitalize modifier ^3",
-    'const ^3my^3var ^- ^2^3hello^2 ;',
-    'const ^3my^3var ^- ^2^3hello^2;',
+    "Capitalize modifier ^6",
+    'const ^6my^6var ^- ^2^6hello^2 ;',
+    'const ^6my^6var ^- ^2^6hello^2;',
   );
 
   // Test 5: Template literals

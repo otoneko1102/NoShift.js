@@ -8,9 +8,9 @@ describe("checkUppercaseWarnings", () => {
     expect(warnings.some((w) => w.char === "X")).toBe(true);
   });
 
-  it("does not warn about ^3 capitalized characters", () => {
-    // ^3x is an intentional capitalization, should not warn
-    const warnings = checkUppercaseWarnings("^3x");
+  it("does not warn about ^6 capitalized characters", () => {
+    // ^6x is an intentional capitalization, should not warn
+    const warnings = checkUppercaseWarnings("^6x");
     expect(
       warnings.filter((w) => w.char === "X" || w.char === "x"),
     ).toHaveLength(0);
@@ -48,14 +48,16 @@ describe("checkUppercaseWarnings", () => {
     expect(warnings.filter((w) => w.char === "H")).toHaveLength(0);
   });
 
-  it("warns about underscores", () => {
-    const warnings = checkUppercaseWarnings("my_var");
-    expect(warnings.some((w) => w.char === "_")).toBe(true);
-  });
-
-  it("warns about hash #", () => {
+  it("warns about hash # and suggests ^3", () => {
     const warnings = checkUppercaseWarnings("#field");
     expect(warnings.some((w) => w.char === "#")).toBe(true);
+    expect(warnings.some((w) => w.message.includes("^3"))).toBe(true);
+  });
+
+  it("warns about underscores and suggests ^\\", () => {
+    const warnings = checkUppercaseWarnings("my_var");
+    expect(warnings.some((w) => w.char === "_")).toBe(true);
+    expect(warnings.some((w) => w.message.includes("^\\"))).toBe(true);
   });
 
   it("returns empty for clean code", () => {

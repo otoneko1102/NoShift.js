@@ -1,7 +1,65 @@
 {
   "Insert ^[ ^]": {
     "prefix": "^[",
-    "body": ["^[${1:^}]"],   // $1 がカーソル位置。結果： ^[|^]
+    "body": [
+      "^[${1:^}]"
+    ],
     "description": "Insert ^[ ^] pair"
+  },
+  "or (||)": {
+    "prefix": "or",
+    "body": [
+      "or"
+    ],
+    "description": "Logical OR (||)"
+  },
+  "and (&&)": {
+    "prefix": "and",
+    "body": [
+      "and"
+    ],
+    "description": "Logical AND (&&)"
+  },
+  "@or (|)": {
+    "prefix": "@or",
+    "body": [
+      "@or"
+    ],
+    "description": "Bitwise OR (|)"
+  },
+  "@and (&)": {
+    "prefix": "@and",
+    "body": [
+      "@and"
+    ],
+    "description": "Bitwise AND (&)"
+  },
+  "or^- (||=)": {
+    "prefix": "or^-",
+    "body": [
+      "or^-"
+    ],
+    "description": "Logical OR assignment (||=)"
+  },
+  "and^- (&&=)": {
+    "prefix": "and^-",
+    "body": [
+      "and^-"
+    ],
+    "description": "Logical AND assignment (&&=)"
+  },
+  "@or^- (|=)": {
+    "prefix": "@or^-",
+    "body": [
+      "@or^-"
+    ],
+    "description": "Bitwise OR assignment (|=)"
+  },
+  "@and^- (&=)": {
+    "prefix": "@and^-",
+    "body": [
+      "@and^-"
+    ],
+    "description": "Bitwise AND assignment (&=)"
   }
 }

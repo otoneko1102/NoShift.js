@@ -14,18 +14,18 @@ describe("Public API: compile()", () => {
   });
 
   it("compiles Hello World example", () => {
-    const result = compile("console.log^8^2^3hello^2^9;", { noHeader: true });
+    const result = compile("console.log^8^2^6hello^2^9;", { noHeader: true });
     expect(result.outputText).toBe('console.log("Hello");');
   });
 
   it("accepts capitalizeInStrings option", () => {
     const opts: CompileOptions = { capitalizeInStrings: false, noHeader: true };
-    const result = compile("^2^3hello^2", opts);
-    expect(result.outputText).toBe('"^3hello"');
+    const result = compile("^2^6hello^2", opts);
+    expect(result.outputText).toBe('"^6hello"');
   });
 
   it("defaults capitalizeInStrings to true", () => {
-    const result = compile("^2^3hello^2", { noHeader: true });
+    const result = compile("^2^6hello^2", { noHeader: true });
     expect(result.outputText).toBe('"Hello"');
   });
 

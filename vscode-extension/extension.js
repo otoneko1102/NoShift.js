@@ -106,6 +106,35 @@ function activate(context) {
 
   context.subscriptions.push(bracketDisposable);
 
+  // ── Keyword Completion Provider ──
+  const completionProvider = vscode.languages.registerCompletionItemProvider(
+    "noshift",
+    {
+      provideCompletionItems() {
+        const keywords = [
+          { label: "or", detail: "|| (Logical OR)", insertText: "or" },
+          { label: "and", detail: "&& (Logical AND)", insertText: "and" },
+          { label: "@or", detail: "| (Bitwise OR)", insertText: "@or" },
+          { label: "@and", detail: "& (Bitwise AND)", insertText: "@and" },
+          { label: "or^-", detail: "||= (Logical OR Assignment)", insertText: "or^-" },
+          { label: "and^-", detail: "&&= (Logical AND Assignment)", insertText: "and^-" },
+          { label: "@or^-", detail: "|= (Bitwise OR Assignment)", insertText: "@or^-" },
+          { label: "@and^-", detail: "&= (Bitwise AND Assignment)", insertText: "@and^-" },
+        ];
+        return keywords.map((kw) => {
+          const item = new vscode.CompletionItem(
+            kw.label,
+            vscode.CompletionItemKind.Keyword,
+          );
+          item.detail = kw.detail;
+          item.insertText = kw.insertText;
+          return item;
+        });
+      },
+    },
+  );
+  context.subscriptions.push(completionProvider);
+
   // 以前のバージョンで汚染された vscode-icons 設定をクリーンアップ
   cleanupVscodeIconsSettings();
 }

@@ -154,7 +154,7 @@ export default async function create(
   await fs.mkdir("src", { recursive: true });
   await fs.writeFile(
     "src/index.nsjs",
-    "console.log^8^2^3hello, ^3world!^2^9;\n",
+    "console.log^8^2^6hello, ^6world!^2^9;\n",
   );
 
   // .gitignore

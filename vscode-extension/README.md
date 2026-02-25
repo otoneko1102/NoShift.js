@@ -13,6 +13,9 @@ Typing shifted symbols (`!`, `"`, `(`, `)`, `{`, `}` …) is tiring.
 **NoShift.js** replaces every shift-required symbol with a `^`-prefixed sequence, so you can write JavaScript using only unshifted keys.  
 `.nsjs` files compile directly to plain JavaScript via the `nsc` CLI.
 
+> [!Important]  
+> **⚠ Breaking Changes (v0.10.0):** Syntax changes in NoShift.js v0.15.0 — `^3` is now `#`, `^6` is now Capitalize, `^\` is now `_`. New keyword aliases: `or`, `and`, `@or`, `@and`.
+
 ---
 
 ## Features
@@ -58,7 +61,7 @@ Real-time syntax error detection as you type. Errors appear as red squiggly unde
 - Unclosed block comments (`/^: ... ^:/`)
 - Unclosed template expressions (`^4^[...^]`)
 - Unknown `^` sequences
-- Lone `^` or `^3` at end of file
+- Lone `^` or `^6` at end of file
 
 ---
 

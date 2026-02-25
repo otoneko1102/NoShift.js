@@ -16,6 +16,9 @@
 
 [Prettier](https://prettier.io/) is an opinionated code formatter. This plugin adds support for `.nsjs` files — the [NoShift.js](https://github.com/otoneko1102/NoShift.js) joke language that lets you write JavaScript without pressing the Shift key.
 
+> [!Important]  
+> **⚠ Breaking Changes (v0.1.0):** Syntax changes in NoShift.js v0.15.0 — `^3` is now `#`, `^6` is now Capitalize, `^\` is now `_`. New keyword aliases: `or`, `and`, `@or`, `@and`.
+
 ---
 
 ## Install
@@ -65,7 +68,7 @@ All standard Prettier formatting options are forwarded to stage 2, so your exist
 ```text
 const  x  =  1  ;
 function greet^8name^9 ^[
-  const msg=^2^3hello, ^2^;name;
+  const msg=^2^6hello, ^2^;name;
 console.log^8msg^9 ;
   return  msg ;
 ^]
@@ -76,7 +79,7 @@ console.log^8msg^9 ;
 ```text
 const x ^- 1;
 function greet^8name^9 ^[
-  const msg ^- ^2^3hello, ^2 ^; name;
+  const msg ^- ^2^6hello, ^2 ^; name;
   console.log^8msg^9;
   return msg;
 ^]

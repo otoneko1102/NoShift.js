@@ -3,7 +3,7 @@
 // npm/src/convert.cjs の diagnose() と同じロジックのスタンドアロン版
 // ======
 
-// 有効な ^X シーケンス (^3 大文字化を含む)
+// 有効な ^X シーケンス (^6 大文字化を含む)
 const validCaretKeys = new Set([
   "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
   "-", "^", "\\", "@", "[", "]", ";", ":", ",", ".", "/",
@@ -150,13 +150,13 @@ function diagnose(nsjsCode) {
         continue;
       }
 
-      if (ch === "^" && next === "3") {
+      if (ch === "^" && next === "6") {
         if (col + 2 >= line.length && lineNum === lines.length - 1) {
           errors.push({
             line: lineNum,
             column: col,
             endColumn: col + 2,
-            message: "^3 at end of file with no following character to capitalize.",
+            message: "^6 at end of file with no following character to capitalize.",
           });
         }
         col += 2;

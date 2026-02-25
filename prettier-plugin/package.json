@@ -1,6 +1,6 @@
 {
   "name": "prettier-plugin-noshift.js",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "Prettier plugin for NoShift.js",
   "type": "module",
   "main": "src/index.js",

@@ -25,8 +25,8 @@ const { lang } = Astro.params as { lang: Lang };
   <CodeBlock
     lang="nsjs"
     code={lang === "ja"
-      ? `const name ^- ^2^3hello^2;\n// ^3h → H,残りはそのまま`
-      : `const name ^- ^2^3hello^2;\n// ^3h → H, rest stays as-is`}
+      ? `const name ^- ^2^6hello^2;\n// ^6h → H,残りはそのまま`
+      : `const name ^- ^2^6hello^2;\n// ^6h → H, rest stays as-is`}
   />
   <p>{lang === "ja" ? "コンパイル後:" : "Compiles to:"}</p>
   <CodeBlock lang="javascript" code={`const name = "Hello";`} />
@@ -35,7 +35,7 @@ const { lang } = Astro.params as { lang: Lang };
   <p set:html={t(lang, "cap.multiDesc")} />
   <CodeBlock
     lang="nsjs"
-    code={`const my^3var ^- ^2^3hello ^3world^2;\nconsole.log^8my^3var^9;`}
+    code={`const my^6var ^- ^2^6hello ^6world^2;\nconsole.log^8my^6var^9;`}
   />
   <p>{lang === "ja" ? "コンパイル後:" : "Compiles to:"}</p>
   <CodeBlock
@@ -47,7 +47,7 @@ const { lang } = Astro.params as { lang: Lang };
   <p set:html={t(lang, "cap.classDesc")} />
   <CodeBlock
     lang="nsjs"
-    code={`class ^3animal ^[\n  constructor^8name^9 ^[\n    this.name ^- name;\n  ^]\n^]\n\nclass ^3my^3app extends ^3animal ^[\n  constructor^8^9 ^[\n    super^8^2^3app^2^9;\n  ^]\n^]`}
+    code={`class ^6animal ^[\n  constructor^8name^9 ^[\n    this.name ^- name;\n  ^]\n^]\n\nclass ^6my^6app extends ^6animal ^[\n  constructor^8^9 ^[\n    super^8^2^6app^2^9;\n  ^]\n^]`}
   />
   <p>{lang === "ja" ? "コンパイル後:" : "Compiles to:"}</p>
   <CodeBlock
@@ -59,7 +59,7 @@ const { lang } = Astro.params as { lang: Lang };
   <p set:html={t(lang, "cap.methodDesc")} />
   <CodeBlock
     lang="nsjs"
-    code={`const obj ^- ^[\n  get^3name^8^9 ^[\n    return this.name;\n  ^],\n  set^3value^8v^9 ^[\n    this.value ^- v;\n  ^],\n^];`}
+    code={`const obj ^- ^[\n  get^6name^8^9 ^[\n    return this.name;\n  ^],\n  set^6value^8v^9 ^[\n    this.value ^- v;\n  ^],\n^];`}
   />
   <p>{lang === "ja" ? "コンパイル後:" : "Compiles to:"}</p>
   <CodeBlock
@@ -71,7 +71,7 @@ const { lang } = Astro.params as { lang: Lang };
   <p set:html={t(lang, "cap.constDesc")} />
   <CodeBlock
     lang="nsjs"
-    code={`const ^3m^3a^3x^3c^3o^3u^3n^3t ^- 1024;\nconsole.log^8^3m^3a^3x^3c^3o^3u^3n^3t^9;`}
+    code={`const ^6m^6a^6x^6c^6o^6u^6n^6t ^- 1024;\nconsole.log^8^6m^6a^6x^6c^6o^6u^6n^6t^9;`}
   />
   <p>{lang === "ja" ? "コンパイル後:" : "Compiles to:"}</p>
   <CodeBlock
@@ -83,7 +83,7 @@ const { lang } = Astro.params as { lang: Lang };
   <p set:html={t(lang, "cap.stringDesc")} />
   <CodeBlock
     lang="nsjs"
-    code={`console.log^8^2^3hello, ^3world!^2^9;\nconsole.log^8^7^3yes^7^9;\nconsole.log^8^@^3template ^3string^@^9;`}
+    code={`console.log^8^2^6hello, ^6world!^2^9;\nconsole.log^8^7^6yes^7^9;\nconsole.log^8^@^6template ^6string^@^9;`}
   />
   <p>{lang === "ja" ? "コンパイル後:" : "Compiles to:"}</p>
   <CodeBlock
@@ -100,13 +100,13 @@ const { lang } = Astro.params as { lang: Lang };
   <p>
     {
       lang === "ja"
-        ? "この設定の場合、文字列内の ^3 はそのまま出力されます:"
-        : "With this setting, ^3 inside strings is output literally:"
+        ? "この設定の場合、文字列内の ^6 はそのまま出力されます:"
+        : "With this setting, ^6 inside strings is output literally:"
     }
   </p>
-  <CodeBlock lang="nsjs" code={`console.log^8^2^3hello^2^9;`} />
+  <CodeBlock lang="nsjs" code={`console.log^8^2^6hello^2^9;`} />
   <p>{lang === "ja" ? "コンパイル後:" : "Compiles to:"}</p>
-  <CodeBlock lang="javascript" code={`console.log("^3hello");`} />
+  <CodeBlock lang="javascript" code={`console.log("^6hello");`} />
 
   <h2>{t(lang, "cap.stringWarnTitle")}</h2>
   <p set:html={t(lang, "cap.stringWarnDesc")} />
@@ -120,23 +120,23 @@ const { lang } = Astro.params as { lang: Lang };
   </p>
   <CodeBlock
     lang="text"
-    code={`⚠ src/main.nsjs:1:18 - Uppercase letter 'H' found in string. Use ^3h instead.\n⚠ src/main.nsjs:1:24 - Uppercase letter 'W' found in string. Use ^3w instead.`}
+    code={`⚠ src/main.nsjs:1:18 - Uppercase letter 'H' found in string. Use ^6h instead.\n⚠ src/main.nsjs:1:24 - Uppercase letter 'W' found in string. Use ^6w instead.`}
   />
   <p>
-    {lang === "ja" ? "^3 を使って書き直すと:" : "Rewrite using ^3:"}
+    {lang === "ja" ? "^6 を使って書き直すと:" : "Rewrite using ^6:"}
   </p>
-  <CodeBlock lang="nsjs" code={`console.log^8^2^3hello ^3world^2^9;`} />
+  <CodeBlock lang="nsjs" code={`console.log^8^2^6hello ^6world^2^9;`} />
 
   <h2>{t(lang, "cap.commentTitle")}</h2>
   <p set:html={t(lang, "cap.commentDesc")} />
   <CodeBlock
     lang="nsjs"
-    code={`// ^3this is a comment, ^3 does not capitalize\n/^: ^3block comment, also literal ^:/`}
+    code={`// ^6this is a comment, ^6 does not capitalize\n/^: ^6block comment, also literal ^:/`}
   />
   <p>{lang === "ja" ? "コンパイル後:" : "Compiles to:"}</p>
   <CodeBlock
     lang="javascript"
-    code={`// ^3this is a comment, ^3 does not capitalize\n/* ^3block comment, also literal */`}
+    code={`// ^6this is a comment, ^6 does not capitalize\n/* ^6block comment, also literal */`}
   />
 
   <h2>{t(lang, "cap.configTitle")}</h2>

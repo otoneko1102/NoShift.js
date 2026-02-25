@@ -280,14 +280,14 @@ function lint(source, config = {}) {
         continue;
       }
 
-      // ^3 大文字化
-      if (ch === "^" && next === "3") {
+      // ^6 大文字化
+      if (ch === "^" && next === "6") {
         if (col + 2 >= line.length && lineNum === lines.length - 1) {
           report(
             "capitalize-eof",
             lineNo,
             colNo,
-            "^3 at end of file with no following character to capitalize.",
+            "^6 at end of file with no following character to capitalize.",
           );
         }
         col += 2;
@@ -301,7 +301,7 @@ function lint(source, config = {}) {
             "uppercase-in-code",
             lineNo,
             colNo,
-            `Uppercase letter '${ch}' in code. Use ^3 to capitalize.`,
+            `Uppercase letter '${ch}' in code. Use ^6 to capitalize.`,
           );
         }
       }

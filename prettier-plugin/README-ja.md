@@ -65,7 +65,7 @@ npx prettier --write "**/*.nsjs"
 ```text
 const  x  =  1  ;
 function greet^8name^9 ^[
-  const msg=^2^3hello, ^2^;name;
+  const msg=^2^6hello, ^2^;name;
 console.log^8msg^9 ;
   return  msg ;
 ^]
@@ -76,7 +76,7 @@ console.log^8msg^9 ;
 ```text
 const x ^- 1;
 function greet^8name^9 ^[
-  const msg ^- ^2^3hello, ^2 ^; name;
+  const msg ^- ^2^6hello, ^2 ^; name;
   console.log^8msg^9;
   return msg;
 ^]

@@ -7,15 +7,15 @@ const noShiftMap: Record<string, string> = {
   "^0": "^",
   "^1": "!",
   "^2": '"',
+  "^3": "#",
   "^4": "$",
   "^5": "%",
-  "^6": "&",
   "^7": "'",
   "^8": "(",
   "^9": ")",
   "^-": "=",
   "^^": "~",
-  "^\\": "|",
+  "^\\": "_",
   "^@": "`",
   "^[": "{",
   "^]": "}",
@@ -37,6 +37,25 @@ interface ConvertOptions {
   capitalizeInStrings?: boolean;
   _silent?: boolean;
 }
+
+// ======
+// キーワード置換マップ（コード部分のみ適用、文字列・コメント内はスキップ）
+// 長いものから先にマッチさせる
+// ======
+const keywordReplacements: [string, string][] = [
+  ["@or^-", "|="],
+  ["@and^-", "&="],
+  ["or^-", "||="],
+  ["and^-", "&&="],
+  ["@or", "|"],
+  ["@and", "&"],
+];
+
+// 単語境界で囲まれたキーワード（変数名との衝突を防ぐ）
+const wordKeywordReplacements: [string, string][] = [
+  ["or", "||"],
+  ["and", "&&"],
+];
 
 export default function convertNsjsToJs(
   nsjsCode: string,
@@ -257,8 +276,8 @@ export default function convertNsjsToJs(
 
     // (A) IN_DQ_STRING 内 (" … ")
     if (currentState === STATE.IN_DQ_STRING) {
-      if (nsjsCode.startsWith("\\^3", i)) {
-        jsCode += "^3"; // "\^3" を文字列中のリテラル "^3" として出力
+      if (nsjsCode.startsWith("\\^6", i)) {
+        jsCode += "^6"; // "\^6" を文字列中のリテラル "^6" として出力
         i += 3;
         consumed = true;
       } else if (nsjsCode.startsWith("\\^2", i)) {
@@ -273,8 +292,8 @@ export default function convertNsjsToJs(
     }
     // (B) IN_SQ_STRING 内 (' … ')
     else if (currentState === STATE.IN_SQ_STRING) {
-      if (nsjsCode.startsWith("\\^3", i)) {
-        jsCode += "^3";
+      if (nsjsCode.startsWith("\\^6", i)) {
+        jsCode += "^6";
         i += 3;
         consumed = true;
       } else if (nsjsCode.startsWith("\\^7", i)) {
@@ -289,8 +308,8 @@ export default function convertNsjsToJs(
     }
     // (C) RAW_DQ_IN_EXPR 内 (テンプレート式中の " … ")
     else if (currentState === STATE.RAW_DQ_IN_EXPR) {
-      if (nsjsCode.startsWith("\\^3", i)) {
-        jsCode += "^3";
+      if (nsjsCode.startsWith("\\^6", i)) {
+        jsCode += "^6";
         i += 3;
         consumed = true;
       } else if (nsjsCode.startsWith("\\^2", i)) {
@@ -317,8 +336,8 @@ export default function convertNsjsToJs(
     }
     // (D) RAW_SQ_IN_EXPR 内 (テンプレート式中の ' … ')
     else if (currentState === STATE.RAW_SQ_IN_EXPR) {
-      if (nsjsCode.startsWith("\\^3", i)) {
-        jsCode += "^3";
+      if (nsjsCode.startsWith("\\^6", i)) {
+        jsCode += "^6";
         i += 3;
         consumed = true;
       } else if (nsjsCode.startsWith("\\^7", i)) {
@@ -345,8 +364,8 @@ export default function convertNsjsToJs(
     }
     // (E) IN_BT_SINGLE_STRING 内 (` … `)
     else if (currentState === STATE.IN_BT_SINGLE_STRING) {
-      if (nsjsCode.startsWith("\\^3", i)) {
-        jsCode += "^3";
+      if (nsjsCode.startsWith("\\^6", i)) {
+        jsCode += "^6";
         i += 3;
         consumed = true;
       } else if (nsjsCode.startsWith("\\^@", i)) {
@@ -374,7 +393,7 @@ export default function convertNsjsToJs(
     }
 
     // ======
-    // ステップ2: ^3 大文字化モディファイア (RAW 状態とコメント以外で動作)
+    // ステップ2: ^6 大文字化モディファイア (RAW 状態とコメント以外で動作)
     //   - コード上 (NORMAL, IN_TEMPLATE_EXPRESSION) では常に有効
     //   - 文字列内は capitalizeInStrings オプションに従う
     //   - RAW_DQ_IN_EXPR / RAW_SQ_IN_EXPR は else-if の continue で既に除外済み
@@ -384,7 +403,7 @@ export default function convertNsjsToJs(
       currentState !== STATE.IN_LINE_COMMENT &&
       currentState !== STATE.IN_BLOCK_COMMENT
     ) {
-      if (nsjsCode.startsWith("^3", i)) {
+      if (nsjsCode.startsWith("^6", i)) {
         const inString =
           currentState === STATE.IN_DQ_STRING ||
           currentState === STATE.IN_SQ_STRING ||
@@ -448,6 +467,45 @@ export default function convertNsjsToJs(
         jsCode += nsjsCode[i];
         i += 1;
         consumed = true;
+      }
+    }
+
+    // ======
+    // ステップ2.7: キーワード置換 (NORMAL / IN_TEMPLATE_EXPRESSION のみ)
+    // ======
+    if (
+      !consumed &&
+      (currentState === STATE.NORMAL ||
+        currentState === STATE.IN_TEMPLATE_EXPRESSION)
+    ) {
+      // @or^- / @and^- / or^- / and^- / @or / @and
+      for (const [kw, replacement] of keywordReplacements) {
+        if (nsjsCode.startsWith(kw, i)) {
+          jsCode += replacement;
+          i += kw.length;
+          consumed = true;
+          break;
+        }
+      }
+      // 単語境界キーワード: or / and
+      if (!consumed) {
+        for (const [kw, replacement] of wordKeywordReplacements) {
+          if (nsjsCode.startsWith(kw, i)) {
+            // 前方の境界チェック
+            const prevChar = i > 0 ? nsjsCode[i - 1] : " ";
+            const prevIsBoundary = !/[a-zA-Z0-9_$]/.test(prevChar);
+            // 後方の境界チェック
+            const afterPos = i + kw.length;
+            const nextChar = afterPos < len_ns ? nsjsCode[afterPos] : " ";
+            const nextIsBoundary = !/[a-zA-Z0-9_$]/.test(nextChar);
+            if (prevIsBoundary && nextIsBoundary) {
+              jsCode += replacement;
+              i += kw.length;
+              consumed = true;
+              break;
+            }
+          }
+        }
       }
     }
 
@@ -576,9 +634,9 @@ export function checkUppercaseWarnings(
 
       if (inLineComment) continue;
 
-      // ^3 モディファイア → 次の文字はスキップ（意図的な大文字化）
-      if (ch === "^" && next === "3") {
-        col += 2; // ^3 と次の文字をスキップ
+      // ^6 モディファイア → 次の文字はスキップ（意図的な大文字化）
+      if (ch === "^" && next === "6") {
+        col += 2; // ^6 と次の文字をスキップ
         continue;
       }
 
@@ -607,7 +665,7 @@ export function checkUppercaseWarnings(
             line: lineNum + 1,
             column: col + 1,
             char: ch,
-            message: `Uppercase letter '${ch}' found in string. Use ^3${ch.toLowerCase()} instead.`,
+            message: `Uppercase letter '${ch}' found in string. Use ^6${ch.toLowerCase()} instead.`,
           });
         }
         continue;
@@ -625,11 +683,11 @@ export function checkUppercaseWarnings(
           line: lineNum + 1,
           column: col + 1,
           char: ch,
-          message: `Uppercase letter '${ch}' found. Use ^3${ch.toLowerCase()} instead.`,
+          message: `Uppercase letter '${ch}' found. Use ^6${ch.toLowerCase()} instead.`,
         });
       }
-      // Shift キーが必要な記号の警告
-      else if (symbolToNoshift[ch]) {
+      // Shift キーが必要な記号の警告（_ と # は別途警告）
+      else if (symbolToNoshift[ch] && ch !== "_" && ch !== "#") {
         warnings.push({
           line: lineNum + 1,
           column: col + 1,
@@ -637,20 +695,22 @@ export function checkUppercaseWarnings(
           message: `Symbol '${ch}' found. Use ${symbolToNoshift[ch]} instead.`,
         });
       }
-      // _, # の警告
+      // _ の警告（^\ で代用可能）
       else if (ch === "_") {
         warnings.push({
           line: lineNum + 1,
           column: col + 1,
           char: ch,
-          message: "Underscore '_' found in code.",
+          message: "Underscore '_' found in code. Use ^\\ instead.",
         });
-      } else if (ch === "#") {
+      }
+      // # の警告（^3 で入力可能）
+      else if (ch === "#") {
         warnings.push({
           line: lineNum + 1,
           column: col + 1,
           char: ch,
-          message: "Hash '#' found in code.",
+          message: "Hash '#' found in code. Use ^3 instead.",
         });
       }
     }
@@ -663,8 +723,8 @@ export function checkUppercaseWarnings(
 // 有効な ^X シーケンスの一覧（^3 は別扱い）
 // ======
 const validCaretKeys = new Set(Object.keys(noShiftMap).map((k) => k[1]));
-// ^3 (capitalize) も有効
-validCaretKeys.add("3");
+// ^6 (capitalize) も有効
+validCaretKeys.add("6");
 
 export interface DiagnosticError {
   line: number;
@@ -854,17 +914,17 @@ export function diagnose(nsjsCode: string): DiagnosticError[] {
         continue;
       }
 
-      // ^3 大文字化: 次の文字がなければエラー
-      if (ch === "^" && next === "3") {
+      // ^6 大文字化: 次の文字がなければエラー
+      if (ch === "^" && next === "6") {
         if (col + 2 >= line.length && lineNum === lines.length - 1) {
           errors.push({
             line: lineNum + 1,
             column: col + 1,
             message:
-              "^3 at end of file with no following character to capitalize.",
+              "^6 at end of file with no following character to capitalize.",
           });
         }
-        col += 2; // ^3 + 次の1文字をスキップ
+        col += 2; // ^6 + 次の1文字をスキップ
         continue;
       }
 

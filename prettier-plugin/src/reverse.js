@@ -15,15 +15,16 @@
 const jsToNsMap = {
   "!": "^1",
   '"': "^2",
+  "#": "^3",
   $: "^4",
   "%": "^5",
-  "&": "^6",
+  "&": "@and",
   "'": "^7",
   "(": "^8",
   ")": "^9",
   "=": "^-",
   "~": "^^",
-  "|": "^\\",
+  "|": "@or",
   "`": "^@",
   "{": "^[",
   "}": "^]",
@@ -33,6 +34,7 @@ const jsToNsMap = {
   ">": "^.",
   "?": "^/",
   "^": "^0",
+  "_": "^\\",
 };
 
 const STATE = {
@@ -110,7 +112,7 @@ export function convertJsToNsjs(jsCode, options = {}) {
         currentState = stateStack.pop();
         i++;
       } else if (capitalizeInStrings && /[A-Z]/.test(ch)) {
-        nsCode += "^3" + ch.toLowerCase();
+        nsCode += "^6" + ch.toLowerCase();
         i++;
       } else {
         nsCode += ch;
@@ -131,7 +133,7 @@ export function convertJsToNsjs(jsCode, options = {}) {
         currentState = stateStack.pop();
         i++;
       } else if (capitalizeInStrings && /[A-Z]/.test(ch)) {
-        nsCode += "^3" + ch.toLowerCase();
+        nsCode += "^6" + ch.toLowerCase();
         i++;
       } else {
         nsCode += ch;
@@ -158,7 +160,7 @@ export function convertJsToNsjs(jsCode, options = {}) {
         currentState = stateStack.pop();
         i++;
       } else if (capitalizeInStrings && /[A-Z]/.test(ch)) {
-        nsCode += "^3" + ch.toLowerCase();
+        nsCode += "^6" + ch.toLowerCase();
         i++;
       } else {
         nsCode += ch;
@@ -252,7 +254,7 @@ export function convertJsToNsjs(jsCode, options = {}) {
 
       // 大文字
       if (/[A-Z]/.test(ch)) {
-        nsCode += "^3" + ch.toLowerCase();
+        nsCode += "^6" + ch.toLowerCase();
         i++;
         continue;
       }

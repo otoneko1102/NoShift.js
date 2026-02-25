@@ -14,6 +14,9 @@
 
 > A linter for NoShift.js (.nsjs) files
 
+> [!Important]  
+> **⚠ Breaking Changes (v0.1.0):** Syntax changes in NoShift.js v0.15.0 — `^3` is now `#`, `^6` is now Capitalize, `^\` is now `_`. New keyword aliases: `or`, `and`, `@or`, `@and`.
+
 ---
 
 ## Installation
@@ -86,8 +89,8 @@ Each rule can be set to `"error"`, `"warning"`, or `"off"`.
 | `unclosed-template-expr` | error | Unclosed template expression (`^4^[...^]`) |
 | `unknown-caret-sequence` | error | Unknown `^X` sequence |
 | `lone-caret` | error | Lone `^` at end of file |
-| `capitalize-eof` | error | `^3` at end of file with no character to capitalize |
-| `uppercase-in-code` | warning | Uppercase letter in code (use `^3` instead) |
+| `capitalize-eof` | error | `^6` at end of file with no character to capitalize |
+| `uppercase-in-code` | warning | Uppercase letter in code (use `^6` instead) |
 | `trailing-whitespace` | off | Trailing whitespace at end of line |
 | `no-consecutive-blank-lines` | off | Consecutive blank lines |
 

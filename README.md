@@ -20,6 +20,9 @@ Typing shifted symbols (`!`, `"`, `(`, `)`, `{`, `}` …) is tiring.
 **NoShift.js** replaces every shift-required symbol with a `^`-prefixed sequence, so you can write JavaScript using only unshifted keys.  
 `.nsjs` files compile directly to plain JavaScript via the `nsc` CLI.
 
+> [!Important]  
+> **⚠ Breaking Changes (v0.15.0):** The syntax has changed significantly. `^3` is now `#` (was Capitalize), `^6` is now Capitalize (was `&`), `^\` is now `_` (was `|`). New keyword aliases: `or` → `||`, `and` → `&&`, `@or` → `|`, `@and` → `&`. Please update your `.nsjs` files.
+
 ---
 
 ## Symbol Map
@@ -31,11 +34,11 @@ Typing shifted symbols (`!`, `"`, `(`, `)`, `{`, `}` …) is tiring.
 | NoShift | JS | | NoShift | JS |
 |:-------:|:--:|---|:-------:|:--:|
 | `^1`    | `!`        | | `^^`    | `~`        |
-| `^2`    | `"`        | | `^\`    | `\|`       |
-| `^3x`   | `X` (capitalize) | | `^@`    | `` ` ``    |
+| `^2`    | `"`        | | `^\`    | `_`        |
+| `^3`    | `#`        | | `^@`    | `` ` ``    |
 | `^4`    | `$`        | | `^[`    | `{`        |
 | `^5`    | `%`        | | `^]`    | `}`        |
-| `^6`    | `&`        | | `^;`    | `+`        |
+| `^6x`   | `X` (capitalize) | | `^;`    | `+`        |
 | `^7`    | `'`        | | `^:`    | `*`        |
 | `^8`    | `(`        | | `^,`    | `<`        |
 | `^9`    | `)`        | | `^.`    | `>`        |
@@ -43,6 +46,8 @@ Typing shifted symbols (`!`, `"`, `(`, `)`, `{`, `}` …) is tiring.
 | `^0`    | `^` (XOR)  | | | |
 
 Template expression: `^4^[` → `${`
+
+Keywords: `or` → `||`, `and` → `&&`, `@or` → `|`, `@and` → `&`
 
 ---
 
@@ -68,8 +73,8 @@ npx nsc create my-project
 
 ```nsjs
 // src/index.nsjs
-const name ^- ^2^3no^3shift.js^2;
-console.log^8^2^3hello from ^2 ^; name ^; ^2!^2^9;
+const name ^- ^2^6no^6shift.js^2;
+console.log^8^2^6hello from ^2 ^; name ^; ^2!^2^9;
 ```
 
 Compiles to:
@@ -92,7 +97,7 @@ import { compile } from "noshift.js";
 // CJS
 const { compile } = require("noshift.js");
 
-const result = compile('console.log^8^2^3hello^2^9;');
+const result = compile('console.log^8^2^6hello^2^9;');
 console.log(result.outputText);
 // => console.log("Hello");
 ```

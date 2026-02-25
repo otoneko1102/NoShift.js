@@ -86,8 +86,8 @@ nslint init
 | `unclosed-template-expr` | error | 閉じられていないテンプレート式 (`^4^[...^]`) |
 | `unknown-caret-sequence` | error | 不明な `^X` シーケンス |
 | `lone-caret` | error | ファイル末尾の孤立した `^` |
-| `capitalize-eof` | error | 大文字化する文字がないファイル末尾の `^3` |
-| `uppercase-in-code` | warning | コード内の大文字（`^3` を使用してください） |
+| `capitalize-eof` | error | 大文字化する文字がないファイル末尾の `^6` |
+| `uppercase-in-code` | warning | コード内の大文字（`^6` を使用してください） |
 | `trailing-whitespace` | off | 行末の空白 |
 | `no-consecutive-blank-lines` | off | 連続する空行 |
 

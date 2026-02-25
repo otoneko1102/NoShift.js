@@ -21,8 +21,8 @@ describe("convert: Symbol Mapping", () => {
     expect(convert("^5")).toBe("%");
   });
 
-  it("^6 → &", () => {
-    expect(convert("^6")).toBe("&");
+  it("^3 → #", () => {
+    expect(convert("^3")).toBe("#");
   });
 
   it("^7...^7 → single-quoted string", () => {
@@ -49,8 +49,8 @@ describe("convert: Symbol Mapping", () => {
     expect(convert("^^")).toBe("~");
   });
 
-  it("^\\ → |", () => {
-    expect(convert("^\\")).toBe("|");
+  it("^\\ → _", () => {
+    expect(convert("^\\")).toBe("_");
   });
 
   it("^@ → ` (backtick)", () => {
@@ -88,34 +88,82 @@ describe("convert: Symbol Mapping", () => {
 });
 
 // ======
-// 2. 大文字化モディファイア (^3)
+// 2. 大文字化モディファイア (^6)
 // ======
-describe("convert: Capitalize Modifier (^3)", () => {
-  it("^3x → X", () => {
-    expect(convert("^3x")).toBe("X");
+describe("convert: Capitalize Modifier (^6)", () => {
+  it("^6x → X", () => {
+    expect(convert("^6x")).toBe("X");
   });
 
-  it("^3a^3b^3c → ABC", () => {
-    expect(convert("^3a^3b^3c")).toBe("ABC");
+  it("^6a^6b^6c → ABC", () => {
+    expect(convert("^6a^6b^6c")).toBe("ABC");
   });
 
   it("capitalizes inside strings when option is true (default)", () => {
-    expect(convert("^2^3hello^2")).toBe('"Hello"');
+    expect(convert("^2^6hello^2")).toBe('"Hello"');
   });
 
   it("does NOT capitalize inside strings when capitalizeInStrings is false", () => {
-    expect(convert("^2^3hello^2", { capitalizeInStrings: false })).toBe(
-      '"^3hello"',
+    expect(convert("^2^6hello^2", { capitalizeInStrings: false })).toBe(
+      '"^6hello"',
     );
   });
 
   it("capitalizes in template literals", () => {
-    expect(convert("^@^3hello^@")).toBe("`Hello`");
+    expect(convert("^@^6hello^@")).toBe("`Hello`");
   });
 
   it("does not capitalize inside comments", () => {
-    // ^3 inside a line comment should be output literally
-    expect(convert("// ^3hello")).toBe("// ^3hello");
+    // ^6 inside a line comment should be output literally
+    expect(convert("// ^6hello")).toBe("// ^6hello");
+  });
+});
+
+// ======
+// 2.5. Keyword Aliases
+// ======
+describe("convert: Keyword Aliases", () => {
+  it("or → ||", () => {
+    expect(convert("a or b")).toBe("a || b");
+  });
+
+  it("and → &&", () => {
+    expect(convert("a and b")).toBe("a && b");
+  });
+
+  it("@or → |", () => {
+    expect(convert("a @or b")).toBe("a | b");
+  });
+
+  it("@and → &", () => {
+    expect(convert("a @and b")).toBe("a & b");
+  });
+
+  it("or^- → ||=", () => {
+    expect(convert("a or^- b")).toBe("a ||= b");
+  });
+
+  it("and^- → &&=", () => {
+    expect(convert("a and^- b")).toBe("a &&= b");
+  });
+
+  it("@or^- → |=", () => {
+    expect(convert("a @or^- b")).toBe("a |= b");
+  });
+
+  it("@and^- → &=", () => {
+    expect(convert("a @and^- b")).toBe("a &= b");
+  });
+
+  it("or/and are not replaced inside variable names", () => {
+    expect(convert("order")).toBe("order");
+    expect(convert("android")).toBe("android");
+    expect(convert("sandbox")).toBe("sandbox");
+  });
+
+  it("or/and are not replaced inside strings", () => {
+    expect(convert("^2or^2")).toBe('"or"');
+    expect(convert("^2and^2")).toBe('"and"');
   });
 });
 
@@ -202,13 +250,13 @@ describe("convert: Template Expressions", () => {
 // ======
 describe("convert: README Examples", () => {
   it("Hello World", () => {
-    expect(convert("console.log^8^2^3hello, ^3world!^2^9;")).toBe(
+    expect(convert("console.log^8^2^6hello, ^6world!^2^9;")).toBe(
       'console.log("Hello, World!");',
     );
   });
 
   it("Capitalize Modifier — class", () => {
-    expect(convert("class ^3animal ^[\n^]")).toBe("class Animal {\n}");
+    expect(convert("class ^6animal ^[\n^]")).toBe("class Animal {\n}");
   });
 
   it("Variables & Arrow Functions", () => {
@@ -218,8 +266,8 @@ describe("convert: README Examples", () => {
   });
 
   it("Strings — all types", () => {
-    expect(convert("const s1 ^- ^2^3hello^2;")).toBe('const s1 = "Hello";');
-    expect(convert("const s2 ^- ^7^3world^7;")).toBe("const s2 = 'World';");
+    expect(convert("const s1 ^- ^2^6hello^2;")).toBe('const s1 = "Hello";');
+    expect(convert("const s2 ^- ^7^6world^7;")).toBe("const s2 = 'World';");
     expect(convert("const s3 ^- ^@^4^[s1^] ^4^[s2^]^@;")).toBe(
       "const s3 = `${s1} ${s2}`;",
     );
@@ -230,7 +278,7 @@ describe("convert: README Examples", () => {
 
   it("Objects & Arrays", () => {
     const input =
-      "const obj ^- ^[\n  name: ^2^3no^3shift^2,\n  version: 1\n^];";
+      "const obj ^- ^[\n  name: ^2^6no^6shift^2,\n  version: 1\n^];";
     const expected = 'const obj = {\n  name: "NoShift",\n  version: 1\n};';
     expect(convert(input)).toBe(expected);
   });
@@ -252,7 +300,7 @@ describe("convert: README Examples", () => {
 
   it("Class with constructor and method", () => {
     const input = [
-      "class ^3animal ^[",
+      "class ^6animal ^[",
       "  constructor^8name^9 ^[",
       "    this.name ^- name;",
       "  ^]",

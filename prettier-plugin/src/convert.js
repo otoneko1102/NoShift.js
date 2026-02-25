@@ -11,15 +11,15 @@ const noShiftMap = {
   "^0": "^",
   "^1": "!",
   "^2": '"',
+  "^3": "#",
   "^4": "$",
   "^5": "%",
-  "^6": "&",
   "^7": "'",
   "^8": "(",
   "^9": ")",
   "^-": "=",
   "^^": "~",
-  "^\\": "|",
+  "^\\": "_",
   "^@": "`",
   "^[": "{",
   "^]": "}",
@@ -191,8 +191,8 @@ export function convertNsjsToJs(nsjsCode, options = {}) {
 
     // エスケープ処理
     if (currentState === STATE.IN_DQ_STRING) {
-      if (nsjsCode.startsWith("\\^3", i)) {
-        jsCode += "^3";
+      if (nsjsCode.startsWith("\\^6", i)) {
+        jsCode += "^6";
         i += 3;
         consumed = true;
       } else if (nsjsCode.startsWith("\\^2", i)) {
@@ -205,8 +205,8 @@ export function convertNsjsToJs(nsjsCode, options = {}) {
         consumed = true;
       }
     } else if (currentState === STATE.IN_SQ_STRING) {
-      if (nsjsCode.startsWith("\\^3", i)) {
-        jsCode += "^3";
+      if (nsjsCode.startsWith("\\^6", i)) {
+        jsCode += "^6";
         i += 3;
         consumed = true;
       } else if (nsjsCode.startsWith("\\^7", i)) {
@@ -219,8 +219,8 @@ export function convertNsjsToJs(nsjsCode, options = {}) {
         consumed = true;
       }
     } else if (currentState === STATE.RAW_DQ_IN_EXPR) {
-      if (nsjsCode.startsWith("\\^3", i)) {
-        jsCode += "^3";
+      if (nsjsCode.startsWith("\\^6", i)) {
+        jsCode += "^6";
         i += 3;
         consumed = true;
       } else if (nsjsCode.startsWith("\\^2", i)) {
@@ -242,8 +242,8 @@ export function convertNsjsToJs(nsjsCode, options = {}) {
       i += 1;
       continue;
     } else if (currentState === STATE.RAW_SQ_IN_EXPR) {
-      if (nsjsCode.startsWith("\\^3", i)) {
-        jsCode += "^3";
+      if (nsjsCode.startsWith("\\^6", i)) {
+        jsCode += "^6";
         i += 3;
         consumed = true;
       } else if (nsjsCode.startsWith("\\^7", i)) {
@@ -265,8 +265,8 @@ export function convertNsjsToJs(nsjsCode, options = {}) {
       i += 1;
       continue;
     } else if (currentState === STATE.IN_BT_SINGLE_STRING) {
-      if (nsjsCode.startsWith("\\^3", i)) {
-        jsCode += "^3";
+      if (nsjsCode.startsWith("\\^6", i)) {
+        jsCode += "^6";
         i += 3;
         consumed = true;
       } else if (nsjsCode.startsWith("\\^@", i)) {
@@ -286,7 +286,7 @@ export function convertNsjsToJs(nsjsCode, options = {}) {
       }
     }
 
-    // ^3 大文字化モディファイア
+    // ^6 大文字化モディファイア
     if (
       !consumed &&
       currentState !== STATE.RAW_DQ_IN_EXPR &&
@@ -294,7 +294,7 @@ export function convertNsjsToJs(nsjsCode, options = {}) {
       currentState !== STATE.IN_LINE_COMMENT &&
       currentState !== STATE.IN_BLOCK_COMMENT
     ) {
-      if (nsjsCode.startsWith("^3", i)) {
+      if (nsjsCode.startsWith("^6", i)) {
         const inString =
           currentState === STATE.IN_DQ_STRING ||
           currentState === STATE.IN_SQ_STRING ||

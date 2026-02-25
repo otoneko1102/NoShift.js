@@ -20,7 +20,7 @@ describe("diagnose: Valid Code", () => {
   });
 
   it("returns empty for capitalization modifier", () => {
-    expect(diagnose("^3x")).toEqual([]);
+    expect(diagnose("^6x")).toEqual([]);
   });
 
   it("returns empty for all valid symbols", () => {
@@ -74,8 +74,12 @@ describe("diagnose: Unknown Sequences", () => {
     );
   });
 
-  it("^3 is valid (capitalize modifier)", () => {
-    expect(diagnose("^3a")).toEqual([]);
+  it("^6 is valid (capitalize modifier)", () => {
+    expect(diagnose("^6a")).toEqual([]);
+  });
+
+  it("^3 is valid (# symbol)", () => {
+    expect(diagnose("^3")).toEqual([]);
   });
 });
 
@@ -88,10 +92,10 @@ describe("diagnose: Edge Cases", () => {
     ).toBe(true);
   });
 
-  it("^3 at end of file (no character to capitalize)", () => {
-    const errors = diagnose("^3");
+  it("^6 at end of file (no character to capitalize)", () => {
+    const errors = diagnose("^6");
     expect(errors.length).toBeGreaterThan(0);
-    expect(errors.some((e) => e.message.includes("^3"))).toBe(true);
+    expect(errors.some((e) => e.message.includes("^6"))).toBe(true);
   });
 
   it("empty input returns no errors", () => {

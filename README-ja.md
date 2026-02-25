@@ -19,6 +19,9 @@
 記号 (`!`, `"`, `(`, `)`, `{`, `}` …) を入力するときに Shift を押すのが面倒なので、Shift を押さずに JavaScript が書けるようにした Joke 言語です。  
 `^` プレフィックスのシーケンスで Shift が必要な記号を表現し、`.nsjs` ファイルは `nsc` CLI を使って JavaScript にコンパイルされます。
 
+> [!Important]  
+> **⚠ 破壊的変更 (v0.15.0):** 構文が大幅に変更されました。`^3` は `#`（以前は大文字化）に、`^6` は大文字化（以前は `&`）に、`^\` は `_`（以前は `|`）に変更されました。新しいキーワードエイリアス: `or` → `||`, `and` → `&&`, `@or` → `|`, `@and` → `&`。`.nsjs` ファイルを更新してください。
+
 ---
 
 ## 記号マップ
@@ -30,11 +33,11 @@
 | NoShift | JS | | NoShift | JS |
 |:-------:|:--:|---|:-------:|:--:|
 | `^1`    | `!`        | | `^^`    | `~`        |
-| `^2`    | `"`        | | `^\`    | `\|`       |
-| `^3x`   | `X`（大文字化） | | `^@`    | `` ` ``    |
+| `^2`    | `"`        | | `^\`    | `_`        |
+| `^3`    | `#`        | | `^@`    | `` ` ``    |
 | `^4`    | `$`        | | `^[`    | `{`        |
 | `^5`    | `%`        | | `^]`    | `}`        |
-| `^6`    | `&`        | | `^;`    | `+`        |
+| `^6x`   | `X`（大文字化） | | `^;`    | `+`        |
 | `^7`    | `'`        | | `^:`    | `*`        |
 | `^8`    | `(`        | | `^,`    | `<`        |
 | `^9`    | `)`        | | `^.`    | `>`        |
@@ -42,6 +45,8 @@
 | `^0`    | `^` (XOR)  | | | |
 
 テンプレート式: `^4^[` → `${`
+
+キーワード: `or` → `||`, `and` → `&&`, `@or` → `|`, `@and` → `&`
 
 ---
 
@@ -67,8 +72,8 @@ npx nsc create my-project
 
 ```nsjs
 // src/index.nsjs
-const name ^- ^2^3no^3shift.js^2;
-console.log^8^2^3hello from ^2 ^; name ^; ^2!^2^9;
+const name ^- ^2^6no^6shift.js^2;
+console.log^8^2^6hello from ^2 ^; name ^; ^2!^2^9;
 ```
 
 コンパイル後:
@@ -91,7 +96,7 @@ import { compile } from "noshift.js";
 // CJS
 const { compile } = require("noshift.js");
 
-const result = compile('console.log^8^2^3hello^2^9;');
+const result = compile('console.log^8^2^6hello^2^9;');
 console.log(result.outputText);
 // => console.log("Hello");
 ```
